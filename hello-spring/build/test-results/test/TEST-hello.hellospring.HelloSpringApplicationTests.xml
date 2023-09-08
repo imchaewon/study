@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hello.hellospring.HelloSpringApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-08-14T15:09:35" hostname="imchaewon-ui-MacBookAir.local" time="0.346">
+  <properties/>
+  <testcase name="contextLoads()" classname="hello.hellospring.HelloSpringApplicationTests" time="0.346"/>
+  <system-out><![CDATA[00:09:35.306 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [hello.hellospring.HelloSpringApplicationTests]: HelloSpringApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:09:35.336 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration hello.hellospring.HelloSpringApplication for test class hello.hellospring.HelloSpringApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.2)
+
+2023-08-15T00:09:35.449+09:00  INFO 2217 --- [    Test worker] h.h.HelloSpringApplicationTests          : Starting HelloSpringApplicationTests using Java 18.0.2 with PID 2217 (started by imchaewon in /Users/imchaewon/git/hello-spring)
+2023-08-15T00:09:35.449+09:00  INFO 2217 --- [    Test worker] h.h.HelloSpringApplicationTests          : No active profile set, falling back to 1 default profile: "default"
+2023-08-15T00:09:35.742+09:00  INFO 2217 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2023-08-15T00:09:35.790+09:00  INFO 2217 --- [    Test worker] h.h.HelloSpringApplicationTests          : Started HelloSpringApplicationTests in 0.409 seconds (process running for 0.759)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
