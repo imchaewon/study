@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://korean.visitkorea.or.kr/resources/js/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+
+<form>
+    <input type="file" name="" id="f1">
+    <input type="file" name="" id="f2">
+</form>
+
+<p id="p1"></p>
+
+<script>
+	$("#f1").change(function(){
+		$("#f2")[0].files = $("#f1")[0].files;
+		console.log(new FormData($("form")[0]));
+		var form = $('#f1')[0].files[0];
+		var formData = new FormData();
+		formData.append('files', form);
+		$.ajax({ // 응답 받는건 CORF 오류. 파폭으로 하거나 WEB-INF/views에 jsp페이지 만들어서 연결시켜서 해야함
+			type: "POST",
+			url: "http://localhost:5555/filetest",
+			data: formData,
+			success: function(data){
+				console.log("asd");
+				console.log("data: " + data);
+			},
+			error: function(a,b,c){
+				console.log(a,b,c);
+			},
+			enctype: 'multipart/form-data',
+			contentType: false,
+			processData: false
+		});
+	});
+</script>
+
+</body>
+</html>
