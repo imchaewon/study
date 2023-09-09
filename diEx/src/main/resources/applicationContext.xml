@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!-- "diEx.Cats"클래스를 cats라는 id를 지정해서 객체(bean)을 생성 -->
+<!-- "이 객체(bean)의 이름(id)은 cats입니다. 
+		cats는 diEx패키지에 있는Cats 클래스를 말합니다." 라고 선언 --> 
+<bean id="cats" class="diEx.Cats" />
+
+
+<!-- "diEx.MyCats"클래스를 myCats라는 id를 지정해서 객체(bean)을 생성 -->
+<bean id="myCats" class="diEx.MyCats">
+	<!-- diEx.MyCats라는 클래스에 있는 필드들의 값을 설정해줌 -->
+	<property name="cats"><!-- 첫번째 property(필드) -->
+		<ref bean="cats"/><!-- 이 property는 위에서 생성한 bean(객체)인 cats를 참조한다. -->
+	</property>
+	<property name="firstCatName" value="순덕" /><!-- MyCats의 필드의 이름과 값을 설정 -->
+	<property name="secondCatName" value="나비" />
+	<property name="firstCatAge" value="1" />
+	<property name="secondCatAge" value="2" />
+</bean>
+</beans>
