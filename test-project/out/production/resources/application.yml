@@ -1,3 +1,6 @@
+
+local-psql-ip : 10.10.10.237
+
 spring:
   datasource:
 #    driver-class-name: org.mariadb.jdbc.Driver
@@ -58,6 +61,34 @@ test-api:
 
 test:
   aaa: aaaaaaaaaa
+
+
+# OpenSearch Properties
+opensearch:
+  protocol: http
+  host: ${local-psql-ip}
+  port: 9200
+  useAuth: false
+  id: admin
+  pw: admin
+  connConfig:
+    conTimeout: 30000
+    socketTimeout: 300000
+    keepAlive: 300000
+    conReuse: true
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
