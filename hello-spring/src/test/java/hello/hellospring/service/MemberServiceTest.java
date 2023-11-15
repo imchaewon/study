@@ -69,4 +69,10 @@ class MemberServiceTest {
 	@Test
 	void findOne() {
 	}
+
+	@Test
+	void m1() {
+		memberService.m1();
+		memberService.m2(null);
+	}
 }

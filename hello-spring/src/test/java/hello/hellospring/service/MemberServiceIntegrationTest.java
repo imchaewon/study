@@ -72,4 +72,10 @@ class MemberServiceIntegrationTest {
 		System.out.println(saveId);
 		System.out.println(memberService.findOne(saveId));
 	}
+
+	@Test
+	void m1() {
+		memberService.m1();
+		memberService.m2(null);
+	}
 }

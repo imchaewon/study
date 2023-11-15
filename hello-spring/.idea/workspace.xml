@@ -5,41 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68c47f19-2b4e-4b2f-ae18-dff1eae8aec3" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sql/ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/HelloSpringApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/SpringConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/controller/HelloController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/controller/HomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/controller/MemberController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/controller/MemberForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/domain/Member.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/repository/JdbcMemberRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/repository/JdbcTemplateMemberRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/repository/JpaMemberRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/repository/MemberRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/repository/MemoryMemberRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/repository/SpringDataJpaMemberRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/hellospring/service/MemberService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/hello-static.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/hello-template.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/hello.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/join.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/createMemberForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/memberList.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/hello/hellospring/HelloSpringApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/hello/hellospring/repository/MemoryMemberRepositoryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/hello/hellospring/service/MemberServiceIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/hello/hellospring/service/MemberServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/annotation/MainDiscountPolicy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/common/MyLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/web/LogDemoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/web/LogDemoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/autowired/AllBeanTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/autowired/AutowiredTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/lifecycle/BeanLifeCycleTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/lifecycle/NetworkClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/order/OrderServiceImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/filter/BeanA.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/filter/BeanB.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/filter/ComponentFilterAppConfigTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/filter/MyExcludeComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/PrototypeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingletonTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingletonWithPrototypeTest1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../core/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/AutoAppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/AutoAppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/discount/FixDiscountPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/discount/FixDiscountPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/discount/RateDiscountPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/discount/RateDiscountPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/order/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/order/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/test/java/hello/core/CoreApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/CoreApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/test/java/hello/core/order/OrderServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/order/OrderServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/AutoAppConfigTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/AutoAppConfigTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,12 +51,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="hello-spring" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -77,13 +64,13 @@
         <option value="JUnit5 Test Class" />
         <option value="Kotlin Class" />
         <option value="HTML File" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -96,31 +83,31 @@
     <option name="autoscrollFromSource" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_opened_file_path": "/Users/imchaewon/git/study/hello-spring",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "프로젝트",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "bae5254db9cd57a928eaa5495bd2900a",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/imchaewon/git/study/hello-spring&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;프로젝트&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;bae5254db9cd57a928eaa5495bd2900a&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/webapp" />
@@ -135,38 +122,7 @@
       <recent name="hello.hellospring.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.HelloSpringApplication">
-    <configuration name="MemberServiceIntegrationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="hello-spring.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="hello.hellospring.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="hello.hellospring.service" />
-      <option name="MAIN_CLASS_NAME" value="hello.hellospring.service.MemberServiceIntegrationTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MemberServiceIntegrationTest.회원가입" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="hello-spring.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="hello.hellospring.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="hello.hellospring.service" />
-      <option name="MAIN_CLASS_NAME" value="hello.hellospring.service.MemberServiceIntegrationTest" />
-      <option name="METHOD_NAME" value="회원가입" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.MemberServiceIntegrationTest.m1">
     <configuration name="MemberServiceIntegrationTest.findOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="hello-spring.test" />
       <extension name="coverage">
@@ -178,6 +134,22 @@
       <option name="PACKAGE_NAME" value="hello.hellospring.service" />
       <option name="MAIN_CLASS_NAME" value="hello.hellospring.service.MemberServiceIntegrationTest" />
       <option name="METHOD_NAME" value="findOne" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MemberServiceIntegrationTest.m1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hello-spring.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hello.hellospring.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hello.hellospring.service" />
+      <option name="MAIN_CLASS_NAME" value="hello.hellospring.service.MemberServiceIntegrationTest" />
+      <option name="METHOD_NAME" value="m1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -198,7 +170,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberServiceTest.중복회원예외" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberServiceTest.회원가입" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="hello-spring.test" />
       <extension name="coverage">
         <pattern>
@@ -208,7 +180,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="hello.hellospring.service" />
       <option name="MAIN_CLASS_NAME" value="hello.hellospring.service.MemberServiceTest" />
-      <option name="METHOD_NAME" value="중복회원예외" />
+      <option name="METHOD_NAME" value="회원가입" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MemberServiceTest.m1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hello-spring.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hello.hellospring.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hello.hellospring.service" />
+      <option name="MAIN_CLASS_NAME" value="hello.hellospring.service.MemberServiceTest" />
+      <option name="METHOD_NAME" value="m1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -222,20 +210,20 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.MemberServiceIntegrationTest.m1" />
+      <item itemvalue="JUnit.MemberServiceTest.m1" />
+      <item itemvalue="JUnit.MemberServiceTest.회원가입" />
       <item itemvalue="JUnit.MemberServiceIntegrationTest.findOne" />
-      <item itemvalue="JUnit.MemberServiceIntegrationTest" />
-      <item itemvalue="JUnit.MemberServiceIntegrationTest.회원가입" />
       <item itemvalue="JUnit.MemberServiceTest" />
-      <item itemvalue="JUnit.MemberServiceTest.중복회원예외" />
       <item itemvalue="Spring Boot.HelloSpringApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MemberServiceIntegrationTest.findOne" />
-        <item itemvalue="JUnit.MemberServiceIntegrationTest" />
-        <item itemvalue="JUnit.MemberServiceIntegrationTest.회원가입" />
+        <item itemvalue="JUnit.MemberServiceIntegrationTest.m1" />
+        <item itemvalue="JUnit.MemberServiceTest.m1" />
         <item itemvalue="JUnit.MemberServiceTest" />
-        <item itemvalue="JUnit.MemberServiceTest.중복회원예외" />
+        <item itemvalue="JUnit.MemberServiceTest.회원가입" />
+        <item itemvalue="JUnit.MemberServiceIntegrationTest.findOne" />
       </list>
     </recent_temporary>
   </component>
@@ -301,6 +289,15 @@
       <workItem from="1693922517192" duration="112000" />
       <workItem from="1693922634088" duration="11058000" />
       <workItem from="1694137222189" duration="38000" />
+      <workItem from="1695805667690" duration="13960000" />
+      <workItem from="1696621844764" duration="1359000" />
+      <workItem from="1696656679967" duration="609000" />
+      <workItem from="1696731070670" duration="597000" />
+      <workItem from="1697908099124" duration="599000" />
+      <workItem from="1698340351539" duration="595000" />
+      <workItem from="1699698703602" duration="5000" />
+      <workItem from="1699779777445" duration="164000" />
+      <workItem from="1699779967332" duration="221000" />
     </task>
     <servers />
   </component>

@@ -22,8 +22,18 @@ public class MemberService {
 	 * 회원가입
 	 */
 	public Long join(Member member) {
-		validateDuplicatedMember(member); // 중복 회원 검증
-		memberRepository.save(member);
+		long start = System.currentTimeMillis();
+		try {
+			validateDuplicatedMember(member); // 중복 회원 검증
+			memberRepository.save(member);
+		} catch (Exception e) {
+			System.out.println("MemberService.join()");
+			e.printStackTrace();
+		}finally {
+			long finish = System.currentTimeMillis();
+			long timeMs = finish - start;
+			System.out.println("join = " + timeMs + "ms");
+		}
 		return member.getId();
 	}
 
@@ -37,7 +47,14 @@ public class MemberService {
 	 * 전체 회원 조회
 	 */
 	public List<Member> findMembers(){
-		return memberRepository.findAll();
+		long start = System.currentTimeMillis();
+		try {
+			return memberRepository.findAll();
+		} finally {
+			long finish = System.currentTimeMillis();
+			long timeMs = finish - start;
+			System.out.println("join = " + timeMs + "ms");
+		}
 	}
 
 	public Optional<Member> findOne(Long memberId){
@@ -46,5 +63,13 @@ public class MemberService {
 
 	public MemoryMemberRepository getMemberRepository() {
 		return (MemoryMemberRepository) memberRepository;
+	}
+
+	public void m1(){
+		System.out.println("MemberService.m1");
+	}
+
+	public void m2(String s) {
+		System.out.println("MemberService.m2");
 	}
 }
