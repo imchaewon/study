@@ -1,8 +1,6 @@
 package jpabook.jpashop.service;
 
-import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.item.Book;
-import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 @SpringBootTest
 @Transactional
