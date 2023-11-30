@@ -31,7 +31,7 @@ class MemberServiceTest {
 		Long saveId = memberService.join(member);
 
 		//then(이렇게 되어야 한다)
-		Assertions.assertThat(member).isEqualTo(memberRepository.findOne(saveId));
+		Assertions.assertThat(member).isEqualTo(memberRepository.findById(saveId).get());
 
 	}
 
