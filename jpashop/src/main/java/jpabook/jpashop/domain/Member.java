@@ -16,6 +16,8 @@ public class Member {
 	@Column(name = "member_id")
 	private Long id;
 
+	private int age;
+
 	@NotEmpty
 	private String name;
 

@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - LockTestServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>LockTestServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/jpabook.jpashop.service.html">jpabook.jpashop.service</a> &gt; LockTestServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">2</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.135s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures" id="successRate">
+<div class="percent">33%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Failed tests</a>
+</li>
+<li>
+<a href="#tab1">Tests</a>
+</li>
+<li>
+<a href="#tab2">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="testNonLocking()"></a>
+<h3 class="failures">testNonLocking()</h3>
+<span class="code">
+<pre>org.springframework.dao.InvalidDataAccessApiUsageException: Provided id of the wrong type for class jpabook.jpashop.domain.Member. Expected: class java.lang.Long, got class java.lang.String; nested exception is java.lang.IllegalArgumentException: Provided id of the wrong type for class jpabook.jpashop.domain.Member. Expected: class java.lang.Long, got class java.lang.String
+	at app//org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:374)
+	at app//org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:235)
+	at app//org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:551)
+	at app//org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at app//org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242)
+	at app//org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at app//org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:174)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at app//org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at app//org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:241)
+	at app/jdk.proxy3/jdk.proxy3.$Proxy150.findById(Unknown Source)
+	at app//jpabook.jpashop.service.LockTestServiceTest.testNonLocking(LockTestServiceTest.java:80)
+	at java.base@18.0.2/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base@18.0.2/java.lang.reflect.Method.invoke(Method.java:577)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@18.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@18.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at app//org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:110)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:90)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:85)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+	at java.base@18.0.2/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base@18.0.2/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+	Suppressed: org.springframework.transaction.UnexpectedRollbackException: Transaction silently rolled back because it has been marked as rollback-only
+		at app//org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:752)
+		at app//org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:711)
+		at app//org.springframework.test.context.transaction.TransactionContext.endTransaction(TransactionContext.java:131)
+		at app//org.springframework.test.context.transaction.TransactionalTestExecutionListener.afterTestMethod(TransactionalTestExecutionListener.java:255)
+		at app//org.springframework.test.context.TestContextManager.afterTestMethod(TestContextManager.java:445)
+		at app//org.springframework.test.context.junit.jupiter.SpringExtension.afterEach(SpringExtension.java:206)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeAfterEachCallbacks$12(TestMethodTestDescriptor.java:257)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeAllAfterMethodsOrCallbacks$13(TestMethodTestDescriptor.java:273)
+		at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeAllAfterMethodsOrCallbacks$14(TestMethodTestDescriptor.java:273)
+		at java.base@18.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeAllAfterMethodsOrCallbacks(TestMethodTestDescriptor.java:272)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeAfterEachCallbacks(TestMethodTestDescriptor.java:256)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:141)
+		... 60 more
+Caused by: java.lang.IllegalArgumentException: Provided id of the wrong type for class jpabook.jpashop.domain.Member. Expected: class java.lang.Long, got class java.lang.String
+	at org.hibernate.internal.SessionImpl.find(SessionImpl.java:3434)
+	at org.hibernate.internal.SessionImpl.find(SessionImpl.java:3380)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:315)
+	at jdk.proxy3/jdk.proxy3.$Proxy132.find(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById(SimpleJpaRepository.java:335)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:289)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:137)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:121)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:530)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:286)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:640)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:164)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:76)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	... 88 more
+Caused by: org.hibernate.TypeMismatchException: Provided id of the wrong type for class jpabook.jpashop.domain.Member. Expected: class java.lang.Long, got class java.lang.String
+	at app//org.hibernate.event.internal.DefaultLoadEventListener.checkIdClass(DefaultLoadEventListener.java:155)
+	at app//org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:71)
+	at app//org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:118)
+	at app//org.hibernate.internal.SessionImpl.fireLoadNoChecks(SessionImpl.java:1231)
+	at app//org.hibernate.internal.SessionImpl.fireLoad(SessionImpl.java:1220)
+	at app//org.hibernate.internal.SessionImpl.access$2100(SessionImpl.java:202)
+	at app//org.hibernate.internal.SessionImpl$IdentifierLoadAccessImpl.doLoad(SessionImpl.java:2848)
+	at app//org.hibernate.internal.SessionImpl$IdentifierLoadAccessImpl.lambda$load$1(SessionImpl.java:2825)
+	at app//org.hibernate.internal.SessionImpl$IdentifierLoadAccessImpl.perform(SessionImpl.java:2781)
+	at app//org.hibernate.internal.SessionImpl$IdentifierLoadAccessImpl.load(SessionImpl.java:2825)
+	at app//org.hibernate.internal.SessionImpl.find(SessionImpl.java:3413)
+	... 113 more
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="testUpdate()"></a>
+<h3 class="failures">testUpdate()</h3>
+<span class="code">
+<pre>org.springframework.dao.IncorrectResultSizeDataAccessException: query did not return a unique result: 2; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 2
+	at app//org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:385)
+	at app//org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:235)
+	at app//org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:551)
+	at app//org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at app//org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242)
+	at app//org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at app//org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:145)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at app//org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at app//org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:241)
+	at app/jdk.proxy3/jdk.proxy3.$Proxy150.findByName(Unknown Source)
+	at app//jpabook.jpashop.service.LockTestServiceTest.testUpdate(LockTestServiceTest.java:65)
+	at java.base@18.0.2/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base@18.0.2/java.lang.reflect.Method.invoke(Method.java:577)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@18.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@18.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at app//org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:110)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:90)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:85)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+	at java.base@18.0.2/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base@18.0.2/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+Caused by: javax.persistence.NonUniqueResultException: query did not return a unique result: 2
+	at app//org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:128)
+	at app//org.hibernate.query.internal.AbstractProducedQuery.getSingleResult(AbstractProducedQuery.java:1672)
+	at app//org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter.getSingleResult(CriteriaQueryTypeQueryAdapter.java:111)
+	at app//org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:198)
+	at app//org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:90)
+	at app//org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:156)
+	at app//org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:144)
+	at app//org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:137)
+	at app//org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:121)
+	at app//org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:160)
+	at app//org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:139)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at app//org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:76)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at app//org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at app//org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at app//org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at app//org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	... 88 more
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testLocking()</td>
+<td class="success">0.110s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="failures">testNonLocking()</td>
+<td class="failures">0.011s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">testUpdate()</td>
+<td class="failures">0.014s</td>
+<td class="failures">failed</td>
+</tr>
+</table>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>23:07:00.798 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+23:07:00.802 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+23:07:00.816 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [jpabook.jpashop.service.LockTestServiceTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+23:07:00.821 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [jpabook.jpashop.service.LockTestServiceTest], using SpringBootContextLoader
+23:07:00.822 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [jpabook.jpashop.service.LockTestServiceTest]: class path resource [jpabook/jpashop/service/LockTestServiceTest-context.xml] does not exist
+23:07:00.822 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [jpabook.jpashop.service.LockTestServiceTest]: class path resource [jpabook/jpashop/service/LockTestServiceTestContext.groovy] does not exist
+23:07:00.822 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [jpabook.jpashop.service.LockTestServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+23:07:00.823 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [jpabook.jpashop.service.LockTestServiceTest]: LockTestServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+23:07:00.840 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [jpabook.jpashop.service.LockTestServiceTest]
+23:07:00.869 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/imchaewon/git/study/jpashop/build/classes/java/main/jpabook/jpashop/JpashopApplication.class]
+23:07:00.870 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration jpabook.jpashop.JpashopApplication for test class jpabook.jpashop.service.LockTestServiceTest
+23:07:00.902 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [jpabook.jpashop.service.LockTestServiceTest]: using defaults.
+23:07:00.902 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+23:07:00.908 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@78fb9a67, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@73ff4fae, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@21aa6d6c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@b968a76, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2f9a01c1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2611b9a3, org.springframework.test.context.transaction.TransactionalTestExecutionListener@54227100, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6b5894c8, org.springframework.test.context.event.EventPublishingTestExecutionListener@1433046b, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3f446bef, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@7829b776, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5778826f, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5b64c4b7, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@4763c727, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@72445aba]
+23:07:00.909 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@6d24ffa1 testClass = LockTestServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@65a4798f testClass = LockTestServiceTest, locations = '{}', classes = '{class jpabook.jpashop.JpashopApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@78641d23, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@141e5bef, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@c9d0d6, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7a1a14a4, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@3fed2870, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@186f8716], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.15)
+
+2023-12-03 23:07:01.036  INFO 7573 --- [    Test worker] j.jpashop.service.LockTestServiceTest    : Starting LockTestServiceTest using Java 18.0.2 on imchaewon-ui-MacBookAir.local with PID 7573 (started by imchaewon in /Users/imchaewon/git/study/jpashop)
+2023-12-03 23:07:01.036  INFO 7573 --- [    Test worker] j.jpashop.service.LockTestServiceTest    : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-12-03 23:07:01.262  INFO 7573 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-03 23:07:01.280  INFO 7573 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 2 JPA repository interfaces.
+2023-12-03 23:07:01.536  INFO 7573 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-03 23:07:01.556  INFO 7573 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-12-03 23:07:01.643  INFO 7573 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-12-03 23:07:01.655 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -&gt; org.hibernate.type.BooleanType@440ef8d
+2023-12-03 23:07:01.655 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -&gt; org.hibernate.type.BooleanType@440ef8d
+2023-12-03 23:07:01.656 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Boolean -&gt; org.hibernate.type.BooleanType@440ef8d
+2023-12-03 23:07:01.656 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration numeric_boolean -&gt; org.hibernate.type.NumericBooleanType@6c8efde4
+2023-12-03 23:07:01.656 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration true_false -&gt; org.hibernate.type.TrueFalseType@45e140ae
+2023-12-03 23:07:01.657 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration yes_no -&gt; org.hibernate.type.YesNoType@54326e9
+2023-12-03 23:07:01.657 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -&gt; org.hibernate.type.ByteType@46612bfc
+2023-12-03 23:07:01.657 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -&gt; org.hibernate.type.ByteType@46612bfc
+2023-12-03 23:07:01.657 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Byte -&gt; org.hibernate.type.ByteType@46612bfc
+2023-12-03 23:07:01.657 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration character -&gt; org.hibernate.type.CharacterType@9263c54
+2023-12-03 23:07:01.657 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration char -&gt; org.hibernate.type.CharacterType@9263c54
+2023-12-03 23:07:01.657 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Character -&gt; org.hibernate.type.CharacterType@9263c54
+2023-12-03 23:07:01.658 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -&gt; org.hibernate.type.ShortType@6befbb12
+2023-12-03 23:07:01.658 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -&gt; org.hibernate.type.ShortType@6befbb12
+2023-12-03 23:07:01.658 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Short -&gt; org.hibernate.type.ShortType@6befbb12
+2023-12-03 23:07:01.658 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration integer -&gt; org.hibernate.type.IntegerType@27ffd9f8
+2023-12-03 23:07:01.658 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration int -&gt; org.hibernate.type.IntegerType@27ffd9f8
+2023-12-03 23:07:01.658 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Integer -&gt; org.hibernate.type.IntegerType@27ffd9f8
+2023-12-03 23:07:01.659 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -&gt; org.hibernate.type.LongType@55c1ced9
+2023-12-03 23:07:01.659 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -&gt; org.hibernate.type.LongType@55c1ced9
+2023-12-03 23:07:01.659 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Long -&gt; org.hibernate.type.LongType@55c1ced9
+2023-12-03 23:07:01.659 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -&gt; org.hibernate.type.FloatType@1144a02b
+2023-12-03 23:07:01.659 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -&gt; org.hibernate.type.FloatType@1144a02b
+2023-12-03 23:07:01.659 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Float -&gt; org.hibernate.type.FloatType@1144a02b
+2023-12-03 23:07:01.660 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -&gt; org.hibernate.type.DoubleType@35e74e08
+2023-12-03 23:07:01.660 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -&gt; org.hibernate.type.DoubleType@35e74e08
+2023-12-03 23:07:01.660 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Double -&gt; org.hibernate.type.DoubleType@35e74e08
+2023-12-03 23:07:01.660 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_decimal -&gt; org.hibernate.type.BigDecimalType@5d7f8467
+2023-12-03 23:07:01.660 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigDecimal -&gt; org.hibernate.type.BigDecimalType@5d7f8467
+2023-12-03 23:07:01.660 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_integer -&gt; org.hibernate.type.BigIntegerType@2eb1c615
+2023-12-03 23:07:01.660 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigInteger -&gt; org.hibernate.type.BigIntegerType@2eb1c615
+2023-12-03 23:07:01.661 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration string -&gt; org.hibernate.type.StringType@370c7cc5
+2023-12-03 23:07:01.661 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.String -&gt; org.hibernate.type.StringType@370c7cc5
+2023-12-03 23:07:01.661 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration nstring -&gt; org.hibernate.type.StringNVarcharType@a056b26
+2023-12-03 23:07:01.661 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration ncharacter -&gt; org.hibernate.type.CharacterNCharType@4bce62b
+2023-12-03 23:07:01.661 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration url -&gt; org.hibernate.type.UrlType@2a484710
+2023-12-03 23:07:01.661 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.net.URL -&gt; org.hibernate.type.UrlType@2a484710
+2023-12-03 23:07:01.661 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration Duration -&gt; org.hibernate.type.DurationType@53d30d23
+2023-12-03 23:07:01.662 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Duration -&gt; org.hibernate.type.DurationType@53d30d23
+2023-12-03 23:07:01.662 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration Instant -&gt; org.hibernate.type.InstantType@1510b9a2
+2023-12-03 23:07:01.662 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Instant -&gt; org.hibernate.type.InstantType@1510b9a2
+2023-12-03 23:07:01.662 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDateTime -&gt; org.hibernate.type.LocalDateTimeType@3af236d0
+2023-12-03 23:07:01.662 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDateTime -&gt; org.hibernate.type.LocalDateTimeType@3af236d0
+2023-12-03 23:07:01.663 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDate -&gt; org.hibernate.type.LocalDateType@214b342f
+2023-12-03 23:07:01.663 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDate -&gt; org.hibernate.type.LocalDateType@214b342f
+2023-12-03 23:07:01.663 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalTime -&gt; org.hibernate.type.LocalTimeType@37d699a1
+2023-12-03 23:07:01.663 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalTime -&gt; org.hibernate.type.LocalTimeType@37d699a1
+2023-12-03 23:07:01.663 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTime -&gt; org.hibernate.type.OffsetDateTimeType@23b1aa9
+2023-12-03 23:07:01.663 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetDateTime -&gt; org.hibernate.type.OffsetDateTimeType@23b1aa9
+2023-12-03 23:07:01.664 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTime -&gt; org.hibernate.type.OffsetTimeType@57a667c8
+2023-12-03 23:07:01.664 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetTime -&gt; org.hibernate.type.OffsetTimeType@57a667c8
+2023-12-03 23:07:01.664 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTime -&gt; org.hibernate.type.ZonedDateTimeType@4861cca9
+2023-12-03 23:07:01.664 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.ZonedDateTime -&gt; org.hibernate.type.ZonedDateTimeType@4861cca9
+2023-12-03 23:07:01.664 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration date -&gt; org.hibernate.type.DateType@7661e474
+2023-12-03 23:07:01.664 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Date -&gt; org.hibernate.type.DateType@7661e474
+2023-12-03 23:07:01.665 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration time -&gt; org.hibernate.type.TimeType@a21c74
+2023-12-03 23:07:01.665 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Time -&gt; org.hibernate.type.TimeType@a21c74
+2023-12-03 23:07:01.665 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration timestamp -&gt; org.hibernate.type.TimestampType@7345f97d
+2023-12-03 23:07:01.665 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Timestamp -&gt; org.hibernate.type.TimestampType@7345f97d
+2023-12-03 23:07:01.665 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Date -&gt; org.hibernate.type.TimestampType@7345f97d
+2023-12-03 23:07:01.666 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration dbtimestamp -&gt; org.hibernate.type.DbTimestampType@6b832551
+2023-12-03 23:07:01.666 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar -&gt; org.hibernate.type.CalendarType@eaf8427
+2023-12-03 23:07:01.666 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Calendar -&gt; org.hibernate.type.CalendarType@eaf8427
+2023-12-03 23:07:01.666 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.GregorianCalendar -&gt; org.hibernate.type.CalendarType@eaf8427
+2023-12-03 23:07:01.666 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_date -&gt; org.hibernate.type.CalendarDateType@7b3cbe6e
+2023-12-03 23:07:01.667 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_time -&gt; org.hibernate.type.CalendarTimeType@72b2c5ed
+2023-12-03 23:07:01.667 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration locale -&gt; org.hibernate.type.LocaleType@68c34db2
+2023-12-03 23:07:01.667 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Locale -&gt; org.hibernate.type.LocaleType@68c34db2
+2023-12-03 23:07:01.667 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration currency -&gt; org.hibernate.type.CurrencyType@113dcaf8
+2023-12-03 23:07:01.667 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Currency -&gt; org.hibernate.type.CurrencyType@113dcaf8
+2023-12-03 23:07:01.667 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration timezone -&gt; org.hibernate.type.TimeZoneType@4af7dd6a
+2023-12-03 23:07:01.667 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.TimeZone -&gt; org.hibernate.type.TimeZoneType@4af7dd6a
+2023-12-03 23:07:01.667 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration class -&gt; org.hibernate.type.ClassType@5618fc1f
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Class -&gt; org.hibernate.type.ClassType@5618fc1f
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-binary -&gt; org.hibernate.type.UUIDBinaryType@34d9df9f
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.UUID -&gt; org.hibernate.type.UUIDBinaryType@34d9df9f
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-char -&gt; org.hibernate.type.UUIDCharType@1192c925
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration binary -&gt; org.hibernate.type.BinaryType@6bb4cc0e
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte[] -&gt; org.hibernate.type.BinaryType@6bb4cc0e
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration [B -&gt; org.hibernate.type.BinaryType@6bb4cc0e
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-binary -&gt; org.hibernate.type.WrapperBinaryType@375084c9
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration Byte[] -&gt; org.hibernate.type.WrapperBinaryType@375084c9
+2023-12-03 23:07:01.668 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Byte; -&gt; org.hibernate.type.WrapperBinaryType@375084c9
+2023-12-03 23:07:01.669 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration row_version -&gt; org.hibernate.type.RowVersionType@4e67cfe1
+2023-12-03 23:07:01.669 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration image -&gt; org.hibernate.type.ImageType@67763ebe
+2023-12-03 23:07:01.670 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration characters -&gt; org.hibernate.type.CharArrayType@383cdd4d
+2023-12-03 23:07:01.670 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration char[] -&gt; org.hibernate.type.CharArrayType@383cdd4d
+2023-12-03 23:07:01.670 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration [C -&gt; org.hibernate.type.CharArrayType@383cdd4d
+2023-12-03 23:07:01.670 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-characters -&gt; org.hibernate.type.CharacterArrayType@25533bba
+2023-12-03 23:07:01.670 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Character; -&gt; org.hibernate.type.CharacterArrayType@25533bba
+2023-12-03 23:07:01.670 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration Character[] -&gt; org.hibernate.type.CharacterArrayType@25533bba
+2023-12-03 23:07:01.670 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration text -&gt; org.hibernate.type.TextType@76d0ecd7
+2023-12-03 23:07:01.670 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration ntext -&gt; org.hibernate.type.NTextType@35ac9ebd
+2023-12-03 23:07:01.671 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration blob -&gt; org.hibernate.type.BlobType@5e67a490
+2023-12-03 23:07:01.671 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Blob -&gt; org.hibernate.type.BlobType@5e67a490
+2023-12-03 23:07:01.671 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_blob -&gt; org.hibernate.type.MaterializedBlobType@7f4e5a39
+2023-12-03 23:07:01.671 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration clob -&gt; org.hibernate.type.ClobType@6682e6a5
+2023-12-03 23:07:01.671 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Clob -&gt; org.hibernate.type.ClobType@6682e6a5
+2023-12-03 23:07:01.671 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration nclob -&gt; org.hibernate.type.NClobType@30036a18
+2023-12-03 23:07:01.672 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.NClob -&gt; org.hibernate.type.NClobType@30036a18
+2023-12-03 23:07:01.672 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob -&gt; org.hibernate.type.MaterializedClobType@28b458e6
+2023-12-03 23:07:01.672 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob -&gt; org.hibernate.type.MaterializedNClobType@7d47dfed
+2023-12-03 23:07:01.672 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration serializable -&gt; org.hibernate.type.SerializableType@2b01c689
+2023-12-03 23:07:01.673 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration object -&gt; org.hibernate.type.ObjectType@3181d4de
+2023-12-03 23:07:01.673 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Object -&gt; org.hibernate.type.ObjectType@3181d4de
+2023-12-03 23:07:01.673 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_date -&gt; org.hibernate.type.AdaptedImmutableType@1815577b
+2023-12-03 23:07:01.673 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_time -&gt; org.hibernate.type.AdaptedImmutableType@71567f33
+2023-12-03 23:07:01.673 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_timestamp -&gt; org.hibernate.type.AdaptedImmutableType@71369e1a
+2023-12-03 23:07:01.673 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_dbtimestamp -&gt; org.hibernate.type.AdaptedImmutableType@3cf55e0c
+2023-12-03 23:07:01.674 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar -&gt; org.hibernate.type.AdaptedImmutableType@ee96866
+2023-12-03 23:07:01.674 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar_date -&gt; org.hibernate.type.AdaptedImmutableType@4c04216f
+2023-12-03 23:07:01.674 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_binary -&gt; org.hibernate.type.AdaptedImmutableType@987a0bb
+2023-12-03 23:07:01.674 DEBUG 7573 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_serializable -&gt; org.hibernate.type.AdaptedImmutableType@1f949ab9
+2023-12-03 23:07:01.688  INFO 7573 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-12-03 23:07:01.827  INFO 7573 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-12-03 23:07:01.840  INFO 7573 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-12-03 23:07:01.858 DEBUG 7573 --- [    Test worker] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@1029cf9] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@1c0e4262]
+2023-12-03 23:07:02.007 DEBUG 7573 --- [    Test worker] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum jpabook.jpashop.domain.DeliveryStatus
+2023-12-03 23:07:02.008 DEBUG 7573 --- [    Test worker] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum jpabook.jpashop.domain.OrderStatus
+2023-12-03 23:07:02.008 DEBUG 7573 --- [    Test worker] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@1029cf9] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@4a29fe2e]
+2023-12-03 23:07:02.214  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422214 | took 1ms | statement | connection 1| url jdbc:mysql://localhost:3306/jpa
+select * from `jpa`.`category` where 1=0
+select * from `jpa`.`category` where 1=0;
+2023-12-03 23:07:02.221  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422221 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/jpa
+select * from `jpa`.`category` where 1=0
+select * from `jpa`.`category` where 1=0;
+2023-12-03 23:07:02.222  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422222 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/jpa
+select * from `jpa`.`item` where 1=0
+select * from `jpa`.`item` where 1=0;
+2023-12-03 23:07:02.229  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422229 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/jpa
+select * from `jpa`.`parent` where 1=0
+select * from `jpa`.`parent` where 1=0;
+2023-12-03 23:07:02.237  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422237 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/jpa
+select * from `jpa`.`item` where 1=0
+select * from `jpa`.`item` where 1=0;
+2023-12-03 23:07:02.238  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422238 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/jpa
+select * from `jpa`.`orders` where 1=0
+select * from `jpa`.`orders` where 1=0;
+2023-12-03 23:07:02.248  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422248 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/jpa
+select * from `jpa`.`delivery` where 1=0
+select * from `jpa`.`delivery` where 1=0;
+2023-12-03 23:07:02.249  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422249 | took 0ms | statement | connection 1| url jdbc:mysql://localhost:3306/jpa
+select * from `jpa`.`member` where 1=0
+select * from `jpa`.`member` where 1=0;
+2023-12-03 23:07:02.250  INFO 7573 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-12-03 23:07:02.254 TRACE 7573 --- [    Test worker] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@4a29fe2e] for TypeConfiguration
+2023-12-03 23:07:02.254  INFO 7573 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-03 23:07:02.312 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.313  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422313 | took 0ms | statement | connection 3| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.313 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.314  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422314 | took 0ms | statement | connection 3| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1846 where next_val=1845;
+2023-12-03 23:07:02.314  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422314 | took 0ms | commit | connection 3| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.321 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.322  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422322 | took 0ms | statement | connection 4| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.322 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.323  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422323 | took 0ms | statement | connection 4| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1847 where next_val=1846;
+2023-12-03 23:07:02.323  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422323 | took 0ms | commit | connection 4| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.324 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.324  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422324 | took 0ms | statement | connection 5| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.324 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.324  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422324 | took 0ms | statement | connection 5| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1848 where next_val=1847;
+2023-12-03 23:07:02.325  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422325 | took 0ms | commit | connection 5| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.327 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.327  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422327 | took 0ms | statement | connection 6| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.327 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.327  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422327 | took 0ms | statement | connection 6| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1849 where next_val=1848;
+2023-12-03 23:07:02.328  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422328 | took 0ms | commit | connection 6| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.328 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.328  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422328 | took 0ms | statement | connection 7| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.329 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.329  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422329 | took 0ms | statement | connection 7| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1850 where next_val=1849;
+2023-12-03 23:07:02.329  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422329 | took 0ms | commit | connection 7| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.330 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.330  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422330 | took 0ms | statement | connection 8| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.331 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.331  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422331 | took 0ms | statement | connection 8| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1851 where next_val=1850;
+2023-12-03 23:07:02.331  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422331 | took 0ms | commit | connection 8| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.332 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.332  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422332 | took 0ms | statement | connection 9| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.332 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.332  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422332 | took 0ms | statement | connection 9| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1852 where next_val=1851;
+2023-12-03 23:07:02.333  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422333 | took 0ms | commit | connection 9| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.341 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (city, street, zipcode, age, name, member_id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+2023-12-03 23:07:02.341 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [서울]
+2023-12-03 23:07:02.342 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [1]
+2023-12-03 23:07:02.342 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [11111]
+2023-12-03 23:07:02.342 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [INTEGER] - [0]
+2023-12-03 23:07:02.342 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [userA]
+2023-12-03 23:07:02.342 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1845]
+2023-12-03 23:07:02.343  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422343 | took 0ms | statement | connection 2| url jdbc:mysql://localhost:3306/jpa
+insert into member (city, street, zipcode, age, name, member_id) values (?, ?, ?, ?, ?, ?)
+insert into member (city, street, zipcode, age, name, member_id) values ('서울', '1', '11111', 0, 'userA', 1845);
+2023-12-03 23:07:02.343 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        item
+        (name, price, stock_quantity, author, isbn, dtype, item_id) 
+    values
+        (?, ?, ?, ?, ?, 'B', ?)
+2023-12-03 23:07:02.344 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [JPA1 BOOK]
+2023-12-03 23:07:02.344 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [INTEGER] - [10000]
+2023-12-03 23:07:02.344 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [INTEGER] - [100]
+2023-12-03 23:07:02.344 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.344 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [null]
+2023-12-03 23:07:02.344 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1846]
+2023-12-03 23:07:02.344  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422344 | took 0ms | statement | connection 2| url jdbc:mysql://localhost:3306/jpa
+insert into item (name, price, stock_quantity, author, isbn, dtype, item_id) values (?, ?, ?, ?, ?, 'B', ?)
+insert into item (name, price, stock_quantity, author, isbn, dtype, item_id) values ('JPA1 BOOK', 10000, 100, NULL, NULL, 'B', 1846);
+2023-12-03 23:07:02.344 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        item
+        (name, price, stock_quantity, author, isbn, dtype, item_id) 
+    values
+        (?, ?, ?, ?, ?, 'B', ?)
+2023-12-03 23:07:02.344 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [JPA2 BOOK]
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [INTEGER] - [20000]
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [INTEGER] - [100]
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [null]
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1847]
+2023-12-03 23:07:02.345  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422345 | took 0ms | statement | connection 2| url jdbc:mysql://localhost:3306/jpa
+insert into item (name, price, stock_quantity, author, isbn, dtype, item_id) values (?, ?, ?, ?, ?, 'B', ?)
+insert into item (name, price, stock_quantity, author, isbn, dtype, item_id) values ('JPA2 BOOK', 20000, 100, NULL, NULL, 'B', 1847);
+2023-12-03 23:07:02.345 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        delivery
+        (city, street, zipcode, status, delivery_id) 
+    values
+        (?, ?, ?, ?, ?)
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [서울]
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [1]
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [11111]
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.345 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BIGINT] - [1849]
+2023-12-03 23:07:02.346  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422346 | took 0ms | statement | connection 2| url jdbc:mysql://localhost:3306/jpa
+insert into delivery (city, street, zipcode, status, delivery_id) values (?, ?, ?, ?, ?)
+insert into delivery (city, street, zipcode, status, delivery_id) values ('서울', '1', '11111', NULL, 1849);
+2023-12-03 23:07:02.346 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        orders
+        (delivery_id, member_id, order_date, status, order_id) 
+    values
+        (?, ?, ?, ?, ?)
+2023-12-03 23:07:02.346 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1849]
+2023-12-03 23:07:02.346 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [1845]
+2023-12-03 23:07:02.346 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [TIMESTAMP] - [2023-12-03T23:07:02.326714]
+2023-12-03 23:07:02.347 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [ORDER]
+2023-12-03 23:07:02.347 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BIGINT] - [1848]
+2023-12-03 23:07:02.349  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422349 | took 0ms | statement | connection 2| url jdbc:mysql://localhost:3306/jpa
+insert into orders (delivery_id, member_id, order_date, status, order_id) values (?, ?, ?, ?, ?)
+insert into orders (delivery_id, member_id, order_date, status, order_id) values (1849, 1845, '2023-12-03T23:07:02.326+0900', 'ORDER', 1848);
+2023-12-03 23:07:02.349 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        order_item
+        (count, item_id, order_id, order_price, order_item_id) 
+    values
+        (?, ?, ?, ?, ?)
+2023-12-03 23:07:02.349 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [INTEGER] - [1]
+2023-12-03 23:07:02.349 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [1846]
+2023-12-03 23:07:02.349 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [BIGINT] - [1848]
+2023-12-03 23:07:02.349 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [INTEGER] - [10000]
+2023-12-03 23:07:02.349 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BIGINT] - [1850]
+2023-12-03 23:07:02.349  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422349 | took 0ms | statement | connection 2| url jdbc:mysql://localhost:3306/jpa
+insert into order_item (count, item_id, order_id, order_price, order_item_id) values (?, ?, ?, ?, ?)
+insert into order_item (count, item_id, order_id, order_price, order_item_id) values (1, 1846, 1848, 10000, 1850);
+2023-12-03 23:07:02.349 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        order_item
+        (count, item_id, order_id, order_price, order_item_id) 
+    values
+        (?, ?, ?, ?, ?)
+2023-12-03 23:07:02.351 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [INTEGER] - [2]
+2023-12-03 23:07:02.351 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [1847]
+2023-12-03 23:07:02.351 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [BIGINT] - [1848]
+2023-12-03 23:07:02.351 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [INTEGER] - [20000]
+2023-12-03 23:07:02.351 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BIGINT] - [1851]
+2023-12-03 23:07:02.352  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422352 | took 0ms | statement | connection 2| url jdbc:mysql://localhost:3306/jpa
+insert into order_item (count, item_id, order_id, order_price, order_item_id) values (?, ?, ?, ?, ?)
+insert into order_item (count, item_id, order_id, order_price, order_item_id) values (2, 1847, 1848, 20000, 1851);
+2023-12-03 23:07:02.352 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        item 
+    set
+        name=?,
+        price=?,
+        stock_quantity=?,
+        author=?,
+        isbn=? 
+    where
+        item_id=?
+2023-12-03 23:07:02.352 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [JPA1 BOOK]
+2023-12-03 23:07:02.353 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [INTEGER] - [10000]
+2023-12-03 23:07:02.353 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [INTEGER] - [99]
+2023-12-03 23:07:02.353 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.353 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [null]
+2023-12-03 23:07:02.353 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1846]
+2023-12-03 23:07:02.353  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422353 | took 0ms | statement | connection 2| url jdbc:mysql://localhost:3306/jpa
+update item set name=?, price=?, stock_quantity=?, author=?, isbn=? where item_id=?
+update item set name='JPA1 BOOK', price=10000, stock_quantity=99, author=NULL, isbn=NULL where item_id=1846;
+2023-12-03 23:07:02.354 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        item 
+    set
+        name=?,
+        price=?,
+        stock_quantity=?,
+        author=?,
+        isbn=? 
+    where
+        item_id=?
+2023-12-03 23:07:02.354 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [JPA2 BOOK]
+2023-12-03 23:07:02.354 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [INTEGER] - [20000]
+2023-12-03 23:07:02.354 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [INTEGER] - [98]
+2023-12-03 23:07:02.354 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.354 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [null]
+2023-12-03 23:07:02.354 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1847]
+2023-12-03 23:07:02.354  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422354 | took 0ms | statement | connection 2| url jdbc:mysql://localhost:3306/jpa
+update item set name=?, price=?, stock_quantity=?, author=?, isbn=? where item_id=?
+update item set name='JPA2 BOOK', price=20000, stock_quantity=98, author=NULL, isbn=NULL where item_id=1847;
+2023-12-03 23:07:02.356  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422356 | took 0ms | commit | connection 2| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.357 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.358  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422358 | took 0ms | statement | connection 11| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.358 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.358  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422358 | took 0ms | statement | connection 11| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1853 where next_val=1852;
+2023-12-03 23:07:02.358  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422358 | took 0ms | commit | connection 11| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.359 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.359  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422359 | took 0ms | statement | connection 12| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.359 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.359  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422359 | took 0ms | statement | connection 12| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1854 where next_val=1853;
+2023-12-03 23:07:02.360  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422360 | took 0ms | commit | connection 12| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.360 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.360  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422360 | took 0ms | statement | connection 13| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.360 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.361  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422361 | took 0ms | statement | connection 13| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1855 where next_val=1854;
+2023-12-03 23:07:02.361  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422361 | took 0ms | commit | connection 13| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.361 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.362  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422362 | took 0ms | statement | connection 14| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.362 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.362  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422362 | took 0ms | statement | connection 14| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1856 where next_val=1855;
+2023-12-03 23:07:02.362  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422362 | took 0ms | commit | connection 14| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.363 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.363  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422363 | took 0ms | statement | connection 15| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.363 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.363  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422363 | took 0ms | statement | connection 15| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1857 where next_val=1856;
+2023-12-03 23:07:02.363  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422363 | took 0ms | commit | connection 15| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.364 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.364  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422364 | took 0ms | statement | connection 16| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.364 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.364  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422364 | took 0ms | statement | connection 16| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1858 where next_val=1857;
+2023-12-03 23:07:02.365  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422365 | took 0ms | commit | connection 16| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.365 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.365  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422365 | took 0ms | statement | connection 17| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.365 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.366  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422366 | took 0ms | statement | connection 17| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1859 where next_val=1858;
+2023-12-03 23:07:02.366  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422366 | took 0ms | commit | connection 17| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.366 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (city, street, zipcode, age, name, member_id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [진주]
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [2]
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [2222]
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [INTEGER] - [0]
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [userB]
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1852]
+2023-12-03 23:07:02.367  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422367 | took 0ms | statement | connection 10| url jdbc:mysql://localhost:3306/jpa
+insert into member (city, street, zipcode, age, name, member_id) values (?, ?, ?, ?, ?, ?)
+insert into member (city, street, zipcode, age, name, member_id) values ('진주', '2', '2222', 0, 'userB', 1852);
+2023-12-03 23:07:02.367 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        item
+        (name, price, stock_quantity, author, isbn, dtype, item_id) 
+    values
+        (?, ?, ?, ?, ?, 'B', ?)
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [SPRING1 BOOK]
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [INTEGER] - [20000]
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [INTEGER] - [200]
+2023-12-03 23:07:02.367 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.368 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [null]
+2023-12-03 23:07:02.368 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1853]
+2023-12-03 23:07:02.368  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422368 | took 0ms | statement | connection 10| url jdbc:mysql://localhost:3306/jpa
+insert into item (name, price, stock_quantity, author, isbn, dtype, item_id) values (?, ?, ?, ?, ?, 'B', ?)
+insert into item (name, price, stock_quantity, author, isbn, dtype, item_id) values ('SPRING1 BOOK', 20000, 200, NULL, NULL, 'B', 1853);
+2023-12-03 23:07:02.368 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        item
+        (name, price, stock_quantity, author, isbn, dtype, item_id) 
+    values
+        (?, ?, ?, ?, ?, 'B', ?)
+2023-12-03 23:07:02.368 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [SPRING2 BOOK]
+2023-12-03 23:07:02.368 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [INTEGER] - [40000]
+2023-12-03 23:07:02.368 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [INTEGER] - [300]
+2023-12-03 23:07:02.368 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.368 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [null]
+2023-12-03 23:07:02.368 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1854]
+2023-12-03 23:07:02.368  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422368 | took 0ms | statement | connection 10| url jdbc:mysql://localhost:3306/jpa
+insert into item (name, price, stock_quantity, author, isbn, dtype, item_id) values (?, ?, ?, ?, ?, 'B', ?)
+insert into item (name, price, stock_quantity, author, isbn, dtype, item_id) values ('SPRING2 BOOK', 40000, 300, NULL, NULL, 'B', 1854);
+2023-12-03 23:07:02.368 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        delivery
+        (city, street, zipcode, status, delivery_id) 
+    values
+        (?, ?, ?, ?, ?)
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [진주]
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [2]
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [2222]
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BIGINT] - [1856]
+2023-12-03 23:07:02.369  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422369 | took 0ms | statement | connection 10| url jdbc:mysql://localhost:3306/jpa
+insert into delivery (city, street, zipcode, status, delivery_id) values (?, ?, ?, ?, ?)
+insert into delivery (city, street, zipcode, status, delivery_id) values ('진주', '2', '2222', NULL, 1856);
+2023-12-03 23:07:02.369 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        orders
+        (delivery_id, member_id, order_date, status, order_id) 
+    values
+        (?, ?, ?, ?, ?)
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1856]
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [1852]
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [TIMESTAMP] - [2023-12-03T23:07:02.361653]
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [ORDER]
+2023-12-03 23:07:02.369 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BIGINT] - [1855]
+2023-12-03 23:07:02.370  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422370 | took 0ms | statement | connection 10| url jdbc:mysql://localhost:3306/jpa
+insert into orders (delivery_id, member_id, order_date, status, order_id) values (?, ?, ?, ?, ?)
+insert into orders (delivery_id, member_id, order_date, status, order_id) values (1856, 1852, '2023-12-03T23:07:02.361+0900', 'ORDER', 1855);
+2023-12-03 23:07:02.370 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        order_item
+        (count, item_id, order_id, order_price, order_item_id) 
+    values
+        (?, ?, ?, ?, ?)
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [INTEGER] - [3]
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [1853]
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [BIGINT] - [1855]
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [INTEGER] - [20000]
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BIGINT] - [1857]
+2023-12-03 23:07:02.370  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422370 | took 0ms | statement | connection 10| url jdbc:mysql://localhost:3306/jpa
+insert into order_item (count, item_id, order_id, order_price, order_item_id) values (?, ?, ?, ?, ?)
+insert into order_item (count, item_id, order_id, order_price, order_item_id) values (3, 1853, 1855, 20000, 1857);
+2023-12-03 23:07:02.370 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        order_item
+        (count, item_id, order_id, order_price, order_item_id) 
+    values
+        (?, ?, ?, ?, ?)
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [INTEGER] - [4]
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [1854]
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [BIGINT] - [1855]
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [INTEGER] - [40000]
+2023-12-03 23:07:02.370 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BIGINT] - [1858]
+2023-12-03 23:07:02.371  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422371 | took 0ms | statement | connection 10| url jdbc:mysql://localhost:3306/jpa
+insert into order_item (count, item_id, order_id, order_price, order_item_id) values (?, ?, ?, ?, ?)
+insert into order_item (count, item_id, order_id, order_price, order_item_id) values (4, 1854, 1855, 40000, 1858);
+2023-12-03 23:07:02.371 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        item 
+    set
+        name=?,
+        price=?,
+        stock_quantity=?,
+        author=?,
+        isbn=? 
+    where
+        item_id=?
+2023-12-03 23:07:02.371 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [SPRING1 BOOK]
+2023-12-03 23:07:02.371 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [INTEGER] - [20000]
+2023-12-03 23:07:02.371 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [INTEGER] - [197]
+2023-12-03 23:07:02.371 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.371 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [null]
+2023-12-03 23:07:02.371 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1853]
+2023-12-03 23:07:02.372  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422372 | took 0ms | statement | connection 10| url jdbc:mysql://localhost:3306/jpa
+update item set name=?, price=?, stock_quantity=?, author=?, isbn=? where item_id=?
+update item set name='SPRING1 BOOK', price=20000, stock_quantity=197, author=NULL, isbn=NULL where item_id=1853;
+2023-12-03 23:07:02.372 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        item 
+    set
+        name=?,
+        price=?,
+        stock_quantity=?,
+        author=?,
+        isbn=? 
+    where
+        item_id=?
+2023-12-03 23:07:02.372 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [SPRING2 BOOK]
+2023-12-03 23:07:02.372 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [INTEGER] - [40000]
+2023-12-03 23:07:02.372 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [INTEGER] - [296]
+2023-12-03 23:07:02.372 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [null]
+2023-12-03 23:07:02.372 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [null]
+2023-12-03 23:07:02.372 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1854]
+2023-12-03 23:07:02.372  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422372 | took 0ms | statement | connection 10| url jdbc:mysql://localhost:3306/jpa
+update item set name=?, price=?, stock_quantity=?, author=?, isbn=? where item_id=?
+update item set name='SPRING2 BOOK', price=40000, stock_quantity=296, author=NULL, isbn=NULL where item_id=1854;
+2023-12-03 23:07:02.373  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422373 | took 0ms | commit | connection 10| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.585  WARN 7573 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-03 23:07:02.709  INFO 7573 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2023-12-03 23:07:02.816  INFO 7573 --- [    Test worker] j.jpashop.service.LockTestServiceTest    : Started LockTestServiceTest in 1.893 seconds (JVM running for 2.368)
+2023-12-03 23:07:02.826  INFO 7573 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6d24ffa1 testClass = LockTestServiceTest, testInstance = jpabook.jpashop.service.LockTestServiceTest@4c0989f7, testMethod = testLocking@LockTestServiceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@65a4798f testClass = LockTestServiceTest, locations = '{}', classes = '{class jpabook.jpashop.JpashopApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@78641d23, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@141e5bef, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@c9d0d6, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7a1a14a4, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@3fed2870, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@186f8716], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@1b120d48]; rollback [false]
+2023-12-03 23:07:02.885 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.886  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422886 | took 0ms | statement | connection 19| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.886 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.886  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422886 | took 0ms | statement | connection 19| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1860 where next_val=1859;
+2023-12-03 23:07:02.887  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422887 | took 0ms | commit | connection 19| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.897 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (city, street, zipcode, age, name, member_id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+2023-12-03 23:07:02.897 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [null]
+2023-12-03 23:07:02.897 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [null]
+2023-12-03 23:07:02.897 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-12-03 23:07:02.897 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [INTEGER] - [20]
+2023-12-03 23:07:02.897 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [testUser1]
+2023-12-03 23:07:02.897 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1859]
+2023-12-03 23:07:02.898  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422898 | took 0ms | statement | connection 18| url jdbc:mysql://localhost:3306/jpa
+insert into member (city, street, zipcode, age, name, member_id) values (?, ?, ?, ?, ?, ?)
+insert into member (city, street, zipcode, age, name, member_id) values (NULL, NULL, NULL, 20, 'testUser1', 1859);
+2023-12-03 23:07:02.899 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        member0_.member_id as member_i1_5_,
+        member0_.city as city2_5_,
+        member0_.street as street3_5_,
+        member0_.zipcode as zipcode4_5_,
+        member0_.age as age5_5_,
+        member0_.name as name6_5_ 
+    from
+        member member0_ 
+    where
+        member0_.name=? for update
+            
+2023-12-03 23:07:02.899 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [testUser1]
+2023-12-03 23:07:02.900  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422900 | took 1ms | statement | connection 18| url jdbc:mysql://localhost:3306/jpa
+select member0_.member_id as member_i1_5_, member0_.city as city2_5_, member0_.street as street3_5_, member0_.zipcode as zipcode4_5_, member0_.age as age5_5_, member0_.name as name6_5_ from member member0_ where member0_.name=? for update
+select member0_.member_id as member_i1_5_, member0_.city as city2_5_, member0_.street as street3_5_, member0_.zipcode as zipcode4_5_, member0_.age as age5_5_, member0_.name as name6_5_ from member member0_ where member0_.name='testUser1' for update;
+2023-12-03 23:07:02.901 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([member_i1_5_] : [BIGINT]) - [1859]
+2023-12-03 23:07:02.931  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422931 | took 0ms | commit | connection 18| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.931  INFO 7573 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Committed transaction for test: [DefaultTestContext@6d24ffa1 testClass = LockTestServiceTest, testInstance = jpabook.jpashop.service.LockTestServiceTest@4c0989f7, testMethod = testLocking@LockTestServiceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@65a4798f testClass = LockTestServiceTest, locations = '{}', classes = '{class jpabook.jpashop.JpashopApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@78641d23, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@141e5bef, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@c9d0d6, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7a1a14a4, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@3fed2870, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@186f8716], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+2023-12-03 23:07:02.935  INFO 7573 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6d24ffa1 testClass = LockTestServiceTest, testInstance = jpabook.jpashop.service.LockTestServiceTest@7053b64b, testMethod = testNonLocking@LockTestServiceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@65a4798f testClass = LockTestServiceTest, locations = '{}', classes = '{class jpabook.jpashop.JpashopApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@78641d23, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@141e5bef, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@c9d0d6, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7a1a14a4, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@3fed2870, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@186f8716], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@1b120d48]; rollback [false]
+2023-12-03 23:07:02.937 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.937  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422937 | took 0ms | statement | connection 21| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.937 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.938  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422938 | took 0ms | statement | connection 21| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1861 where next_val=1860;
+2023-12-03 23:07:02.938  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422938 | took 0ms | commit | connection 21| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.942  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422942 | took 0ms | rollback | connection 20| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.944  WARN 7573 --- [    Test worker] o.s.test.context.TestContextManager      : Caught exception while invoking 'afterTestMethod' callback on TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener@54227100] for test method [void jpabook.jpashop.service.LockTestServiceTest.testNonLocking()] and test instance [jpabook.jpashop.service.LockTestServiceTest@7053b64b]
+
+org.springframework.transaction.UnexpectedRollbackException: Transaction silently rolled back because it has been marked as rollback-only
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:752) ~[spring-tx-5.3.29.jar:5.3.29]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:711) ~[spring-tx-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.transaction.TransactionContext.endTransaction(TransactionContext.java:131) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.transaction.TransactionalTestExecutionListener.afterTestMethod(TransactionalTestExecutionListener.java:255) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.TestContextManager.afterTestMethod(TestContextManager.java:445) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.afterEach(SpringExtension.java:206) ~[spring-test-5.3.29.jar:5.3.29]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeAfterEachCallbacks$12(TestMethodTestDescriptor.java:257) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeAllAfterMethodsOrCallbacks$13(TestMethodTestDescriptor.java:273) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeAllAfterMethodsOrCallbacks$14(TestMethodTestDescriptor.java:273) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeAllAfterMethodsOrCallbacks(TestMethodTestDescriptor.java:272) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeAfterEachCallbacks(TestMethodTestDescriptor.java:256) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:141) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66) ~[junit-jupiter-engine-5.8.2.jar:5.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) ~[junit-platform-launcher-1.8.2.jar:1.8.2]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:110) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:90) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:85) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24) ~[na:na]
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33) ~[na:na]
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94) ~[na:na]
+	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60) ~[na:na]
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56) ~[na:na]
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113) ~[na:na]
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65) ~[na:na]
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
+
+2023-12-03 23:07:02.947  INFO 7573 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6d24ffa1 testClass = LockTestServiceTest, testInstance = jpabook.jpashop.service.LockTestServiceTest@3ce60feb, testMethod = testUpdate@LockTestServiceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@65a4798f testClass = LockTestServiceTest, locations = '{}', classes = '{class jpabook.jpashop.JpashopApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@78641d23, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@141e5bef, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@c9d0d6, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7a1a14a4, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@3fed2870, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@186f8716], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@1b120d48]; rollback [false]
+2023-12-03 23:07:02.947 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        next_val as id_val 
+    from
+        hibernate_sequence for update
+            
+2023-12-03 23:07:02.948  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422948 | took 0ms | statement | connection 23| url jdbc:mysql://localhost:3306/jpa
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+2023-12-03 23:07:02.948 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        hibernate_sequence 
+    set
+        next_val= ? 
+    where
+        next_val=?
+2023-12-03 23:07:02.948  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422948 | took 0ms | statement | connection 23| url jdbc:mysql://localhost:3306/jpa
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 1862 where next_val=1861;
+2023-12-03 23:07:02.949  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422949 | took 0ms | commit | connection 23| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.950 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (city, street, zipcode, age, name, member_id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+2023-12-03 23:07:02.950 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [null]
+2023-12-03 23:07:02.950 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [null]
+2023-12-03 23:07:02.951 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-12-03 23:07:02.951 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [INTEGER] - [20]
+2023-12-03 23:07:02.951 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [testUser1]
+2023-12-03 23:07:02.951 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [1861]
+2023-12-03 23:07:02.951  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422951 | took 0ms | statement | connection 22| url jdbc:mysql://localhost:3306/jpa
+insert into member (city, street, zipcode, age, name, member_id) values (?, ?, ?, ?, ?, ?)
+insert into member (city, street, zipcode, age, name, member_id) values (NULL, NULL, NULL, 20, 'testUser1', 1861);
+2023-12-03 23:07:02.952 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        member 
+    set
+        age=? 
+    where
+        name=?
+2023-12-03 23:07:02.952 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [INTEGER] - [30]
+2023-12-03 23:07:02.952 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [testUser1]
+2023-12-03 23:07:02.953  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422953 | took 0ms | statement | connection 22| url jdbc:mysql://localhost:3306/jpa
+update member set age=? where name=?
+update member set age=30 where name='testUser1';
+2023-12-03 23:07:02.953 DEBUG 7573 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        member0_.member_id as member_i1_5_,
+        member0_.city as city2_5_,
+        member0_.street as street3_5_,
+        member0_.zipcode as zipcode4_5_,
+        member0_.age as age5_5_,
+        member0_.name as name6_5_ 
+    from
+        member member0_ 
+    where
+        member0_.name=? for update
+            
+2023-12-03 23:07:02.953 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [testUser1]
+2023-12-03 23:07:02.954  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422954 | took 0ms | statement | connection 22| url jdbc:mysql://localhost:3306/jpa
+select member0_.member_id as member_i1_5_, member0_.city as city2_5_, member0_.street as street3_5_, member0_.zipcode as zipcode4_5_, member0_.age as age5_5_, member0_.name as name6_5_ from member member0_ where member0_.name=? for update
+select member0_.member_id as member_i1_5_, member0_.city as city2_5_, member0_.street as street3_5_, member0_.zipcode as zipcode4_5_, member0_.age as age5_5_, member0_.name as name6_5_ from member member0_ where member0_.name='testUser1' for update;
+2023-12-03 23:07:02.954 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([member_i1_5_] : [BIGINT]) - [1859]
+2023-12-03 23:07:02.955 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([city2_5_] : [VARCHAR]) - [null]
+2023-12-03 23:07:02.955 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([street3_5_] : [VARCHAR]) - [null]
+2023-12-03 23:07:02.955 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([zipcode4_5_] : [VARCHAR]) - [null]
+2023-12-03 23:07:02.956 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age5_5_] : [INTEGER]) - [30]
+2023-12-03 23:07:02.956 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([name6_5_] : [VARCHAR]) - [testUser1]
+2023-12-03 23:07:02.956 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([member_i1_5_] : [BIGINT]) - [1861]
+2023-12-03 23:07:02.956 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([city2_5_] : [VARCHAR]) - [null]
+2023-12-03 23:07:02.956 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([street3_5_] : [VARCHAR]) - [null]
+2023-12-03 23:07:02.956 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([zipcode4_5_] : [VARCHAR]) - [null]
+2023-12-03 23:07:02.956 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age5_5_] : [INTEGER]) - [30]
+2023-12-03 23:07:02.956 TRACE 7573 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([name6_5_] : [VARCHAR]) - [testUser1]
+2023-12-03 23:07:02.957 TRACE 7573 --- [    Test worker] org.hibernate.type.CollectionType        : Created collection wrapper: [jpabook.jpashop.domain.Member.orders#1859]
+2023-12-03 23:07:02.957 TRACE 7573 --- [    Test worker] org.hibernate.type.CollectionType        : Created collection wrapper: [jpabook.jpashop.domain.Member.orders#1861]
+2023-12-03 23:07:02.959  INFO 7573 --- [    Test worker] p6spy                                    : #1701612422959 | took 0ms | commit | connection 22| url jdbc:mysql://localhost:3306/jpa
+
+;
+2023-12-03 23:07:02.959  INFO 7573 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Committed transaction for test: [DefaultTestContext@6d24ffa1 testClass = LockTestServiceTest, testInstance = jpabook.jpashop.service.LockTestServiceTest@3ce60feb, testMethod = testUpdate@LockTestServiceTest, testException = org.springframework.dao.IncorrectResultSizeDataAccessException: query did not return a unique result: 2; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 2, mergedContextConfiguration = [WebMergedContextConfiguration@65a4798f testClass = LockTestServiceTest, locations = '{}', classes = '{class jpabook.jpashop.JpashopApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@78641d23, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@141e5bef, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@c9d0d6, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7a1a14a4, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@3fed2870, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@186f8716], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.2.1</a> at 2023. 12. 3. 오후 11:07:03</p>
+</div>
+</div>
+</body>
+</html>
