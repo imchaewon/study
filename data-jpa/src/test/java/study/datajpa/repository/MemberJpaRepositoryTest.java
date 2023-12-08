@@ -1,5 +1,7 @@
 package study.datajpa.repository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,14 +20,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MemberJpaRepositoryTest {
 	@Autowired
 	MemberJpaRepository memberJpaRepository;
+	@Autowired
+	EntityManager em;
 
 	@Test
-	@Rollback(false)
 	public void testMember() {
-		Member member = new Member("membreA");
+		Member member = new Member("memberA");
 		Member savedMember = memberJpaRepository.save(member);
 
+		em.flush();
+		em.clear();
+
 		Member findMember = memberJpaRepository.find(savedMember.getId());
+		findMember.setUsername("zz111z");
 
 		assertThat(findMember.getId()).isEqualTo(member.getId());
 		assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
