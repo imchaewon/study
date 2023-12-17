@@ -56,7 +56,7 @@ class MemberJpaRepositoryTest {
 		MemberSearchCondition condition = new MemberSearchCondition();
 //		condition.setAgeGoe(35);
 //		condition.setAgeLoe(40);
-		condition.setTeamname("teamB");
+		condition.setTeamName("teamB");
 
 //		List<MemberTeamDto> result = memberJpaRepository.searchByBuilder(condition);
 		List<MemberTeamDto> result = memberJpaRepository.search(condition);
@@ -67,11 +67,7 @@ class MemberJpaRepositoryTest {
 	}
 
 
-
 }
-
-
-
 
 
 
