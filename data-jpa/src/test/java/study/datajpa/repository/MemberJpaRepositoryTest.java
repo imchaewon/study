@@ -32,11 +32,12 @@ class MemberJpaRepositoryTest {
 		em.clear();
 
 		Member findMember = memberJpaRepository.find(savedMember.getId());
-		findMember.setUsername("zz111z");
 
 		assertThat(findMember.getId()).isEqualTo(member.getId());
 		assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
 		assertThat(findMember).isEqualTo(member);
+
+		findMember.setUsername("zz111z");
 	}
 
 	@Test
