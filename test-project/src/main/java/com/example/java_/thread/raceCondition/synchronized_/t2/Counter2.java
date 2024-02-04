@@ -1,4 +1,4 @@
-package com.example.java_.thread.raceCondition.synchronized_.t1;
+package com.example.java_.thread.raceCondition.synchronized_.t2;
 
 public class Counter2 {
 	private int count;
