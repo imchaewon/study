@@ -12,6 +12,10 @@ public class Run {
 
 		try {
 			list.add(4);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
 			list4.add(4);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,5 +30,10 @@ public class Run {
 		System.out.println("list4: "+list4);
 		System.out.println("list5: "+list5);
 
+		try {
+			List<Integer> list6 = List.of(null,2,3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

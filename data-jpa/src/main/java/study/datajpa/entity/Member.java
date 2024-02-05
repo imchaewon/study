@@ -3,10 +3,13 @@ package study.datajpa.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
+
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
+@EqualsAndHashCode
 @NamedQuery(
 		name="Member.findByUsername",
 		query = "select m from Member m where m.username = :username"

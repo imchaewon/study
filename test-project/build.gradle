@@ -45,6 +45,9 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     implementation "com.google.code.gson:gson:2.10.1"
 
+    // ModelMapper(객체의 프로퍼티를 이름기반으로 다른 객체의 프로퍼티로 자동 매핑해주는 유틸리티)
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.0.0'
+
     //opensearch
     implementation "org.opensearch.client:opensearch-java:2.4.0"
     implementation "org.opensearch.client:opensearch-rest-client:2.6.0"

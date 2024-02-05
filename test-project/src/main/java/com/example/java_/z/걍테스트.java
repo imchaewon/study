@@ -33,5 +33,38 @@ public class 걍테스트 {
 			}
 			System.out.println(studentNames[student] + " 학생의 평균은 " + (sum / arr[0].length) + "입니다");
 		}
+//		System.out.println((int)(Math.random() * 2));
+//
+//		System.out.println();
+//
+//		for (int i = 9; i <= 11; i++) System.out.println(i);// 10월~12월
+//		System.out.println();
+//
+//		for (int i = 9; i <= 12; i++) System.out.println(i);// 10월~1월(이월) 0+12
+//		System.out.println();
+//
+//
+//
+//		for (int i = 9; i <= 12; i++) { // 10월~1월(이월) 0+12
+//			System.out.println(i % 12);
+//		}
+//		System.out.println();
+//
+//		System.out.println((C1) null);
+//		System.out.println(String.valueOf((C1) null).equals("null"));
+
+		System.out.println(false && false);
+		System.out.println(true && false);
+		System.out.println(false & false);
+		System.out.println(true & false);
+		System.out.println();
+		System.out.println(false || false);
+		System.out.println(true || false);
+		System.out.println(false | false);
+		System.out.println(true | false);
+		boolean b1 = true;
+		boolean b2 = false;
+		System.out.println(b1 |= b2);
+		System.out.println(b1 &= b2);
 	}
 }
