@@ -15,17 +15,31 @@ package com.example.java_.z.프로그래머스;
 //[70, 50, 80, 50]	100	3
 //[70, 80, 50]	100	3
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 public class Solution155 {
 	public static void main(String[] args) {
 
 		Solution155 s = new Solution155();
-//		System.out.println(s.solution(new String[]{"may", "kein", "kain", "radi"}, new int[]{5, 10, 1, 3}, new String[][]{"may", "kein", "kain", "radi"},{"may", "kein", "brin", "deny"}, {"kon", "kain", "may", "coni"}})); // 2
+		System.out.println(Arrays.toString(s.solution(
+				new String[]{"may", "kein", "kain", "radi"},
+				new int[]{5, 10, 1, 3},
+				new String[][]{{"may", "kein", "kain", "radi"}, {"may", "kein", "brin", "deny"}, {"kon", "kain", "may", "coni"}}
+		)));
 
 	}
 
 	public int[] solution(String[] name, int[] yearning, String[][] photo) {
-		int[] answer = {};
-		return answer;
+		return Arrays.stream(photo).map(e ->
+				Arrays.stream(e).map(e2 -> {
+					int i1 = IntStream.range(0, name.length)
+							.filter(i -> name[i].equals(e2))
+							.findFirst()
+							.orElse(-1);
+					return i1 == -1 ? 0 : yearning[i1];
+				}).mapToInt(Integer::intValue).sum()
+		).mapToInt(Integer::intValue).toArray();
 	}
 }
 
