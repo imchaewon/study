@@ -8,13 +8,9 @@ import java.util.Map;
 
 @Mapper
 public interface MemberMapper {
-
 //	@Select("SELECT * FROM STAFF")
 //	List<Member> findAll();
 
 	List<Map<String,Object>> selectAllMap();
 	List<Member> selectAllDto();
-
-
-
 }
