@@ -5,9 +5,9 @@
  */
 
 plugins {
-    id 'war'
     id 'java'
-    id 'maven-publish'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 repositories {
@@ -18,12 +18,15 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.4'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.4'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    providedCompile 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'org.aspectj:aspectjweaver:1.9.7'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
-    implementation 'org.springframework.boot:spring-boot-configuration-processor:2.6.4'
     implementation 'com.google.gwt:gwt-user:2.8.2'
     implementation 'com.github.gwtmaterialdesign:gwt-material-jquery:2.2'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
@@ -35,11 +38,9 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'commons-codec:commons-codec:1.9'
     implementation 'org.springframework.data:spring-data-rest-core:3.7.2'
-    runtimeOnly 'com.h2database:h2:1.4.200'
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.6.4'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.5'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.4'
-    providedCompile 'org.springframework.boot:spring-boot-starter-tomcat:2.6.4'
+//    runtimeOnly 'com.h2database:h2:1.4.200'
+//    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.5'
+    implementation 'mysql:mysql-connector-java:8.0.32'
     implementation 'javax.xml.bind:jaxb-api:2.1'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
@@ -53,12 +54,19 @@ dependencies {
     implementation "org.opensearch.client:opensearch-rest-client:2.6.0"
     implementation "org.opensearch:opensearch-core:2.6.0"
     implementation "org.opensearch.client:opensearch-rest-high-level-client:2.6.0"
+
+    implementation 'com.warrenstrange:googleauth:1.1.1'
+    // QR Code - zxing
+    implementation group: 'com.google.zxing', name: 'javase', version: '3.5.0'
+    implementation group: 'com.google.zxing', name: 'core', version: '3.5.0'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 description = 'springboot-test-project'
-java.sourceCompatibility = JavaVersion.VERSION_11
+java {
+    sourceCompatibility = '17'
+}
 
 publishing {
     publications {
@@ -71,4 +79,4 @@ publishing {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
-targetCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_17
