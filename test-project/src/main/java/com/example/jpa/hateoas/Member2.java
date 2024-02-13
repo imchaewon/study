@@ -1,8 +1,7 @@
 package com.example.jpa.hateoas;
 
+import jakarta.persistence.*;
 import lombok.*;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "MEMBER2")
@@ -16,7 +15,7 @@ import javax.persistence.*;
 public class Member2 {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 
 	private String name123;
