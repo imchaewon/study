@@ -13,10 +13,11 @@ import java.util.List;
 public class Solution162 {
 	public static void main(String[] args) {
 		Solution162 s = new Solution162();
-		System.out.println(s.solution(new String[]{"aya", "yee", "u", "maa"})); // 1
-		System.out.println(s.solution(new String[]{"ayaye", "uuu", "yeye", "yemawoo", "ayaayaa"})); // 2
-		System.out.println(s.solution(new String[]{"ayaayaa"})); // 0
-		System.out.println(s.solution(new String[]{"yeye"})); // 0
+//		System.out.println(s.solution(new String[]{"aya", "yee", "u", "maa"})); // 1
+//		System.out.println(s.solution(new String[]{"ayaye", "uuu", "yeye", "yemawoo", "ayaayaa"})); // 2
+//		System.out.println(s.solution(new String[]{"ayaayaa"})); // 0
+//		System.out.println(s.solution(new String[]{"yeye"})); // 0
+		System.out.println(s.solution2(new String[]{"aya", "yee", "u", "maa"})); // 1
 	}
 
 	public int solution(String[] babbling) {
@@ -53,6 +54,26 @@ public class Solution162 {
 			}
 		}
 
+		return answer;
+	}
+
+	public int solution2(String[] babblings) {
+		// "aya", "ye", "woo", "ma" 4가지 발음만 가능
+		int answer = 0;
+		for(int i = 0; i < babblings.length; i++) {
+			if(babblings[i].contains("ayaaya") || babblings[i].contains("yeye") || babblings[i].contains("woowoo") || babblings[i].contains("mama")) {
+				continue;
+			}
+
+			babblings[i] = babblings[i].replace("aya", " ");
+			babblings[i] = babblings[i].replace("ye", " ");
+			babblings[i] = babblings[i].replace("woo", " ");
+			babblings[i] = babblings[i].replace("ma", " ");
+			babblings[i] = babblings[i].replace(" ", "");
+
+			if(babblings[i].length() == 0) answer++;
+
+		}
 		return answer;
 	}
 }
