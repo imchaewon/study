@@ -1,21 +1,28 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.2.0'
-    id 'io.spring.dependency-management' version '1.1.4'
+    id 'groovy-gradle-plugin'
+    id "java"
 }
 
-group = 'study'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+group = 'com.example'
+version = '0.0.1'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
-}
-
-repositories {
-    mavenCentral()
 }
 
 ext {
@@ -36,10 +43,6 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework.boot:spring-boot-starter-aop"
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 
     implementation "com.googlecode.json-simple:json-simple:${jsonSimpleVer}"
     implementation "com.github.gavlyukovskiy:p6spy-spring-boot-starter:${p6spyVer}"
@@ -72,68 +75,13 @@ dependencies {
 
     // Web Client
     implementation 'org.springframework.boot:spring-boot-starter-webflux:3.2.1'
-
-    // JWT
-    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
-    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
-    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
-
-    // AES 암호화
-    implementation 'commons-codec:commons-codec:1.9'
-
-    // JSON 직렬화 / 역직렬화
-    implementation 'org.json:json:20160810'
-
-    // ModelMapper(객체의 프로퍼티를 이름기반으로 다른 객체의 프로퍼티로 자동 매핑해주는 유틸리티)
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.0.0'
-
-    //opensearch
-    implementation "org.opensearch.client:opensearch-java:2.4.0"
-    implementation "org.opensearch.client:opensearch-rest-client:2.6.0"
-    implementation "org.opensearch:opensearch-core:2.6.0"
-    implementation "org.opensearch.client:opensearch-rest-high-level-client:2.6.0"
-
-    // GWT
-    implementation 'com.google.gwt:gwt-user:2.8.2'
-    implementation 'com.github.gwtmaterialdesign:gwt-material-jquery:2.2'
-
-    // 웹 크롤러
-    implementation 'org.jsoup:jsoup:1.15.2'
-
-    // MyBatis
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-
-    // QR Code - zxing
-    implementation group: 'com.google.zxing', name: 'javase', version: '3.5.0'
-    implementation group: 'com.google.zxing', name: 'core', version: '3.5.0'
-
-    // MySQL
-    implementation 'mysql:mysql-connector-java:8.0.32'
-
-//    // JPA
-//    implementation 'javax.servlet:jstl:1.2'
-//    implementation 'org.aspectj:aspectjweaver:1.9.7'
-//    implementation 'org.projectlombok:lombok:1.18.22'
-//    annotationProcessor 'org.projectlombok:lombok:1.18.22'
-//    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-//    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
-//    implementation 'javax.servlet:jstl'
-//    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
-////    runtimeOnly 'com.h2database:h2:1.4.200'
-////    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.5'
-//    implementation 'javax.xml.bind:jaxb-api:2.1'
-//    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-//    implementation "com.google.code.gson:gson:2.10.1"
-//
-//
-//    implementation 'com.warrenstrange:googleauth:1.1.1'
 }
 
 // Querydsl 설정부
 def generated = 'src/main/generated'
 
 // querydsl QClass 파일 생성 위치를 지정
-tasks.withType(JavaCompile).configureEach {
+tasks.withType(JavaCompile) {
     options.getGeneratedSourceOutputDirectory().set(file(generated))
 }
 
@@ -146,3 +94,59 @@ sourceSets {
 clean {
     delete file(generated)
 }
+
+compileJava {
+    options.compilerArgs << "-Aquerydsl.generatedAnnotationClass=jakarta.annotation.Generated"
+}
+
+tasks.named("test") {
+    useJUnitPlatform()
+}
+
+//dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    compileOnly 'org.springframework.boot:spring-boot-starter-tomcat'
+//    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+//
+//    // JPA
+//    implementation 'org.springframework.data:spring-data-rest-core:3.7.2'
+//
+//    implementation 'javax.servlet:jstl:1.2'
+//    implementation 'org.aspectj:aspectjweaver:1.9.7'
+//    implementation 'org.projectlombok:lombok:1.18.22'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+//    implementation 'com.google.gwt:gwt-user:2.8.2'
+//    implementation 'com.github.gwtmaterialdesign:gwt-material-jquery:2.2'
+//    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+//    implementation 'org.json:json:20160810'
+//    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+//    implementation 'javax.servlet:jstl'
+//    implementation 'org.jsoup:jsoup:1.15.2'
+//    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+//    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+//    implementation 'commons-codec:commons-codec:1.9'
+////    runtimeOnly 'com.h2database:h2:1.4.200'
+////    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.5'
+//    implementation 'mysql:mysql-connector-java:8.0.32'
+//    implementation 'javax.xml.bind:jaxb-api:2.1'
+//    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+//    implementation "com.google.code.gson:gson:2.10.1"
+//
+//    // ModelMapper(객체의 프로퍼티를 이름기반으로 다른 객체의 프로퍼티로 자동 매핑해주는 유틸리티)
+//    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.0.0'
+//
+//    //opensearch
+//    implementation "org.opensearch.client:opensearch-java:2.4.0"
+//    implementation "org.opensearch.client:opensearch-rest-client:2.6.0"
+//    implementation "org.opensearch:opensearch-core:2.6.0"
+//    implementation "org.opensearch.client:opensearch-rest-high-level-client:2.6.0"
+//
+//    implementation 'com.warrenstrange:googleauth:1.1.1'
+//    // QR Code - zxing
+//    implementation group: 'com.google.zxing', name: 'javase', version: '3.5.0'
+//    implementation group: 'com.google.zxing', name: 'core', version: '3.5.0'
+//}
+

@@ -1,15 +1,14 @@
 package com.example.spring.t2;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+@Component("t2")
 public class C4 {
-
-	@Bean
 	public C4 m2(){
 		System.out.println("m2m2m2");
 		return this;

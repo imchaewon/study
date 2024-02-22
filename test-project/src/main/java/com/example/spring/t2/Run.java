@@ -2,6 +2,7 @@ package com.example.spring.t2;
 
 import com.example.spring.t2.qualifier.Car;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,9 +12,11 @@ public class Run {
 
 	private final C2 c2;
 	private final C3 c3;
+
+	@Qualifier("t2")
 	private final C4 c4;
 
-//	@Qualifier("kiaa")
+	@Qualifier("kiaa")
 	private final Car kia;
 	private final Car hyundai;
 
