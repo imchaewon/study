@@ -1,0 +1,38 @@
+plugins {
+    id "io.spring.dependency-management"
+    id "java"
+}
+
+ext {
+    springCloudVer = "2022.0.3"
+    swaggerVer = "3.0.0"
+    swaggerNewVer = "2.2.0"
+    undertowVer = "2.6.3"
+    jsonWebTokenVer = "0.9.1"
+    openfeignVer = "4.0.3"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVer}"
+    }
+}
+
+dependencies {
+    // undertow 추가
+    implementation "org.springframework.boot:spring-boot-starter-undertow:${undertowVer}"
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${openfeignVer}"
+    implementation "org.springframework.retry:spring-retry"
+    implementation "org.springframework.boot:spring-boot-starter-websocket"
+
+    implementation "io.jsonwebtoken:jjwt:${jsonWebTokenVer}"
+
+    // Swagger for Springboot3.x
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-api:${swaggerNewVer}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${swaggerNewVer}"
+
+    implementation 'com.google.code.google-collections:google-collect:snapshot-20080530'
+}
+

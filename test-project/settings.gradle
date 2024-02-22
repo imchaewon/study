@@ -5,3 +5,5 @@
  */
 
 rootProject.name = 'spring-boot-project'
+include 'main-module', 'common-module'
+
