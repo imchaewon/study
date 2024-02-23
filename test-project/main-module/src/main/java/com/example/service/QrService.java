@@ -1,4 +1,4 @@
-package com.example.spring.t5;
+package com.example.service;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -8,29 +8,17 @@ import com.google.zxing.common.BitMatrix;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
-@Controller
 @Slf4j
-public class QrController {
-	@GetMapping("/qr/test")
-	public String m1(){
-		System.out.println("aa");
-		return "qrCode";
-	}
-
-	@ResponseBody
-	@GetMapping("/qr/generate")
-	public ResponseEntity<byte[]> qrToTistory() throws WriterException, IOException {
+@Service
+public class QrService {
+	public ResponseEntity<byte[]> generate(String url) throws WriterException {
 		// QR 정보
 		int width = 200;
 		int height = 200;
-		String url = "https://lucas-owner.tistory.com/";
 
 		// QR Code - BitMatrix: qr code 정보 생성
 		BitMatrix encode = new MultiFormatWriter()
@@ -50,7 +38,6 @@ public class QrController {
 					.body(out.toByteArray());
 
 		}catch (Exception e){log.warn("QR Code OutputStream 도중 Excpetion 발생, {}", e.getMessage());}
-
 		return null;
 	}
 }
