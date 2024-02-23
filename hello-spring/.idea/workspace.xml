@@ -5,33 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68c47f19-2b4e-4b2f-ae18-dff1eae8aec3" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/annotation/MainDiscountPolicy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/common/MyLogger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/web/LogDemoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/web/LogDemoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/autowired/AllBeanTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/autowired/AutowiredTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/lifecycle/BeanLifeCycleTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/lifecycle/NetworkClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/order/OrderServiceImplTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/filter/BeanA.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/filter/BeanB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/filter/ComponentFilterAppConfigTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/filter/MyExcludeComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/PrototypeTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingletonTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingletonWithPrototypeTest1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../core/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/AutoAppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/AutoAppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/discount/FixDiscountPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/discount/FixDiscountPolicy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/discount/RateDiscountPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/discount/RateDiscountPolicy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/src/main/java/hello/core/order/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/main/java/hello/core/order/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/src/test/java/hello/core/CoreApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/CoreApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/src/test/java/hello/core/order/OrderServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/order/OrderServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/AutoAppConfigTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scan/AutoAppConfigTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/controller/MemberController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,6 +272,7 @@
       <workItem from="1699698703602" duration="5000" />
       <workItem from="1699779777445" duration="164000" />
       <workItem from="1699779967332" duration="221000" />
+      <workItem from="1708650596973" duration="93000" />
     </task>
     <servers />
   </component>

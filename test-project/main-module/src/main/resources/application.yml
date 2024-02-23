@@ -23,10 +23,11 @@ spring:
   #    h2:
   #      console:
   #        enabled: true
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
+
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/views/
+#      suffix: .jsp
 
 server:
   port: 5555

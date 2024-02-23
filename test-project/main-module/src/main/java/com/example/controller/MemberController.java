@@ -20,8 +20,14 @@ public class MemberController {
 
 	@GetMapping("/hello")
 	public void hello(Model model){
-		System.out.println("hello?");
+		System.out.println("hello");
 		model.addAttribute("data", "this id data");
+	}
+
+	@GetMapping("/hello2")
+	public String hello2(Model model){
+		System.out.println("hello2");
+		return "hello2";
 	}
 
 	@PostMapping(value = "/map")
