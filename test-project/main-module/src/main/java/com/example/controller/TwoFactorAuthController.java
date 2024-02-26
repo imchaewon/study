@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("otp")
+@RequestMapping("two-factor-auth")
 @RequiredArgsConstructor
-public class OTPController {
+public class TwoFactorAuthController {
 	private final OTPService otpService;
 	private final QrService qrService;
 
-	@GetMapping("register")
+	@GetMapping("otp-register")
 	public ResponseEntity<byte[]> register() throws WriterException {
 		String userId = "user123"; // Fixme: 동적 값 할당
 		String url = otpService.generateKey(userId);
 		return qrService.generate(url);
 	}
 
-	@GetMapping("auth")
+	@GetMapping("otp-auth")
 	public boolean authenticate(@RequestParam("userCode") String userCode, @RequestParam("key") String key){
 		return otpService.auth(userCode, key);
 	}
