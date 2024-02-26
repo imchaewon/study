@@ -37,7 +37,9 @@ public class QrService {
 					.contentType(MediaType.IMAGE_PNG)
 					.body(out.toByteArray());
 
-		}catch (Exception e){log.warn("QR Code OutputStream 도중 Excpetion 발생, {}", e.getMessage());}
+		}catch (Exception e){
+			log.warn("QR Code OutputStream 도중 Excpetion 발생, {}", e.getMessage());
+		}
 		return null;
 	}
 }
