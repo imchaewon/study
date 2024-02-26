@@ -22,8 +22,8 @@ public class OTPService {
 		return url;
 	}
 
-	public boolean auth(String userCode, String key) {
-		return gAuth.authorize(userCode, Integer.parseInt(key));
+	public boolean auth(String secretKey, String pwd) {
+		return gAuth.authorize(secretKey, Integer.parseInt(pwd));
 	}
 
 }

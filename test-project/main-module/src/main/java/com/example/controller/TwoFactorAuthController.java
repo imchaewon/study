@@ -25,8 +25,8 @@ public class TwoFactorAuthController {
 	}
 
 	@GetMapping("otp-auth")
-	public boolean authenticate(@RequestParam("userCode") String userCode, @RequestParam("key") String key){
-		return otpService.auth(userCode, key);
+	public boolean authenticate(@RequestParam("secretKey") String secretKey, @RequestParam("pwd") String pwd){
+		return otpService.auth(secretKey, pwd);
 	}
 }
 
