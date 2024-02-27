@@ -1,4 +1,4 @@
-package com.example.java_.encryption.t1;
+package com.example.java_.encryption.AES.noSpringSecurity;
 
 import org.apache.commons.codec.binary.Base64;
 
