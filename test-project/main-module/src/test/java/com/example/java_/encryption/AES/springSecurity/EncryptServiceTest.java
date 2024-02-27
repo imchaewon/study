@@ -5,6 +5,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.Map;
+
+import static com.example.java_.encryption.AES.springSecurity.EncryptService.Encrypt.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,9 +24,9 @@ public class EncryptServiceTest {
 		String plaintext = "Hello, World!";
 
 		// 암호화
-		String[] encryptedData = encryptService.encrypt(plaintext);
-		String encryptedText = encryptedData[0];
-		String salt = encryptedData[1];
+		Map<EncryptService.Encrypt, String> encrtpy = encryptService.encrypt(plaintext);
+		String encryptedText = encrtpy.get(CRYPT);
+		String salt = encrtpy.get(SALT);
 
 		// 복호화
 		String decryptedText = encryptService.decrypt(encryptedText, salt);
