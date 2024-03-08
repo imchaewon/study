@@ -21,5 +21,7 @@ public class 걍테스트4 {
 
 	public void m2(String s1){
 		s1 = "bbb";
+
+		s1.equals(null);
 	}
 }
