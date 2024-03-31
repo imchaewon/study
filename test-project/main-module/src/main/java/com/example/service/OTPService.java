@@ -17,13 +17,13 @@ public class OTPService {
 		final String issuer = "vista";
 		GoogleAuthenticatorKey key = gAuth.createCredentials();
 		String url = GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL(issuer, userId, key);
-		log.info("encode key: {}", key.getKey());
+		log.info("userCode: {}", key.getKey());
 		log.info("url: {} ", url);
 		return url;
 	}
 
-	public boolean auth(String userCode, String key) {
-		return gAuth.authorize(userCode, Integer.parseInt(key));
+	public boolean auth(String secretKey, String pwd) {
+		return gAuth.authorize(secretKey, Integer.parseInt(pwd));
 	}
 
 }
