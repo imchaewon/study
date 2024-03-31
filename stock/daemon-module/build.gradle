@@ -1,0 +1,21 @@
+plugins {
+    id 'portal.common'
+    id 'portal.daemon'
+}
+
+//bootJar {
+//    enabled = true
+//    archiveBaseName = "daemon-module"
+//}
+
+dependencies {
+    implementation project(path: ":common-module")
+
+    // test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+}
+
+test {
+    useJUnitPlatform()
+}

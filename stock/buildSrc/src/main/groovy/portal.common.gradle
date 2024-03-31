@@ -1,0 +1,42 @@
+plugins {
+    id "java"
+    id 'org.springframework.boot'
+    id "io.spring.dependency-management"
+}
+
+group = "com.icw.stock"
+version = "0.0.1"
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.0.0'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    annotationProcessor "com.fasterxml.jackson.core:jackson-core"
+    annotationProcessor "com.fasterxml.jackson.core:jackson-databind"
+    annotationProcessor "com.fasterxml.jackson.core:jackson-annotations"
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-api:2.2.0"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0"
+}
