@@ -1,4 +1,4 @@
-package com.icw.stock.component;
+package com.icw.daemon.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

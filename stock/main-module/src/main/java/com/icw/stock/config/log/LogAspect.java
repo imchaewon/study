@@ -1,7 +1,7 @@
 package com.icw.stock.config.log;
 
-import com.icw.stock.entity.Audit;
-import com.icw.stock.entity.AuditError;
+import com.icw.common.entity.Audit;
+import com.icw.common.entity.AuditError;
 import com.icw.stock.model.common.response.CommonResponse;
 import com.icw.stock.repository.AuditErrorRepository;
 import com.icw.stock.repository.AuditRepository;

@@ -35,8 +35,10 @@ import java.lang.annotation.Target;
 		))
 })
 public @interface SwaggerDefault {
+	@AliasFor(annotation = Operation.class, attribute = "summary")
+	String title();
+
 	@AliasFor(annotation = Operation.class, attribute = "description")
-	String title() default "";
 	String summary() default "";
 }
 

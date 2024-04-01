@@ -15,7 +15,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
   data:
     redis:
@@ -23,7 +23,7 @@ spring:
       port: 6379
 
 server:
-  port: 8080
+  port: 8081
 
 appkey: PSgem82VoQ6DBhQvyQmwWDWoKzKZ3EMb7NGt
 appsecret: ENC(xO7Fim2HpkCkMJdnjYzUluKCWzkNnWeDcTBNL2xNfA9eoOhkrVhFksuNQMjOgjReNQUK5xHJqIiLZlCS/QvR4gc5eLF17IyGJvHpxnKW0CWyLgRrb32qcCyWO+/Cz4orOlRzUOZm3Y+oMLcaK1/g+rEq2Jw4sqDpvIhxClf147NZODcm2FoMQvqXO6JOBPWaLQHiMMW3gLOXSFmvXwRKXBCJHOUOE7QbcbEb0HwrVhxnmENc723tqbMPYu9woGyx)

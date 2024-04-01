@@ -30,9 +30,7 @@ public class GlobalExceptionHandler extends CommonResponse {
 		Environment environment = context.getEnvironment();
 		String[] activeProfiles = environment.getActiveProfiles();
 		String activeProfile = Arrays.stream(activeProfiles).findFirst().orElse("default");
-//		if("dev".equals(activeProfile) || "stg".equals(activeProfile)){
-			IncomingWebhook.sendToJandi(e, activeProfile, logAspect.getRequestId());
-//		}
+//		IncomingWebhook.sendToJandi(e, activeProfile, logAspect.getRequestId());
 
 		return this.resFail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 	}
