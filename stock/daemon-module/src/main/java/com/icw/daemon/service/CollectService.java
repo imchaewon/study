@@ -38,7 +38,7 @@ public class CollectService {
 
 	public void collect(String[] itemCode){
 		try {
-			saveRedis();
+			storeTokenInRedis();
 		} catch (JsonProcessingException e) {
 			System.out.println("CollectService.collect()");
 			e.printStackTrace();
@@ -47,7 +47,7 @@ public class CollectService {
 		saveCurrentPrice(itemCode);
 	}
 
-	private void saveRedis() throws JsonProcessingException {
+	private void storeTokenInRedis() throws JsonProcessingException {
 		String token = redisComponent.getData(Stock.API_TOKEN.name());
 		ApiTokenDto tokenDto;
 		if(token == null) {
@@ -55,8 +55,6 @@ public class CollectService {
 			redisComponent.setData(Stock.API_TOKEN.name(), objectMapper.writeValueAsString(tokenDto));
 		}else{
 			ApiTokenDto apiTokenDto = redisComponent.getAndMapToDto(Stock.API_TOKEN.name(), ApiTokenDto.class);
-			log.info("apiTokenDto: {}", apiTokenDto);
-
 			String tokenExpired = apiTokenDto.getAccessTokenExpired();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			LocalDateTime dateTime = LocalDateTime.parse(tokenExpired, formatter);

@@ -1,5 +1,5 @@
 package com.icw.stock.constant;
 
-public enum Stock {
+public enum StockCode {
 	API_TOKEN
 }
