@@ -1,0 +1,21 @@
+plugins {
+    id 'portal.common'
+    id 'portal.web'
+    id 'jacoco'
+}
+
+bootJar {
+    enabled = true
+    archiveBaseName = "main-module"
+}
+
+group = 'com.icw'
+version = '0.0.1-SNAPSHOT'
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation project(path: ':common-module')
+}

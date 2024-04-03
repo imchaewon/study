@@ -40,26 +40,26 @@ public class SecurityConfig{
 //				.httpBasic(withDefaults())
 				.formLogin(formLogin -> formLogin
 //						.loginPage("/loginPage")
-						.defaultSuccessUrl("/successcuccess")
-						.failureUrl("/failfail")
-						.usernameParameter("userId")
-						.passwordParameter("passwd")
-						.loginProcessingUrl("/login_proc")
-						.successHandler(new AuthenticationSuccessHandler() {
-							@Override
-							public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-								System.out.println("authentication = " + authentication.getName());
-								response.sendRedirect("/success");
-							}
-						})
-						.failureHandler(new AuthenticationFailureHandler() {
-							@Override
-							public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-								System.out.println("exception = " + exception.getMessage());
-								response.sendRedirect("/fail");
-							}
-						})
-						.permitAll()
+								.defaultSuccessUrl("/successcuccess")
+								.failureUrl("/failfail")
+								.usernameParameter("userId")
+								.passwordParameter("passwd")
+								.loginProcessingUrl("/login_proc")
+								.successHandler(new AuthenticationSuccessHandler() {
+									@Override
+									public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+										System.out.println("authentication = " + authentication.getName());
+										response.sendRedirect("/success");
+									}
+								})
+								.failureHandler(new AuthenticationFailureHandler() {
+									@Override
+									public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+										System.out.println("exception = " + exception.getMessage());
+										response.sendRedirect("/fail");
+									}
+								})
+								.permitAll()
 				)
 				.logout(logout -> logout
 						.logoutUrl("/logout")
@@ -85,6 +85,10 @@ public class SecurityConfig{
 					e.tokenValiditySeconds(3600);
 //					e.alwaysRemember(true);
 					e.userDetailsService(userDetailsService);
+				})
+				.sessionManagement(e -> {
+					e.maximumSessions(1)
+							.maxSessionsPreventsLogin(true);
 				});
 		return http.build();
 	}

@@ -1,0 +1,17 @@
+plugins {
+    id 'portal.common'
+    id 'portal.daemon'
+}
+
+//bootJar {
+//    enabled = true
+//    archiveBaseName = "daemon-module"
+//}
+
+dependencies {
+    implementation project(path: ":common-module")
+}
+
+test {
+    useJUnitPlatform()
+}

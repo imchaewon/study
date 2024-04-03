@@ -1,0 +1,16 @@
+local-psql-ip : 127.0.0.1
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${local-psql-ip}:3306/stock?serverTimezone=Asia/Seoul
+
+    username: root
+    password: root1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  main:
+    web-application-type: none

@@ -1,0 +1,6 @@
+plugins {
+    id 'portal.common'
+}
+
+bootJar.enabled = false
+
