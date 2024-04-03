@@ -11,10 +11,12 @@ public class DuckTestDrive {
 		turkey.gobble();
 		turkey.fly();
 
-		System.out.println("\r\n오리가 말하기를..");
+		System.out.println();
+		System.out.println("오리가 말하기를..");
 		testDuck(duck);
 
-		System.out.println("\r\n칠면조어댑터로 호출..");
+		System.out.println();
+		System.out.println("칠면조어댑터 객체를 넣어 호출..");
 		testDuck(turkeyAdapter);
 	}
 
