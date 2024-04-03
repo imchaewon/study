@@ -1,10 +1,10 @@
 package com.icw.stock.config.log;
 
-import com.icw.common.entity.Audit;
-import com.icw.common.entity.AuditError;
+import com.icw.common.entity.common.Audit;
+import com.icw.common.entity.common.AuditError;
 import com.icw.stock.model.common.response.CommonResponse;
-import com.icw.stock.repository.AuditErrorRepository;
-import com.icw.stock.repository.AuditRepository;
+import com.icw.stock.repository.common.AuditErrorRepository;
+import com.icw.stock.repository.common.AuditRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
