@@ -8,6 +8,6 @@ import lombok.Data;
 public class StockSimplePriceApiReqDTO {
 	String code;
 	String stck_prpr;
-	String w52_hgpr;
 	String w52_lwpr;
+	String w52_hgpr;
 }

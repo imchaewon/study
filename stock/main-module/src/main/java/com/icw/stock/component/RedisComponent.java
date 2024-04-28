@@ -24,6 +24,7 @@ public class RedisComponent {
 	}
 
 	public String getData(String key){
+		System.out.println("key = " + key);
 		String value = redisTemplate.opsForValue().get(key);
 		if(value != null)
 			log.info("Data retrieved successfully: " + value);

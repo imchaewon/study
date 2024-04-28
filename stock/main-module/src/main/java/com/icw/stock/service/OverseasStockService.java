@@ -1,102 +1,68 @@
 package com.icw.stock.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.icw.stock.component.RedisComponent;
-import com.icw.stock.constant.StockCode;
+import com.icw.stock.model.stock.req.overseas.ExcdAndSymbDTO;
+import com.icw.stock.model.stock.req.overseas.OverseasReqDTO;
 import com.icw.stock.model.stock.req.api.common.ApiTokenDTO;
-import com.icw.stock.model.stock.req.api.common.ApiTokenReqDTO;
 import com.icw.stock.model.stock.req.api.overseas.OverseasCurrentPriceAPIReqDTO;
 import com.icw.stock.model.stock.req.api.overseas.OverseasPriceByPeriodAPIReqDTO;
-import com.icw.stock.model.stock.req.OverseasCurrentPriceDTO;
-import com.icw.stock.model.stock.req.OverseasCollectPeriodDTO;
-import com.icw.stock.model.stock.resp.CodeN52wPriceDTO;
-import com.icw.stock.model.stock.resp.CodeNPriceDTO;
+import com.icw.stock.model.stock.resp.overseas.CodeNPriceDTO;
+import com.icw.stock.model.stock.resp.overseas.DetailInfo;
+import com.icw.stock.model.stock.resp.overseas.OverseasCollectPeriodRespDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class OverseasStockService {
-	private final RedisComponent redisComponent;
-	private final ObjectMapper objectMapper;
-	@Value("${appkey}")
-	private String appKey;
-	@Value("${appsecret}")
-	private String appsecret;
+public class OverseasStockService implements StockFormatterService {
+	private final TokenService tokenService;
 
-	public List<CodeNPriceDTO> fetchPriceByPeriod(OverseasCollectPeriodDTO reqDTO){
-		storeTokenInRedisAndHandlerError();
+	public OverseasCollectPeriodRespDTO fetchPriceByPeriod(List<ExcdAndSymbDTO> reqDTO, String reqDate) {
+		tokenService.storeTokenInRedisAndTryCatch();
+		return retrieveFromExternalAPI(reqDTO, reqDate);
+	}
+
+	public List<DetailInfo> changeToDTOAndFetchCurrentPrice(String reqTxt) {
+		OverseasReqDTO domesticReqDTO = changeToDTO(reqTxt);
+		return fetchCurrentPrice(domesticReqDTO.getExcdAndSymbs());
+	}
+
+	public List<DetailInfo> fetchCurrentPrice(List<ExcdAndSymbDTO> reqDTO) {
+		tokenService.storeTokenInRedisAndTryCatch();
 		return retrieveFromExternalAPI(reqDTO);
 	}
 
-	public List<CodeN52wPriceDTO> fetchCurrentPrice(OverseasCurrentPriceDTO reqDTO){
-		storeTokenInRedisAndHandlerError();
-		return retrieveFromExternalAPI(reqDTO);
+	@Override
+	public String changeToStr(String reqTxt){
+		return changeToStr(reqTxt, null);
 	}
 
-	private void storeTokenInRedisAndHandlerError(){
-		try {
-			storeTokenInRedis();
-		} catch (JsonProcessingException e) {
-			System.out.println("CollectService.collect()");
-			e.printStackTrace();
-		}
+	@Override
+	public String changeToStr(String reqTxt, String date){
+		OverseasReqDTO domesticReqDTO = OverseasReqDTO.of(reqTxt, date);
+		return domesticReqDTO.convertToJson();
 	}
 
-	private void storeTokenInRedis() throws JsonProcessingException {
-		String token = redisComponent.getData(StockCode.API_TOKEN.name());
-		ApiTokenDTO tokenDto;
-		if(token == null) {
-			tokenDto = getToken();
-			redisComponent.setData(StockCode.API_TOKEN.name(), objectMapper.writeValueAsString(tokenDto));
-		}else{
-			ApiTokenDTO apiTokenDto = redisComponent.getAndMapToDto(StockCode.API_TOKEN.name(), ApiTokenDTO.class);
-			String tokenExpired = apiTokenDto.getAccessTokenExpired();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-			LocalDateTime dateTime = LocalDateTime.parse(tokenExpired, formatter);
-			LocalDateTime now = LocalDateTime.now();
-			if(now.isAfter(dateTime)) {
-				tokenDto = getToken();
-				redisComponent.setData(StockCode.API_TOKEN.name(), objectMapper.writeValueAsString(tokenDto));
-			}
-		}
+	@Override
+	public OverseasReqDTO changeToDTO(String reqTxt){
+		return OverseasReqDTO.of(reqTxt, null);
 	}
 
-	private ApiTokenDTO getToken() {
-		RestTemplate restTemplate = new RestTemplate();
-		String url = "https://openapi.koreainvestment.com:9443/oauth2/tokenP";
-		ApiTokenReqDTO apiTokenReqDto = ApiTokenReqDTO.builder()
-				.appkey(appKey)
-				.appsecret(appsecret)
-				.build();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-
-		HttpEntity<String> requestEntity = null;
-		try {
-			requestEntity = new HttpEntity<>(new ObjectMapper().writeValueAsString(apiTokenReqDto), headers);
-		} catch (JsonProcessingException e) {
-			System.out.println("CollectService.getToken()");
-			e.printStackTrace();
-		}
-		ResponseEntity<ApiTokenDTO> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, ApiTokenDTO.class);
-
-		return response.getBody();
+	@Override
+	public OverseasReqDTO changeToDTO(String reqTxt, String date){
+		return OverseasReqDTO.of(reqTxt, date);
 	}
 
-	private List<CodeNPriceDTO> retrieveFromExternalAPI(OverseasCollectPeriodDTO reqDTO) {
+	private OverseasCollectPeriodRespDTO retrieveFromExternalAPI(List<ExcdAndSymbDTO> excdAndSymbs, String reqDate) {
 		// RestTemplate 객체 생성
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -106,19 +72,19 @@ public class OverseasStockService {
 		// 요청 엔티티 생성
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
-		return reqDTO.getStockCodes().stream().map(stockCode -> {
+		List<CodeNPriceDTO> codeNPriceDTOS = excdAndSymbs.stream().map(stockCode -> {
 			// API 엔드포인트 URL
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://openapi.koreainvestment.com:9443/uapi/overseas-price/v1/quotations/dailyprice")
 					.queryParam("AUTH", "")
 					.queryParam("EXCD", stockCode.getExcd())
 					.queryParam("SYMB", stockCode.getSymb())
 					.queryParam("GUBN", "0")
-					.queryParam("BYMD", reqDTO.getDate())
+					.queryParam("BYMD", reqDate)
 					.queryParam("MODP", "1");
 
 			// HTTP GET 요청 보내기
 			ResponseEntity<OverseasPriceByPeriodAPIReqDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, OverseasPriceByPeriodAPIReqDTO.class);
-			waiting(100); // 각각의 요청을 응답받는데까지 너무 오래걸려서, 병렬로 요청후 다시 순서 맞추는 등의 다른 방법을 써야할듯
+			waiting(100); // 각각의 요청을 응답받는데까지 너무 오래걸려서, 병렬로 요청후 다시 순서 맞추는 등의 다른 방법을 써야할듯. (참고로 한번 호출에 100건까지 가능하다고 함)
 
 			// 응답 코드 확인
 			if (response.getStatusCode().is2xxSuccessful()) {
@@ -126,7 +92,7 @@ public class OverseasStockService {
 				OverseasPriceByPeriodAPIReqDTO responseBody = response.getBody();
 				OverseasPriceByPeriodAPIReqDTO.Output2DTO output2DTO = null;
 				boolean isNull = responseBody == null || responseBody.getOutput2().isEmpty();
-				if(!isNull)
+				if (!isNull)
 					output2DTO = responseBody.getOutput2().get(0);
 				return new CodeNPriceDTO(stockCode.getSymb(), isNull ? null : Double.parseDouble(output2DTO.getClos()));
 			} else {
@@ -134,9 +100,11 @@ public class OverseasStockService {
 			}
 			return null;
 		}).toList();
+
+		return new OverseasCollectPeriodRespDTO(reqDate, codeNPriceDTOS);
 	}
 
-	private List<CodeN52wPriceDTO> retrieveFromExternalAPI(OverseasCurrentPriceDTO reqDTO) {
+	private List<DetailInfo> retrieveFromExternalAPI(List<ExcdAndSymbDTO> reqDTO) {
 		// RestTemplate 객체 생성
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -146,7 +114,7 @@ public class OverseasStockService {
 		// 요청 엔티티 생성
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
-		return reqDTO.getStockCodes().stream().map(stockCode -> {
+		return reqDTO.stream().map(stockCode -> {
 			// API 엔드포인트 URL
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://openapi.koreainvestment.com:9443/uapi/overseas-price/v1/quotations/price-detail")
 					.queryParam("AUTH", "")
@@ -161,20 +129,35 @@ public class OverseasStockService {
 			if (response.getStatusCode().is2xxSuccessful()) {
 				// 응답 데이터 출력
 				OverseasCurrentPriceAPIReqDTO responseBody = response.getBody();
-				CodeN52wPriceDTO.CodeN52wPriceDTOBuilder codeN52wPriceBuilder = CodeN52wPriceDTO.builder()
+				DetailInfo.DetailInfoBuilder detailInfoDTOBuilder = DetailInfo.builder()
 						.code(stockCode.getSymb());
-				if(responseBody != null){
+				if (responseBody != null) {
 					String h52p = responseBody.getOutput().getH52p();
 					String l52p = responseBody.getOutput().getL52p();
 					String base = responseBody.getOutput().getBase();
-					if(!"".equals(h52p))
-						codeN52wPriceBuilder.h52p(Double.parseDouble(h52p));
-					if(!"".equals(l52p))
-						codeN52wPriceBuilder.l52p(Double.parseDouble(l52p));
-					if(!"".equals(base))
-						codeN52wPriceBuilder.base(Double.parseDouble(base));
+					String pvol = responseBody.getOutput().getPvol();
+					String tvol = responseBody.getOutput().getTvol();
+					String tamt = responseBody.getOutput().getTamt();
+					String e_icod = responseBody.getOutput().getE_icod();
+					String ordyn = responseBody.getOutput().getE_ordyn();
+					if (!"".equals(h52p))
+						detailInfoDTOBuilder.h52p(Double.parseDouble(h52p));
+					if (!"".equals(l52p))
+						detailInfoDTOBuilder.l52p(Double.parseDouble(l52p));
+					if (!"".equals(base))
+						detailInfoDTOBuilder.base(Double.parseDouble(base));
+					if (!"".equals(tvol))
+						detailInfoDTOBuilder.tvol(Long.parseLong(tvol));
+					if (!"".equals(pvol))
+						detailInfoDTOBuilder.pvol(Long.parseLong(pvol));
+					if (!"".equals(tamt))
+						detailInfoDTOBuilder.tamt(Long.parseLong(tamt));
+					if (!"".equals(e_icod))
+						detailInfoDTOBuilder.e_icod(e_icod);
+					if (!"".equals(ordyn))
+						detailInfoDTOBuilder.ordyn(ordyn);
 				}
-				return codeN52wPriceBuilder.build();
+				return detailInfoDTOBuilder.build();
 			} else {
 				log.error("API 요청에 실패하였습니다. 응답 코드: " + response.getStatusCodeValue());
 			}
@@ -182,47 +165,13 @@ public class OverseasStockService {
 		}).toList();
 	}
 
-//	private void saveCurrentPrice(String[] itemCode){
-//		// RestTemplate 객체 생성
-//		RestTemplate restTemplate = new RestTemplate();
-//
-//		HttpHeaders headers = createHttpHeaders();
-//		headers.set("tr_id", "FHKST01010100");
-//
-//		// 요청 엔티티 생성
-//		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-//
-//		for (String code : itemCode) {
-//			// API 엔드포인트 URL
-//			String url = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-price?fid_cond_mrkt_div_code=J&fid_input_iscd=" + code;
-//
-//			// HTTP GET 요청 보내기
-//			ResponseEntity<StockDetailDto> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, StockDetailDto.class);
-//
-//			// 응답 코드 확인
-//			if (response.getStatusCode().is2xxSuccessful()) {
-//				// 응답 데이터 출력
-//				StockDetailDto responseBody = response.getBody();
-//				ModelMapper modelMapper = new ModelMapper();
-//				StockDetail stockDetail = modelMapper.map(responseBody.getOutput(), StockDetail.class);
-//				stockDetail.setCode(code);
-//				stockDetailRepository.save(stockDetail);
-//				log.info("stockDetail = " + stockDetail);
-//			} else {
-//				System.out.println("API 요청에 실패하였습니다. 응답 코드: " + response.getStatusCodeValue());
-//			}
-//
-//			waiting();
-//		}
-//	}
-
 	private HttpHeaders createHttpHeaders() {
 		HttpHeaders headers = new HttpHeaders();
-		ApiTokenDTO tokenObj = redisComponent.getAndMapToDto(StockCode.API_TOKEN.name(), ApiTokenDTO.class);
+		ApiTokenDTO tokenObj = tokenService.getTokenFromRedis();
 		String token = String.format("%s %s", tokenObj.getTokenType(), tokenObj.getAccessToken());
 		headers.set("authorization", token);
-		headers.set("appkey", appKey);
-		headers.set("appsecret", appsecret);
+		headers.set("appkey", tokenService.getAppKey());
+		headers.set("appsecret", tokenService.getAppsecret());
 		return headers;
 	}
 
@@ -238,5 +187,4 @@ public class OverseasStockService {
 			System.err.println("InterruptedException occurred: " + e.getMessage());
 		}
 	}
-
 }

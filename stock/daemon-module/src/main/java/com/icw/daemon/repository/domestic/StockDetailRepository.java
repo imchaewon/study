@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface StockDetailRepository extends JpaRepository<StockDetail, Long> {
-	@Query("SELECT new com.icw.daemon.model.api.domestic.StockSimplePrice(e.code, e.stck_prpr, e.w52_hgpr, e.w52_lwpr) FROM StockDetail e")
+	@Query("SELECT new com.icw.daemon.model.api.domestic.StockSimplePriceDTO(e.code, e.stck_prpr, e.w52_hgpr, e.w52_lwpr) FROM StockDetail e")
 	List<StockSimplePriceDTO> findCustomColumns(); // 원하는 컬럼을 담은 DTO를 반환하는 쿼리
 }
