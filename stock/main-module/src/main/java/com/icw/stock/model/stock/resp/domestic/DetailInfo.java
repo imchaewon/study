@@ -8,8 +8,10 @@ import lombok.Getter;
 public class DetailInfo {
 	String code;
 	Integer base;
-	Integer l52p;
-	Integer h52p;
+	Integer l250dp;
+	Integer h250dp;
+	Integer l52wp;
+	Integer h52wp;
 	Double pbr;
 	Double per;
 }

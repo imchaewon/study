@@ -14,4 +14,9 @@ public class SecurityController {
 	public String loginPage() {
 		return "loginPage";
 	}
+
+	@GetMapping("asdf")
+	public String testPage() {
+		return "asdf";
+	}
 }

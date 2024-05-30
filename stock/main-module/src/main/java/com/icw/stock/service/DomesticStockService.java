@@ -157,16 +157,22 @@ public class DomesticStockService implements StockFormatterService {
 					String pbr = responseBody.getOutput().getPbr();
 					String per = responseBody.getOutput().getPer();
 					String base = responseBody.getOutput().getStck_prpr();
-					String h52p = responseBody.getOutput().getW52_lwpr();
 					String l52p = responseBody.getOutput().getW52_hgpr();
+					String h52p = responseBody.getOutput().getW52_lwpr();
+					String l250p = responseBody.getOutput().getD250_lwpr();
+					String h250p = responseBody.getOutput().getD250_hgpr();
 					if (!"".equals(stckShrnIscd))
 						detailInfoDTOBuilder.code(stckShrnIscd);
 					if (!"".equals(base))
 						detailInfoDTOBuilder.base(Integer.parseInt(base));
-					if (!"".equals(h52p))
-						detailInfoDTOBuilder.h52p(Integer.parseInt(h52p));
 					if (!"".equals(l52p))
-						detailInfoDTOBuilder.l52p(Integer.parseInt(l52p));
+						detailInfoDTOBuilder.l52wp(Integer.parseInt(l52p));
+					if (!"".equals(h52p))
+						detailInfoDTOBuilder.h52wp(Integer.parseInt(h52p));
+					if (!"".equals(l250p))
+						detailInfoDTOBuilder.l250dp(Integer.parseInt(l250p));
+					if (!"".equals(h250p))
+						detailInfoDTOBuilder.h250dp(Integer.parseInt(h250p));
 					if (!"".equals(pbr))
 						detailInfoDTOBuilder.pbr(Double.parseDouble(pbr));
 					if (!"".equals(per))
