@@ -1,0 +1,94 @@
+
+#local-psql-ip : 10.10.10.237
+local-psql-ip : 127.0.0.1
+
+spring:
+  example:
+    datasource:
+  #    driver-class-name: org.mariadb.jdbc.Driver
+      driverClassName: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://${local-psql-ip}:3306/test?serverTimezone=Asia/Seoul
+  #    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+      username: root
+      password: root1234
+
+  #    url: jdbc:mariadb://61.98.130.164:3306/KTO
+  #    url: jdbc:log4jdbc:mariadb://61.98.130.164:3306/KTO
+  #    username: front
+  #    password: front!@#$
+  #    jpa:
+  #      show-sql: true
+  #      database: mysql
+  #    h2:
+  #      console:
+  #        enabled: true
+
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/views/
+#      suffix: .jsp
+
+server:
+  port: 5555
+
+log4jdbc:
+  spylogdelegator:
+    name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+  dump:
+    sql:
+      maxlinelength: 0 # 최대 몇줄 출력에 관한 설정, 0으로 설정하면 제한 없이 설정
+
+
+#logging:
+#  level:
+#    jdbc:
+#      sqlonly: OFF
+#      sqltiming: INFO
+#      resultsettable: INFO
+#      audit: OFF
+#      resultset: OFF
+#      connection: OFF
+#      root: INFO
+
+
+test-api:
+  base-url: aaa
+  domain-id: 111
+  bot-id: 222
+
+
+test:
+  aaa: aaaaaaaaaa
+
+
+# OpenSearch Properties
+opensearch:
+  protocol: http
+  host: ${local-psql-ip}
+  port: 9200
+  useAuth: false
+  id: admin
+  pw: admin
+  connConfig:
+    conTimeout: 30000
+    socketTimeout: 300000
+    keepAlive: 300000
+    conReuse: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-package com.example.java_.util_.random_;
+package com.example.java_.random.t1;
 
 
 import java.util.Random;
