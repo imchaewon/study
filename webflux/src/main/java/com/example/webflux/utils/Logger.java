@@ -9,14 +9,22 @@ public class Logger {
 	}
 
 	public static void onNext(Object o) {
-		log.info("# onNext: "+o);
+		log.info("# onNext: " + o);
 	}
+
+    public static void onNext(Object o1, Object o2) {
+        log.info("# onNext: " + o1 + o2);
+    }
 
 	public static void doOnRequest(Object o) {
 		log.info("# doOnRequest: "+o);
 	}
 
 	public static void doOnError(Object o) {
-		log.info("# doOnError: "+o);
+		log.info("# doOnError: " + o);
+	}
+
+	public static void info(String s, Object o) {
+		log.info(s, o);
 	}
 }
