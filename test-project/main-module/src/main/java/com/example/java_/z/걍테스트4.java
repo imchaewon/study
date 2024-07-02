@@ -32,6 +32,9 @@ public class 걍테스트4 {
 		long end2 = System.currentTimeMillis();
 		System.out.println("result2 = " + (end2 - start2));
 
+		System.out.println("9999 * 9999 * 9999 = " + 9999 * 9999 * 9999);
+		System.out.println("9999 * 9999 * 9999 = " + (long) 9999 * 9999 * 9999);
+		System.out.println("9999 * 9999 * 9999 = " + 9999L * 9999 * 9999);
 	}
 
 	@Data
