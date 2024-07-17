@@ -35,7 +35,7 @@ public class Run {
 
 	private static void m4() {
 		Flux.concat(
-						Flux.just("Venus"),
+						Flux.just("Venus", "asdf"),
 						Flux.just("Earth"),
 						Mono.just("Mars")
 				)

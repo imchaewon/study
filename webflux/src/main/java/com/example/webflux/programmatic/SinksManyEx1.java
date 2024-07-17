@@ -19,7 +19,7 @@ public class SinksManyEx1 {
 
         unicastSink.emitNext(3, FAIL_FAST);
 
-        fluxView.subscribe(data -> Logger.onNext("Subscriber2", data));
+//        fluxView.subscribe(data -> Logger.onNext("Subscriber2", data));
 
     }
 }
