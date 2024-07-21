@@ -1,4 +1,4 @@
-package com.example.webflux.general;
+package com.example.webflux;
 
 import reactor.core.publisher.Flux;
 
