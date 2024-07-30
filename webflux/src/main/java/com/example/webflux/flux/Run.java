@@ -1,8 +1,12 @@
 package com.example.webflux.flux;
 
+import com.example.webflux.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.time.Duration;
+import java.util.concurrent.CountDownLatch;
 
 @Slf4j
 public class Run {
@@ -10,10 +14,11 @@ public class Run {
 //		m1();
 //		m2();
 //		m3();
-		m4();
+//		m4();
+        m5();
 	}
 
-	private static void m1() {
+    private static void m1() {
 		Flux.just(6, 9, 13)
 				.map(n -> n % 2)
 				.subscribe(remainder -> log.info("# remainder: {}", remainder));
@@ -35,11 +40,25 @@ public class Run {
 
 	private static void m4() {
 		Flux.concat(
-						Flux.just("Venus"),
+						Flux.just("Venus", "asdf"),
 						Flux.just("Earth"),
 						Mono.just("Mars")
 				)
 				.collectList()
 				.subscribe(planetList -> log.info("# Solar System: {}", planetList));
 	}
+
+    private static void m5() {
+        Flux.interval(Duration.ofMillis(2))
+                .take(10)
+                .subscribe(System.out::println);
+
+        CountDownLatch latch = new CountDownLatch(1);
+        try {
+            latch.await();
+        } catch (Exception e) {
+        	System.out.println("Run.m5()");
+        	e.printStackTrace();
+        }
+    }
 }

@@ -1,9 +1,9 @@
 package com.example.webflux.utils;
 
 public class TimeUtils {
-	public static void sleep(long l) {
+	public static void sleep(long millisecond) {
 		try {
-			Thread.sleep(2000L);
+			Thread.sleep(millisecond);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
