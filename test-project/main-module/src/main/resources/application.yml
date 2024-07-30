@@ -32,7 +32,7 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: imchaewon26@gmail.com
+    username: ENC(x084xnyJvN/r1mnzAJZvQCPjLyzmFltWrVN2axIN3LU=)
     password: ENC(f8FkBfzWLogxcxs2O/5/MTO2HQvb2iY1Sd4nSxoMJVI=)
     properties:
       mail:
