@@ -1,6 +1,6 @@
-package com.example.java_.z;
+package com.example.java_.z.걍테스트;
 
-public class 걍테스트 {
+public class C1 {
 	public static void main(String[] args) {
 		int arr[][] = {{88, 90, 65, 87, 98},
 						{77, 80, 75, 97, 88},

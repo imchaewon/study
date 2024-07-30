@@ -1,6 +1,6 @@
 package com.example.java_.interface_.t2;
 
-public interface Interface {
+public interface I1 {
 	int test();
 
 	default int test2(int a) {

@@ -1,4 +1,4 @@
-package com.example.java_.z;
+package com.example.java_.z.걍테스트;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class 걍테스트3 {
+public class C3 {
 	public static void main(String[] args) throws IOException {
 
 		// 국내 주식 주문

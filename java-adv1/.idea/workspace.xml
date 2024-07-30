@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e6f45bd5-7904-4afb-9318-4294236b3f43" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java-adv1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/CheckedExceptionMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/ThreadInfoMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/ThreadStateMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/interrupt/ThreadStopMainV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/interrupt/ThreadStopMainV2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/interrupt/ThreadStopMainV3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/interrupt/ThreadStopMainV4.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV0.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV4.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/printer/MyPrinterV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/test/JoinTest1Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/control/test/JoinTest2Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/BadThreadMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/DaemonThreadMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/HelloRunnable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/HelloRunnableMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/HelloThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/HelloThreadMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/InnerRunnableMainV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/InnerRunnableMainV2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/InnerRunnableMainV3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/InnerRunnableMainV4.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/ManyThreadMainV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/ManyThreadMainV2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/test/StartTest1Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/test/StartTest2Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/test/StartTest3Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/thread/start/test/StartTest4Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util/MyLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util/MyLoggerMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util/ThreadUtils.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2jYyKA17TP0y0RCfJZtmnXgt151" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="thread.control.interrupt" />
+      <recent name="thread.control.test" />
+      <recent name="thread.control.join" />
+      <recent name="thread.start.test" />
+      <recent name="thread.start" />
+    </key>
+  </component>
+  <component name="RunManager" selected="애플리케이션.MyPrinterV1">
+    <configuration name="MyPrinterV1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.control.printer.MyPrinterV1" />
+      <module name="java-adv1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="thread.control.printer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThreadStopMainV2 (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.control.interrupt.ThreadStopMainV2" />
+      <module name="java-adv1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="thread.control.interrupt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThreadStopMainV2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.control.interrupt.ThreadStopMainV2" />
+      <module name="java-adv1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="thread.control.interrupt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThreadStopMainV3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.control.interrupt.ThreadStopMainV3" />
+      <module name="java-adv1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="thread.control.interrupt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThreadStopMainV4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.control.interrupt.ThreadStopMainV4" />
+      <module name="java-adv1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="thread.control.interrupt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="애플리케이션.MyPrinterV1" />
+        <item itemvalue="애플리케이션.ThreadStopMainV2 (2)" />
+        <item itemvalue="애플리케이션.ThreadStopMainV2" />
+        <item itemvalue="애플리케이션.ThreadStopMainV4" />
+        <item itemvalue="애플리케이션.ThreadStopMainV3" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="e6f45bd5-7904-4afb-9318-4294236b3f43" name="변경" comment="" />
+      <created>1721578238937</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721578238937</updated>
+      <workItem from="1721578240455" duration="41197000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

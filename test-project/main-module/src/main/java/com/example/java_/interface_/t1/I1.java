@@ -1,6 +1,6 @@
 package com.example.java_.interface_.t1;
 
-public interface Ex01 {
+public interface I1 {
 	
 	public void asdf(int a, int vv);
 

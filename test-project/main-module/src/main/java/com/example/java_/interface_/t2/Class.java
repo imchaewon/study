@@ -1,6 +1,6 @@
 package com.example.java_.interface_.t2;
 
-public class Class implements Interface{
+public class Class implements I1 {
 
 	@Override
 	public int test() {

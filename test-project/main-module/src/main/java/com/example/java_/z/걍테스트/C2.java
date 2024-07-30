@@ -1,6 +1,6 @@
-package com.example.java_.z;
+package com.example.java_.z.걍테스트;
 
-public class 걍테스트2 {
+public class C2 {
 	public static void main(String[] args) {
 		int x = 10;
 		int y = 20;

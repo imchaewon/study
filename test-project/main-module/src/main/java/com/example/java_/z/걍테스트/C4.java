@@ -1,4 +1,4 @@
-package com.example.java_.z;
+package com.example.java_.z.걍테스트;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class 걍테스트4 {
+public class C4 {
 	public static void main(String[] args){
 		C1 c1 = C1.builder().name("c1").build();
 		for (int i = 0; i < 10000000; i++){
