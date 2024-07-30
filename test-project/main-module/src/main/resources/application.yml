@@ -29,6 +29,22 @@ spring:
 #      prefix: /WEB-INF/views/
 #      suffix: .jsp
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ENC(x084xnyJvN/r1mnzAJZvQCPjLyzmFltWrVN2axIN3LU=)
+    password: ENC(f8FkBfzWLogxcxs2O/5/MTO2HQvb2iY1Sd4nSxoMJVI=)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    crypto:
+      encrypt:
+        key: secret
+
 server:
   port: 5555
 
@@ -76,19 +92,7 @@ opensearch:
     keepAlive: 300000
     conReuse: true
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+jasypt:
+  encryptor:
+    bean: jasyptEncryptor
+    password: ${JASYPT_SECRET_KEY}

@@ -11,7 +11,8 @@ import java.sql.Connection;
 
 @Slf4j
 @Component
-public class TestRunner implements ApplicationRunner {
+public class
+TestRunner implements ApplicationRunner {
 
 	@Autowired
 	DataSource dataSource;
