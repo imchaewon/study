@@ -13,8 +13,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -49,11 +49,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="thread.sync" />
       <recent name="thread.control.printer" />
       <recent name="thread.control.interrupt" />
       <recent name="thread.control.test" />
       <recent name="thread.control.join" />
-      <recent name="thread.start.test" />
     </key>
   </component>
   <component name="RunManager" selected="애플리케이션.VolatileCountMain (4)">
@@ -142,7 +142,7 @@
       <updated>1721578238937</updated>
       <workItem from="1721578240455" duration="41197000" />
       <workItem from="1722388217145" duration="175000" />
-      <workItem from="1722388429615" duration="11345000" />
+      <workItem from="1722388429615" duration="12737000" />
     </task>
     <servers />
   </component>
