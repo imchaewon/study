@@ -4,52 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6f45bd5-7904-4afb-9318-4294236b3f43" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-adv1.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/CheckedExceptionMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/ThreadInfoMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/ThreadStateMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/interrupt/ThreadStopMainV1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/interrupt/ThreadStopMainV2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/interrupt/ThreadStopMainV3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/interrupt/ThreadStopMainV4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV0.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/join/JoinMainV4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/printer/MyPrinterV1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/printer/MyPrinterV2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/printer/MyPrinterV3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/test/JoinTest1Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/control/test/JoinTest2Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/BadThreadMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/DaemonThreadMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/HelloRunnable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/HelloRunnableMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/HelloThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/HelloThreadMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/InnerRunnableMainV1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/InnerRunnableMainV2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/InnerRunnableMainV3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/InnerRunnableMainV4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/ManyThreadMainV1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/ManyThreadMainV2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/test/StartTest1Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/test/StartTest2Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/test/StartTest3Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/thread/start/test/StartTest4Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/MyLogger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/MyLoggerMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/ThreadUtils.java" afterDir="false" />
-    </list>
+    <list default="true" id="e6f45bd5-7904-4afb-9318-4294236b3f43" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,7 +19,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -83,11 +38,12 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/imchaewon/git/study/java-adv1&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -100,13 +56,13 @@
       <recent name="thread.start.test" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.MyPrinterV3">
-    <configuration name="MyPrinterV1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.control.printer.MyPrinterV1" />
+  <component name="RunManager" selected="애플리케이션.VolatileCountMain (4)">
+    <configuration name="VolatileCountMain (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.volatile_.VolatileCountMain" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.control.printer.*" />
+          <option name="PATTERN" value="thread.volatile_.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -114,12 +70,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyPrinterV2 (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.control.printer.MyPrinterV2" />
+    <configuration name="VolatileCountMain (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.volatile_.VolatileCountMain" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.control.printer.*" />
+          <option name="PATTERN" value="thread.volatile_.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -127,12 +83,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyPrinterV2 (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.control.printer.MyPrinterV2" />
+    <configuration name="VolatileCountMain (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.volatile_.VolatileCountMain" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.control.printer.*" />
+          <option name="PATTERN" value="thread.volatile_.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -140,12 +96,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyPrinterV2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.control.printer.MyPrinterV2" />
+    <configuration name="VolatileCountMain (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.volatile_.VolatileCountMain" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.control.printer.*" />
+          <option name="PATTERN" value="thread.volatile_.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -153,12 +109,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyPrinterV3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.control.printer.MyPrinterV3" />
+    <configuration name="VolatileCountMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.volatile_.VolatileCountMain" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.control.printer.*" />
+          <option name="PATTERN" value="thread.volatile_.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -168,11 +124,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="애플리케이션.MyPrinterV3" />
-        <item itemvalue="애플리케이션.MyPrinterV2 (2)" />
-        <item itemvalue="애플리케이션.MyPrinterV2 (1)" />
-        <item itemvalue="애플리케이션.MyPrinterV2" />
-        <item itemvalue="애플리케이션.MyPrinterV1" />
+        <item itemvalue="애플리케이션.VolatileCountMain (4)" />
+        <item itemvalue="애플리케이션.VolatileCountMain (3)" />
+        <item itemvalue="애플리케이션.VolatileCountMain (2)" />
+        <item itemvalue="애플리케이션.VolatileCountMain (1)" />
+        <item itemvalue="애플리케이션.VolatileCountMain" />
       </list>
     </recent_temporary>
   </component>
@@ -185,6 +141,8 @@
       <option name="presentableId" value="Default" />
       <updated>1721578238937</updated>
       <workItem from="1721578240455" duration="41197000" />
+      <workItem from="1722388217145" duration="175000" />
+      <workItem from="1722388429615" duration="11345000" />
     </task>
     <servers />
   </component>

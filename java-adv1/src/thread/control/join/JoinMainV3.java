@@ -6,8 +6,8 @@ import static util.ThreadUtils.sleep;
 public class JoinMainV3 {
     public static void main(String[] args) throws InterruptedException {
         log("start");
-        SomeTask task1 = new SomeTask(1, 50);
-        SomeTask task2 = new SomeTask(51, 100);
+        SumTask task1 = new SumTask(1, 50);
+        SumTask task2 = new SumTask(51, 100);
         Thread thread1 = new Thread(task1, "thread1");
         Thread thread2 = new Thread(task2, "thread2");
 
@@ -29,12 +29,12 @@ public class JoinMainV3 {
         log("end");
     }
 
-    static class SomeTask implements Runnable {
+    static class SumTask implements Runnable {
         int startValue;
         int endValue;
         int result;
 
-        public SomeTask(int startValue, int endValue) {
+        public SumTask(int startValue, int endValue) {
             this.startValue = startValue;
             this.endValue = endValue;
         }
