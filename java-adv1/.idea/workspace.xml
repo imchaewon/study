@@ -32,40 +32,40 @@
     <option name="autoscrollFromSource" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/imchaewon/git/study/java-adv1",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "프로젝트",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/imchaewon/git/study/java-adv1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;프로젝트&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="thread.sync.lock" />
+      <recent name="thread.sync.test" />
       <recent name="thread.sync" />
       <recent name="thread.control.printer" />
       <recent name="thread.control.interrupt" />
-      <recent name="thread.control.test" />
-      <recent name="thread.control.join" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.BankMain">
-    <configuration name="BankMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.sync.BankMain" />
+  <component name="RunManager" selected="애플리케이션.LockSupportMainV2 (3)">
+    <configuration name="LockSupportMainV1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.sync.lock.LockSupportMainV1" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.sync.*" />
+          <option name="PATTERN" value="thread.sync.lock.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -73,12 +73,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VloatileFlagMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.volatile_.VloatileFlagMain" />
+    <configuration name="LockSupportMainV2 (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.sync.lock.LockSupportMainV2" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.volatile_.*" />
+          <option name="PATTERN" value="thread.sync.lock.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -86,12 +86,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VolatileCountMain (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.volatile_.VolatileCountMain" />
+    <configuration name="LockSupportMainV2 (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.sync.lock.LockSupportMainV2" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.volatile_.*" />
+          <option name="PATTERN" value="thread.sync.lock.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -99,12 +99,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VolatileCountMain (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.volatile_.VolatileCountMain" />
+    <configuration name="LockSupportMainV2 (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.sync.lock.LockSupportMainV2" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.volatile_.*" />
+          <option name="PATTERN" value="thread.sync.lock.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -112,12 +112,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VolatileCountMain (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="thread.volatile_.VolatileCountMain" />
+    <configuration name="LockSupportMainV2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thread.sync.lock.LockSupportMainV2" />
       <module name="java-adv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="thread.volatile_.*" />
+          <option name="PATTERN" value="thread.sync.lock.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -127,11 +127,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="애플리케이션.BankMain" />
-        <item itemvalue="애플리케이션.VloatileFlagMain" />
-        <item itemvalue="애플리케이션.VolatileCountMain (4)" />
-        <item itemvalue="애플리케이션.VolatileCountMain (3)" />
-        <item itemvalue="애플리케이션.VolatileCountMain (2)" />
+        <item itemvalue="애플리케이션.LockSupportMainV2 (3)" />
+        <item itemvalue="애플리케이션.LockSupportMainV2 (2)" />
+        <item itemvalue="애플리케이션.LockSupportMainV2 (1)" />
+        <item itemvalue="애플리케이션.LockSupportMainV2" />
+        <item itemvalue="애플리케이션.LockSupportMainV1" />
       </list>
     </recent_temporary>
   </component>
@@ -146,6 +146,7 @@
       <workItem from="1721578240455" duration="41197000" />
       <workItem from="1722388217145" duration="175000" />
       <workItem from="1722388429615" duration="12737000" />
+      <workItem from="1722660166258" duration="9374000" />
     </task>
     <servers />
   </component>
