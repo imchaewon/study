@@ -5,23 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6f45bd5-7904-4afb-9318-4294236b3f43" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototype/Proto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototype/Runner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototype/Service1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototype/Service2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Proto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Runner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Service1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Service2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Runner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Service1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Service2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Single.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test-project/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test-project/buildSrc/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/buildSrc/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test-project/buildSrc/build/libs/buildSrc.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/buildSrc/build/libs/buildSrc.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test-project/main-module/out/production/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/out/production/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test-project/main-module/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Proto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndProxy/Proto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndProxy/Runner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Service1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndProxy/Service1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Service2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndProxy/Service2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Single.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Single.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
