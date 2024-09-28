@@ -5,19 +5,18 @@ local-psql-ip : 127.0.0.1
 spring:
   example:
     datasource:
-  #    driver-class-name: org.mariadb.jdbc.Driver
+#      driver-class-name: org.mariadb.jdbc.Driver
       driverClassName: com.mysql.cj.jdbc.Driver
+#      url: jdbc:mysql://${local-psql-ip}:3306/test?serverTimezone=Asia/Seoul
       jdbcUrl: jdbc:mysql://${local-psql-ip}:3306/test?serverTimezone=Asia/Seoul
   #    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 
       username: root
       password: root1234
 
-  #    url: jdbc:mariadb://61.98.130.164:3306/KTO
-  #    url: jdbc:log4jdbc:mariadb://61.98.130.164:3306/KTO
-  #    username: front
-  #    password: front!@#$
-  #    jpa:
+    jpa:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
   #      show-sql: true
   #      database: mysql
   #    h2:

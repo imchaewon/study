@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6f45bd5-7904-4afb-9318-4294236b3f43" name="변경" comment="" />
+    <list default="true" id="e6f45bd5-7904-4afb-9318-4294236b3f43" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototype/Proto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototype/Runner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototype/Service1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototype/Service2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Proto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Runner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Service1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/prototypeAndSingleton/Service2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Runner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Service1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Service2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/java/com/example/spring/scope/singleton/Single.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/buildSrc/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/buildSrc/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/buildSrc/build/libs/buildSrc.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/buildSrc/build/libs/buildSrc.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/main-module/out/production/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/out/production/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test-project/main-module/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../test-project/main-module/src/main/resources/application.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,7 +77,7 @@
       <recent name="thread.control.interrupt" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.LockSupportMainV2 (3)">
+  <component name="RunManager" selected="애플리케이션.LockSupportMainV1">
     <configuration name="LockSupportMainV1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="thread.sync.lock.LockSupportMainV1" />
       <module name="java-adv1" />
@@ -125,15 +143,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="애플리케이션.LockSupportMainV2 (3)" />
-        <item itemvalue="애플리케이션.LockSupportMainV2 (2)" />
-        <item itemvalue="애플리케이션.LockSupportMainV2 (1)" />
-        <item itemvalue="애플리케이션.LockSupportMainV2" />
-        <item itemvalue="애플리케이션.LockSupportMainV1" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -146,7 +155,25 @@
       <workItem from="1721578240455" duration="41197000" />
       <workItem from="1722388217145" duration="175000" />
       <workItem from="1722388429615" duration="12737000" />
-      <workItem from="1722660166258" duration="9374000" />
+      <workItem from="1722660166258" duration="10056000" />
+      <workItem from="1722960126989" duration="835000" />
+      <workItem from="1723549427611" duration="2473000" />
+      <workItem from="1723807835514" duration="598000" />
+      <workItem from="1723871631957" duration="586000" />
+      <workItem from="1724253706360" duration="2996000" />
+      <workItem from="1724753079125" duration="1547000" />
+      <workItem from="1724779002323" duration="196000" />
+      <workItem from="1724779210746" duration="211000" />
+      <workItem from="1724779447161" duration="594000" />
+      <workItem from="1724854978173" duration="598000" />
+      <workItem from="1724856045877" duration="33000" />
+      <workItem from="1724856089828" duration="607000" />
+      <workItem from="1725725887333" duration="135000" />
+      <workItem from="1725726037405" duration="892000" />
+      <workItem from="1725772450374" duration="118000" />
+      <workItem from="1725774873101" duration="599000" />
+      <workItem from="1726641931166" duration="599000" />
+      <workItem from="1727185063389" duration="1801000" />
     </task>
     <servers />
   </component>
