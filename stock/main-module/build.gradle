@@ -18,4 +18,5 @@ tasks.named('test') {
 
 dependencies {
     implementation project(path: ':common-module')
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 }

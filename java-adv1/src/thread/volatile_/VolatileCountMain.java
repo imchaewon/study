@@ -18,7 +18,6 @@ public class VolatileCountMain {
     static class MyTask implements Runnable {
 //        boolean flag = true;
 //        long count;
-
         volatile boolean flag = true;
         volatile long count;
 
@@ -26,7 +25,7 @@ public class VolatileCountMain {
         public void run() {
             while (flag) {
                 count++;
-                if (count % 100_000_000 == 0) {
+                if (count % 100_000_000 == 0) { // 1억번에 1번씩 출력
                     log("flag = " + flag + ", " + "count = " + count + " in while()");
                 }
             }

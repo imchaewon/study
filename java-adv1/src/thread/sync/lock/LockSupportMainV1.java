@@ -13,9 +13,10 @@ public class LockSupportMainV1 {
         // 잠시 대기하여 Thread-1이 park 상태에 빠질 시간을 준다
         sleep(100);
         log("Thread-1 state: " + thread1.getState());
+
         log("main → unpark(Thread-1)");
         LockSupport.unpark(thread1); // 1. unpark 사용
-//        thread1.interrupt(); // 2. interrupt() 사용
+//         thread1.interrupt(); // 2. interrupt() 사용
     }
 
     static class ParkTest implements Runnable {

@@ -40,6 +40,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/test-project" />
+            <option value="$PROJECT_DIR$/test-project/buildSrc" />
+            <option value="$PROJECT_DIR$/test-project/common-module" />
+            <option value="$PROJECT_DIR$/test-project/main-module" />
           </set>
         </option>
       </GradleProjectSettings>
