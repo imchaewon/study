@@ -125,7 +125,7 @@ dependencies {
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
 
 
-//    // JPA
+    // JPA
 //    implementation 'javax.servlet:jstl:1.2'
 //    implementation 'org.aspectj:aspectjweaver:1.9.7'
 //    implementation 'org.projectlombok:lombok:1.18.22'
