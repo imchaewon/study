@@ -27,7 +27,9 @@ public class DBConfig {
 	@Bean(name = ProjectConst.DATASOURCE)
 	@ConfigurationProperties(prefix = ProjectConst.ApplicationConf.DATASOURCE)
 	public DataSource vistaDataSource() {
-		return DataSourceBuilder.create().build();
+		return DataSourceBuilder.create()
+				.type(com.zaxxer.hikari.HikariDataSource.class)
+				.build();
 	}
 
 	//JPA Settings Start

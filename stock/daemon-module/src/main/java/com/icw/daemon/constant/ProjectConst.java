@@ -1,11 +1,11 @@
 package com.icw.daemon.constant;
 
 public class ProjectConst {
-	public static final String DATASOURCE = " stockSource";
+	public static final String DATASOURCE = "stockSource";
 
 	public class JPA {
-		public static final String ENTITY_MANAGER_FACTORY_REF = " portalJpaEntityManagerFactory";
-		public static final String TRANSACTION_MANAGER_REF = " portalTransactionManager";
+		public static final String ENTITY_MANAGER_FACTORY_REF = "portalJpaEntityManagerFactory";
+		public static final String TRANSACTION_MANAGER_REF = "portalTransactionManager";
 	}
 
 	public class EnvPath {
