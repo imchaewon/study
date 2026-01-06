@@ -1,8 +1,8 @@
-package com.example.java_._codingTest.beakjoon.s1;
+package com.example.java_._codingTest.beakjoon;
 
 import java.util.Scanner;
 
-public class Main {
+public class S1 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
