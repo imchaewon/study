@@ -1,0 +1,34 @@
+#local-psql-ip: 10.10.10.237
+local-psql-ip: 127.0.0.1
+
+spring:
+  stock:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://${local-psql-ip}:3306/stock?serverTimezone=Asia/Seoul
+      username: root
+      password: root1234
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+server:
+  port: 8080
+
+appkey: test-key
+appsecret: test-secret
+
+jasypt:
+  encryptor:
+    password: test-password
+
+logging:
+  level:
+    root: info
+

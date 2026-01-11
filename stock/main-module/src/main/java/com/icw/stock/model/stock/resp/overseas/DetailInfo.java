@@ -8,6 +8,7 @@ import lombok.Getter;
 public class DetailInfo {
 	String code;
 	Double base;
+	Double last;
 	Double l52p;
 	Double h52p;
 	Long pvol;

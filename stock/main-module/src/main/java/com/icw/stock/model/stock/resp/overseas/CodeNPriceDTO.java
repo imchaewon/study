@@ -8,4 +8,6 @@ import lombok.Getter;
 public class CodeNPriceDTO {
 	String code;
 	Double price;
+	Long tvol;
+	Double nrec;
 }

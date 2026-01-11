@@ -1,5 +1,5 @@
-#local-psql-ip : 10.10.10.237
-local-psql-ip : 127.0.0.1
+#local-psql-ip: 10.10.10.237
+local-psql-ip: 127.0.0.1
 
 spring:
   stock:

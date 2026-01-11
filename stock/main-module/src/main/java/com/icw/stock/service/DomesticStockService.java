@@ -110,7 +110,7 @@ public class DomesticStockService implements StockFormatterService {
 				DomesticPriceByPeriodAPIReqDTO responseBody = response.getBody();
 				boolean output2IsNull = responseBody == null || responseBody.getOutput2().isEmpty();
 				DomesticPriceByPeriodAPIReqDTO.Output2DTO firstValue = output2IsNull ? null : responseBody.getOutput2().get(0);
-				boolean stckClprIsNull = output2IsNull || firstValue.getStck_clpr() == null;
+				boolean stckClprIsNull = output2IsNull || firstValue == null || firstValue.getStck_clpr() == null;
 				if(stckClprIsNull)
 					failCnt.getAndIncrement();
 				return new CodeNPriceDTO(stockCode, output2IsNull ? null :

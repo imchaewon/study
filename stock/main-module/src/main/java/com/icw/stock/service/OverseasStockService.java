@@ -94,7 +94,10 @@ public class OverseasStockService implements StockFormatterService {
 				boolean isNull = responseBody == null || responseBody.getOutput2().isEmpty();
 				if (!isNull)
 					output2DTO = responseBody.getOutput2().get(0);
-				return new CodeNPriceDTO(stockCode.getSymb(), isNull ? null : Double.parseDouble(output2DTO.getClos()));
+				Double price = isNull ? null : Double.parseDouble(output2DTO.getClos());
+				Long tvol = isNull ? null : (output2DTO.getTvol() == null || output2DTO.getTvol().isEmpty()) ? null : Long.parseLong(output2DTO.getTvol());
+				Double nrec = (responseBody == null || responseBody.getOutput1() == null || responseBody.getOutput1().getNrec() == null || responseBody.getOutput1().getNrec().isEmpty()) ? null : Double.parseDouble(responseBody.getOutput1().getNrec());
+				return new CodeNPriceDTO(stockCode.getSymb(), price, tvol, nrec);
 			} else {
 				log.error("API 요청에 실패하였습니다. 응답 코드: " + response.getStatusCodeValue());
 			}
@@ -121,20 +124,57 @@ public class OverseasStockService implements StockFormatterService {
 					.queryParam("EXCD", stockCode.getExcd())
 					.queryParam("SYMB", stockCode.getSymb());
 
-			// HTTP GET 요청 보내기
-			ResponseEntity<OverseasCurrentPriceAPIReqDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, OverseasCurrentPriceAPIReqDTO.class);
-			waiting(30);
+			// 요청 전 지연 (초당 5개 요청으로 제한)
+			waiting(5);
+
+			// 재시도 로직
+			int maxRetries = 3;
+			int retryCount = 0;
+			ResponseEntity<OverseasCurrentPriceAPIReqDTO> response = null;
+			
+			while (retryCount < maxRetries) {
+				try {
+					// HTTP GET 요청 보내기
+					response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, OverseasCurrentPriceAPIReqDTO.class);
+					
+					// Rate limit 오류 체크
+					if (response.getStatusCode().is2xxSuccessful()) {
+						OverseasCurrentPriceAPIReqDTO responseBody = response.getBody();
+						if (responseBody != null && "1".equals(responseBody.getRt_cd())) {
+							String msg1 = responseBody.getMsg1();
+							if (msg1 != null && msg1.contains("초당 거래건수를 초과")) {
+								retryCount++;
+								if (retryCount < maxRetries) {
+									log.warn("Rate limit 오류 발생. {}초 대기 후 재시도 ({}/{})", retryCount * 2, retryCount, maxRetries);
+									waitingSeconds(retryCount * 2); // 재시도할수록 더 길게 대기
+									continue;
+								}
+							}
+						}
+					}
+					break; // 성공하거나 다른 오류인 경우 루프 종료
+				} catch (Exception e) {
+					retryCount++;
+					if (retryCount < maxRetries) {
+						log.warn("API 요청 중 오류 발생. {}초 대기 후 재시도 ({}/{}): {}", retryCount * 2, retryCount, maxRetries, e.getMessage());
+						waitingSeconds(retryCount * 2);
+					} else {
+						log.error("API 요청 최종 실패: {}", e.getMessage());
+					}
+				}
+			}
 
 			// 응답 코드 확인
-			if (response.getStatusCode().is2xxSuccessful()) {
+			if (response != null && response.getStatusCode().is2xxSuccessful()) {
 				// 응답 데이터 출력
 				OverseasCurrentPriceAPIReqDTO responseBody = response.getBody();
 				DetailInfo.DetailInfoBuilder detailInfoDTOBuilder = DetailInfo.builder()
 						.code(stockCode.getSymb());
-				if (responseBody != null) {
+				if (responseBody != null && "0".equals(responseBody.getRt_cd())) {
 					String h52p = responseBody.getOutput().getH52p();
 					String l52p = responseBody.getOutput().getL52p();
 					String base = responseBody.getOutput().getBase();
+					String last = responseBody.getOutput().getLast();
 					String pvol = responseBody.getOutput().getPvol();
 					String tvol = responseBody.getOutput().getTvol();
 					String tamt = responseBody.getOutput().getTamt();
@@ -156,10 +196,14 @@ public class OverseasStockService implements StockFormatterService {
 						detailInfoDTOBuilder.e_icod(e_icod);
 					if (!"".equals(ordyn))
 						detailInfoDTOBuilder.ordyn(ordyn);
+				} else if (responseBody != null) {
+					log.warn("API 응답 오류: rt_cd={}, msg1={}", responseBody.getRt_cd(), responseBody.getMsg1());
 				}
 				return detailInfoDTOBuilder.build();
 			} else {
-				log.error("API 요청에 실패하였습니다. 응답 코드: " + response.getStatusCodeValue());
+				if (response != null) {
+					log.error("API 요청에 실패하였습니다. 응답 코드: {}", response.getStatusCodeValue());
+				}
 			}
 			return null;
 		}).toList();
@@ -185,6 +229,16 @@ public class OverseasStockService implements StockFormatterService {
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			System.err.println("InterruptedException occurred: " + e.getMessage());
+		}
+	}
+
+	private void waitingSeconds(int seconds) {
+		// 지정된 초만큼 대기
+		try {
+			Thread.sleep(seconds * 1000L);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			log.error("InterruptedException occurred: {}", e.getMessage());
 		}
 	}
 }
