@@ -8,6 +8,9 @@ import java.util.List;
 public class OverseasPriceByPeriodAPIReqDTO {
 	Output1DTO output1;
 	List<Output2DTO> output2;
+	private String rt_cd;
+	private String msg_cd;
+	private String msg1;
 
 	@Data
 	public static class Output1DTO {
