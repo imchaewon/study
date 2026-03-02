@@ -393,7 +393,13 @@ public class OverseasStockService implements StockFormatterService {
 				ExcdAndSymbDTO stockCode = reqDTO.get(i);
 				failedStocks.add(String.format("%s/%s", stockCode.getExcd(), stockCode.getSymb()));
 			}
-			log.error("[최종 실패] {}개의 요청이 실패했습니다. 실패한 종목: {}", failedIndices.size(), String.join(", ", failedStocks));
+			String failedStockMessage = String.join(", ", failedStocks);
+			log.error("[최종 실패] {}개의 요청이 실패했습니다. 실패한 종목: {}", failedIndices.size(), failedStockMessage);
+			throw new IllegalStateException(String.format(
+					"해외주식 현재가 수집 실패 - 실패 건수: %d, 실패 종목: %s",
+					failedIndices.size(),
+					failedStockMessage
+			));
 		} else {
 			log.info("[성공] 모든 {}개의 요청이 성공했습니다.", reqDTO.size());
 		}

@@ -343,6 +343,7 @@ public class OverseasStockScheduler {
 			
 		} catch (Exception e) {
 			log.error("해외주식 데이터 수집 중 오류 발생", e);
+			throw new IllegalStateException("해외주식 데이터 수집 실패", e);
 		}
 	}
 
