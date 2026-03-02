@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DBConfig {
 	@Primary
-	@Bean(name = ProjectConst.DATASOURCE)
+	@Bean(name = {ProjectConst.DATASOURCE, "dataSource"})
 	@ConfigurationProperties(prefix = ProjectConst.ApplicationConf.DATASOURCE)
 	public DataSource vistaDataSource() {
 		return DataSourceBuilder.create()
@@ -43,7 +43,7 @@ public class DBConfig {
 	}
 
 	@Primary
-	@Bean(name = ProjectConst.JPA.TRANSACTION_MANAGER_REF)
+	@Bean(name = {ProjectConst.JPA.TRANSACTION_MANAGER_REF, "transactionManager"})
 	public JpaTransactionManager transactionManager(
 			@Qualifier(ProjectConst.JPA.ENTITY_MANAGER_FACTORY_REF) LocalContainerEntityManagerFactoryBean mfBean
 	) {

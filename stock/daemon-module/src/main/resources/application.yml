@@ -21,6 +21,12 @@ spring:
       host: localhost
       port: 6379
 
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+
 server:
   port: 8081
 
