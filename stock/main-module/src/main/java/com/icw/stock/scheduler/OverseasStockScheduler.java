@@ -347,6 +347,10 @@ public class OverseasStockScheduler {
 		}
 	}
 
+	public List<ExcdAndSymbDTO> getSortedTickers() {
+		return parseAndSortTickers();
+	}
+
 	private List<ExcdAndSymbDTO> parseAndSortTickers() {
 		List<ExcdAndSymbDTO> tickers = new ArrayList<>();
 		
