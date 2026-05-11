@@ -6,6 +6,7 @@ import type {
 	ColGroupDef,
 	ValueFormatterParams,
 } from "ag-grid-community";
+import { MarketRegimePanel } from "./MarketRegimePanel";
 
 const PRESET_DAYS = [1, 5, 20, 60];
 const PRESET_WEEKS = [1, 4, 13, 26, 52];
@@ -60,23 +61,62 @@ const pctCellClass = (params: CellClassParams) => {
 	return "";
 };
 
+const bullScoreCellClass = (params: CellClassParams) => {
+	const v = params.value;
+	if (typeof v !== "number") return "";
+	if (v >= 85) return "bg-green-200 text-green-900 font-bold";
+	if (v >= 70) return "bg-green-100 text-green-800 font-semibold";
+	if (v >= 50) return "text-gray-700";
+	if (v >= 30) return "text-blue-700";
+	return "text-blue-900 font-medium";
+};
+
+const fSignalCellClass = (params: CellClassParams) => {
+	return params.value === true ? "bg-yellow-200 text-yellow-900 font-bold text-center" : "text-gray-300 text-center";
+};
+
+const fmtSignal = (params: ValueFormatterParams) => (params.value === true ? "⭐" : "·");
+const fmtArranged = (params: ValueFormatterParams) => (params.value === true ? "정배열" : params.value === false ? "—" : "");
+
 function buildColumnDefs(
 	daysWindows: number[],
 	weeksWindows: number[],
 ): (ColDef | ColGroupDef)[] {
 	const baseColumns: ColDef[] = [
 		{ field: "code", headerName: "종목", pinned: "left", width: 100 },
+		{
+			field: "bullScore",
+			headerName: "Bull Score",
+			pinned: "left",
+			type: "numericColumn",
+			valueFormatter: fmtFixed2,
+			cellClass: bullScoreCellClass,
+			width: 110,
+			sort: "desc",
+		},
+		{
+			field: "fSignal",
+			headerName: "⭐ F시그널",
+			pinned: "left",
+			valueFormatter: fmtSignal,
+			cellClass: fSignalCellClass,
+			width: 100,
+			filter: true,
+		},
 		{ field: "eIcod", headerName: "업종", width: 200 },
 		{ field: "base", headerName: "현재가", type: "numericColumn", valueFormatter: fmtNum, width: 110 },
 		{ field: "pvol", headerName: "거래량", type: "numericColumn", valueFormatter: fmtNum, width: 130 },
 		{
 			field: "neglectIndex",
-			headerName: "소외지수",
+			headerName: "NI (소외지수)",
 			type: "numericColumn",
 			valueFormatter: fmtFixed2,
-			width: 110,
+			width: 120,
 			cellClass: "font-medium",
 		},
+		{ field: "rsi", headerName: "RSI(14)", type: "numericColumn", valueFormatter: fmtFixed2, width: 100 },
+		{ field: "sma200", headerName: "SMA200", type: "numericColumn", valueFormatter: fmtFixed2, width: 110 },
+		{ field: "arranged", headerName: "정배열", valueFormatter: fmtArranged, width: 90 },
 	];
 
 	const buildPctCols = (
@@ -285,6 +325,8 @@ export default function App() {
 			{error && (
 				<div className="px-4 py-2 bg-red-100 text-red-700 text-sm">에러: {error}</div>
 			)}
+
+			<MarketRegimePanel baseDate={baseDate} />
 
 			<div className="flex-1 ag-theme-quartz">
 				<AgGridReact<AnalysisRow>

@@ -19,8 +19,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OverseasAnalysisService {
 
-	// 미국 시장 1주 = 5영업일 가정
 	private static final int BUSINESS_DAYS_PER_WEEK = 5;
+	// SMA200 + 약간의 여유를 확보해야 정상적인 정배열/SMA200 비교가 가능
+	private static final int MIN_LOOKBACK_FOR_INDICATORS = 220;
+	private static final int RSI_PERIOD = 14;
 
 	private final OverseasStockSnapshotRepository repository;
 
@@ -32,9 +34,9 @@ public class OverseasAnalysisService {
 		int maxWeekOffset = safeWeeks.stream().mapToInt(w -> w * BUSINESS_DAYS_PER_WEEK).max().orElse(0);
 		int maxOffset = Math.max(maxDayOffset, maxWeekOffset);
 
-		// 영업일 maxOffset → 주말/공휴일 포함 달력일은 약 1.5배 + 30일 여유
+		int requiredLookback = Math.max(maxOffset, MIN_LOOKBACK_FOR_INDICATORS);
 		LocalDate base = LocalDate.parse(baseDate, DateTimeFormatter.BASIC_ISO_DATE);
-		LocalDate from = base.minusDays((long) Math.ceil(maxOffset * 1.5) + 30);
+		LocalDate from = base.minusDays((long) Math.ceil(requiredLookback * 1.5) + 30);
 		String fromStr = from.format(DateTimeFormatter.BASIC_ISO_DATE);
 
 		List<OverseasStockSnapshot> all = repository.findByBaseDateBetween(fromStr, baseDate);
@@ -44,14 +46,36 @@ public class OverseasAnalysisService {
 
 		List<Map<String, Object>> rows = new ArrayList<>();
 		for (Map.Entry<String, List<OverseasStockSnapshot>> entry : byCode.entrySet()) {
-			List<OverseasStockSnapshot> series = entry.getValue();
-			series.sort(Comparator.comparing(OverseasStockSnapshot::getBaseDate).reversed());
+			List<OverseasStockSnapshot> seriesAsc = entry.getValue();
+			seriesAsc.sort(Comparator.comparing(OverseasStockSnapshot::getBaseDate));
 
-			if (series.isEmpty() || !baseDate.equals(series.get(0).getBaseDate())) {
-				continue; // baseDate 데이터가 없는 종목은 스킵
+			if (seriesAsc.isEmpty() || !baseDate.equals(seriesAsc.get(seriesAsc.size() - 1).getBaseDate())) {
+				continue;
 			}
 
-			OverseasStockSnapshot current = series.get(0);
+			// baseDate 시점 인덱스(=마지막)
+			int t = seriesAsc.size() - 1;
+
+			// RSI, SMA 계산
+			Double rsi = computeRsi(seriesAsc, t, RSI_PERIOD);
+			Double sma20 = computeSma(seriesAsc, t, 20);
+			Double sma50 = computeSma(seriesAsc, t, 50);
+			Double sma200 = computeSma(seriesAsc, t, 200);
+
+			OverseasStockSnapshot current = seriesAsc.get(t);
+			// desc 정렬한 사본 (윈도우 오프셋 조회용)
+			List<OverseasStockSnapshot> seriesDesc = new ArrayList<>(seriesAsc);
+			seriesDesc.sort(Comparator.comparing(OverseasStockSnapshot::getBaseDate).reversed());
+
+			boolean arranged = (sma20 != null && sma50 != null && sma200 != null
+					&& sma20 > sma50 && sma50 > sma200);
+			boolean inverted = (sma20 != null && sma50 != null && sma200 != null
+					&& sma20 < sma50 && sma50 < sma200);
+
+			Double bullScore = computeBullScore(current.getNeglectIndex(), rsi, arranged, inverted);
+			boolean fSignal = (current.getNeglectIndex() != null && current.getNeglectIndex() >= 75
+					&& rsi != null && rsi > 70 && arranged);
+
 			Map<String, Object> row = new LinkedHashMap<>();
 			row.put("code", current.getCode());
 			row.put("eIcod", current.getEIcod());
@@ -63,12 +87,20 @@ public class OverseasAnalysisService {
 			row.put("tamt", current.getTamt());
 			row.put("ordyn", current.getOrdyn());
 			row.put("neglectIndex", current.getNeglectIndex());
+			row.put("rsi", rsi);
+			row.put("sma20", sma20);
+			row.put("sma50", sma50);
+			row.put("sma200", sma200);
+			row.put("arranged", arranged);
+			row.put("inverted", inverted);
+			row.put("bullScore", bullScore);
+			row.put("fSignal", fSignal);
 
 			for (int n : safeDays) {
-				addOffsetMetrics(row, series, current, n, n + "d");
+				addOffsetMetrics(row, seriesDesc, current, n, n + "d");
 			}
 			for (int w : safeWeeks) {
-				addOffsetMetrics(row, series, current, w * BUSINESS_DAYS_PER_WEEK, w + "w");
+				addOffsetMetrics(row, seriesDesc, current, w * BUSINESS_DAYS_PER_WEEK, w + "w");
 			}
 
 			rows.add(row);
@@ -77,6 +109,53 @@ public class OverseasAnalysisService {
 		rows.sort(Comparator.comparing(r -> (String) r.get("code")));
 
 		return new AnalysisResponse(baseDate, safeDays, safeWeeks, rows);
+	}
+
+	private Double computeBullScore(Double ni, Double rsi, boolean arranged, boolean inverted) {
+		if (ni == null || rsi == null) return null;
+		double arrangedScore = arranged ? 100.0 : (inverted ? 0.0 : 50.0);
+		return (ni + rsi + arrangedScore) / 3.0;
+	}
+
+	/**
+	 * Wilder RSI. baseIdx 시점 기준. 데이터 부족 시 null.
+	 */
+	private Double computeRsi(List<OverseasStockSnapshot> seriesAsc, int baseIdx, int period) {
+		if (baseIdx < period) return null;
+		double avgGain = 0, avgLoss = 0;
+		// 초기 평균 (단순평균)
+		for (int i = baseIdx - period + 1; i <= baseIdx - period + period; i++) {
+			Double prev = seriesAsc.get(i - 1).getBase();
+			Double cur = seriesAsc.get(i).getBase();
+			if (prev == null || cur == null) return null;
+			double diff = cur - prev;
+			avgGain += Math.max(diff, 0);
+			avgLoss += Math.max(-diff, 0);
+		}
+		avgGain /= period;
+		avgLoss /= period;
+		// Wilder smoothing — 초기 윈도우 이후 시점이 더 있으면 진행
+		// 위 루프가 i = baseIdx-period+1 .. baseIdx 까지였으므로 baseIdx 시점 RSI = 위 평균값 기준
+		// (즉 마지막 윈도우 = baseDate를 끝점으로 14일치)
+		if (avgLoss == 0) return 100.0;
+		double rs = avgGain / avgLoss;
+		return 100.0 - 100.0 / (1.0 + rs);
+	}
+
+	/**
+	 * SMA(period) at baseIdx — 직전 period 영업일 평균 (baseIdx 포함).
+	 */
+	private Double computeSma(List<OverseasStockSnapshot> seriesAsc, int baseIdx, int period) {
+		if (baseIdx + 1 < period) return null;
+		double sum = 0;
+		int count = 0;
+		for (int i = baseIdx - period + 1; i <= baseIdx; i++) {
+			Double v = seriesAsc.get(i).getBase();
+			if (v == null) return null;
+			sum += v;
+			count++;
+		}
+		return count > 0 ? sum / count : null;
 	}
 
 	private void addOffsetMetrics(
