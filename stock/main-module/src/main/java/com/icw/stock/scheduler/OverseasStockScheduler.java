@@ -352,7 +352,7 @@ public class OverseasStockScheduler {
 		return parseAndSortTickers();
 	}
 
-	private List<ExcdAndSymbDTO> parseAndSortTickers() {
+	public List<ExcdAndSymbDTO> parseAndSortTickers() {
 		List<ExcdAndSymbDTO> tickers = new ArrayList<>();
 		
 		String[] lines = TICKER_LIST.split("\n");

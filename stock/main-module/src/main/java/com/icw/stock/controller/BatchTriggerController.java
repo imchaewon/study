@@ -1,6 +1,7 @@
 package com.icw.stock.controller;
 
 import com.icw.stock.batch.OverseasStockBatchConfig;
+import com.icw.stock.service.backfill.OverseasStockBackfillService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -24,13 +25,16 @@ public class BatchTriggerController {
 
 	private final JobLauncher jobLauncher;
 	private final Job overseasStockJob;
+	private final OverseasStockBackfillService backfillService;
 
 	public BatchTriggerController(
 			JobLauncher jobLauncher,
-			@Qualifier(OverseasStockBatchConfig.JOB_NAME) Job overseasStockJob
+			@Qualifier(OverseasStockBatchConfig.JOB_NAME) Job overseasStockJob,
+			OverseasStockBackfillService backfillService
 	) {
 		this.jobLauncher = jobLauncher;
 		this.overseasStockJob = overseasStockJob;
+		this.backfillService = backfillService;
 	}
 
 	@PostMapping("/overseas-stock/run")
@@ -48,5 +52,17 @@ public class BatchTriggerController {
 			log.error("overseasStockJob 수동 실행 실패 bizDate={}", resolvedBizDate, e);
 			return ResponseEntity.internalServerError().body("failed: " + e.getMessage());
 		}
+	}
+
+	@PostMapping("/overseas-stock/backfill")
+	public ResponseEntity<String> runOverseasBackfill(
+			@RequestParam String startDate,
+			@RequestParam String endDate
+	) {
+		if (startDate.compareTo(endDate) > 0) {
+			return ResponseEntity.ok("invalid: startDate must be <= endDate");
+		}
+		backfillService.backfillAsync(startDate, endDate);
+		return ResponseEntity.ok("started startDate=" + startDate + " endDate=" + endDate + " (진행은 로그 확인)");
 	}
 }

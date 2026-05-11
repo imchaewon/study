@@ -25,4 +25,7 @@ public interface OverseasStockSnapshotRepository extends JpaRepository<OverseasS
 			@Param("fromDate") String fromDate,
 			@Param("toDate") String toDate
 	);
+
+	@Query("SELECT o.baseDate FROM OverseasStockSnapshot o WHERE o.code = :code")
+	List<String> findBaseDatesByCode(@Param("code") String code);
 }

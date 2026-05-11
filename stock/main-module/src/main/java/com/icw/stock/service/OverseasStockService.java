@@ -32,6 +32,42 @@ public class OverseasStockService implements StockFormatterService {
 		return retrieveFromExternalAPI(reqDTO, reqDate);
 	}
 
+	/**
+	 * KIS dailyprice API를 호출해 BYMD 기준 일별 시세 시계열 전체(output2)를 반환.
+	 * 백필용. 호출 측에서 rate limit 제어/retry 처리.
+	 */
+	public List<OverseasPriceByPeriodAPIReqDTO.Output2DTO> fetchDailyPriceRange(ExcdAndSymbDTO ticker, String bymd) {
+		tokenService.storeTokenInRedisAndTryCatch();
+
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = createHttpHeaders();
+		headers.set("tr_id", "HHDFS76240000");
+		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+		UriComponentsBuilder builder = UriComponentsBuilder
+				.fromHttpUrl("https://openapi.koreainvestment.com:9443/uapi/overseas-price/v1/quotations/dailyprice")
+				.queryParam("AUTH", "")
+				.queryParam("EXCD", ticker.getExcd())
+				.queryParam("SYMB", ticker.getSymb())
+				.queryParam("GUBN", "0")
+				.queryParam("BYMD", bymd)
+				.queryParam("MODP", "1");
+
+		ResponseEntity<OverseasPriceByPeriodAPIReqDTO> response = restTemplate.exchange(
+				builder.toUriString(), HttpMethod.GET, requestEntity, OverseasPriceByPeriodAPIReqDTO.class);
+
+		if (!response.getStatusCode().is2xxSuccessful()) {
+			throw new IllegalStateException("KIS HTTP " + response.getStatusCode().value());
+		}
+		OverseasPriceByPeriodAPIReqDTO body = response.getBody();
+		if (body == null || !"0".equals(body.getRt_cd())) {
+			String rtCd = body == null ? "null" : body.getRt_cd();
+			String msg = body == null ? "null" : body.getMsg1();
+			throw new IllegalStateException("KIS API error: rt_cd=" + rtCd + ", msg=" + msg);
+		}
+		return body.getOutput2() == null ? List.of() : body.getOutput2();
+	}
+
 	public List<DetailInfo> changeToDTOAndFetchCurrentPrice(String reqTxt) {
 		OverseasReqDTO domesticReqDTO = changeToDTO(reqTxt);
 		return fetchCurrentPrice(domesticReqDTO.getExcdAndSymbs());
