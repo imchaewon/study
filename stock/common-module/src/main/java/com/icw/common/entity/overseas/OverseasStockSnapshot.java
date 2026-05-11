@@ -45,4 +45,7 @@ public class OverseasStockSnapshot {
 
 	@Column(name = "ordyn", length = 50)
 	private String ordyn;
+
+	@Column(name = "neglect_index", insertable = false, updatable = false)
+	private Double neglectIndex;
 }

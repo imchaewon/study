@@ -27,10 +27,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.jboss.logging:jboss-logging:3.5.3.Final'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.0.0'
-    compileOnly 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
     implementation 'com.mysql:mysql-connector-j'
     implementation 'org.hibernate.common:hibernate-commons-annotations:6.0.6.Final'
-    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     annotationProcessor "com.fasterxml.jackson.core:jackson-core"
