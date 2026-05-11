@@ -1,26 +1,27 @@
 package com.icw.stock.scheduler;
 
+import com.icw.common.entity.overseas.OverseasStockSnapshot;
 import com.icw.stock.model.stock.req.overseas.ExcdAndSymbDTO;
 import com.icw.stock.model.stock.resp.overseas.DetailInfo;
+import com.icw.stock.repository.overseas.OverseasStockSnapshotRepository;
 import com.icw.stock.service.OverseasStockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
 @Component
 public class OverseasStockScheduler {
 	private final OverseasStockService overseasStockService;
+	private final OverseasStockSnapshotRepository overseasStockSnapshotRepository;
 
 	private static final String TICKER_LIST = """
 		NAS	TCOM
@@ -337,9 +338,9 @@ public class OverseasStockScheduler {
 			List<DetailInfo> results = overseasStockService.fetchCurrentPrice(tickerList);
 			log.info("API 호출 완료. {}개의 결과를 받았습니다.", results.size());
 			
-			// 결과를 txt 파일로 저장
-			String fileName = saveToFile(results);
-			log.info("데이터 저장 완료: {}", fileName);
+			// 결과를 DB에 저장
+			saveToDb(results);
+			log.info("데이터 DB 저장 완료. base_date: {}", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
 			
 		} catch (Exception e) {
 			log.error("해외주식 데이터 수집 중 오류 발생", e);
@@ -377,35 +378,28 @@ public class OverseasStockScheduler {
 		return tickers;
 	}
 
-	private String saveToFile(List<DetailInfo> results) throws IOException {
-		LocalDate today = LocalDate.now();
-		String dateStr = today.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-		String fileName = String.format("overseas_stock_%s.txt", dateStr);
-		
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-			// 헤더 작성
-			writer.write("Code\tBase\tL52P\tH52P\tPVol\tTAmt\tTVol\tE_Icod\tOrdyn");
-			writer.newLine();
-			
-			// 데이터 작성
-			for (DetailInfo info : results) {
-				if (info != null) {
-					writer.write(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
-							info.getCode() != null ? info.getCode() : "",
-							info.getBase() != null ? info.getBase() : "",
-							info.getL52p() != null ? info.getL52p() : "",
-							info.getH52p() != null ? info.getH52p() : "",
-							info.getPvol() != null ? info.getPvol() : "",
-							info.getTamt() != null ? info.getTamt() : "",
-							info.getTvol() != null ? info.getTvol() : "",
-							info.getE_icod() != null ? info.getE_icod() : "",
-							info.getOrdyn() != null ? info.getOrdyn() : ""
-					));
-					writer.newLine();
-				}
-			}
-		}
-		
-		return fileName;
+	private void saveToDb(List<DetailInfo> results) {
+		String baseDate = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
+		overseasStockSnapshotRepository.deleteByBaseDate(baseDate);
+		List<OverseasStockSnapshot> snapshots = results.stream()
+				.filter(info -> info != null)
+				.map(info -> toSnapshot(info, baseDate))
+				.collect(Collectors.toList());
+		overseasStockSnapshotRepository.saveAll(snapshots);
+	}
+
+	private OverseasStockSnapshot toSnapshot(DetailInfo info, String baseDate) {
+		return OverseasStockSnapshot.builder()
+				.baseDate(baseDate)
+				.code(info.getCode() != null ? info.getCode() : "")
+				.base(info.getBase())
+				.l52p(info.getL52p())
+				.h52p(info.getH52p())
+				.pvol(info.getPvol())
+				.tvol(info.getTvol())
+				.tamt(info.getTamt())
+				.eIcod(info.getE_icod())
+				.ordyn(info.getOrdyn())
+				.build();
 	}
 }
