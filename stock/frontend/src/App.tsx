@@ -19,14 +19,6 @@ type AnalysisResponse = {
 	rows: AnalysisRow[];
 };
 
-function todayBaseDate(): string {
-	const now = new Date();
-	const y = now.getFullYear();
-	const m = String(now.getMonth() + 1).padStart(2, "0");
-	const d = String(now.getDate()).padStart(2, "0");
-	return `${y}${m}${d}`;
-}
-
 function parseNList(input: string): number[] {
 	return input
 		.split(",")
@@ -71,7 +63,7 @@ const bullScoreCellClass = (params: CellClassParams) => {
 	return "text-blue-900 font-medium";
 };
 
-const fSignalCellClass = (params: CellClassParams) => {
+const tripleBullCellClass = (params: CellClassParams) => {
 	return params.value === true ? "bg-yellow-200 text-yellow-900 font-bold text-center" : "text-gray-300 text-center";
 };
 
@@ -95,12 +87,12 @@ function buildColumnDefs(
 			sort: "desc",
 		},
 		{
-			field: "fSignal",
-			headerName: "⭐ F시그널",
+			field: "tripleBullSignal",
+			headerName: "⭐ Triple Bull",
 			pinned: "left",
 			valueFormatter: fmtSignal,
-			cellClass: fSignalCellClass,
-			width: 100,
+			cellClass: tripleBullCellClass,
+			width: 120,
 			filter: true,
 		},
 		{ field: "eIcod", headerName: "업종", width: 200 },
@@ -169,7 +161,7 @@ function buildColumnDefs(
 }
 
 export default function App() {
-	const [baseDate, setBaseDate] = useState(todayBaseDate());
+	const [baseDate, setBaseDate] = useState("");
 	const [selectedDays, setSelectedDays] = useState<number[]>(PRESET_DAYS);
 	const [selectedWeeks, setSelectedWeeks] = useState<number[]>(PRESET_WEEKS);
 	const [customDays, setCustomDays] = useState("");
@@ -187,7 +179,7 @@ export default function App() {
 		const allWeeks = uniqueSorted([...selectedWeeks, ...parseNList(customWeeks)]);
 
 		const params = new URLSearchParams();
-		params.set("baseDate", baseDate);
+		if (baseDate.trim()) params.set("baseDate", baseDate.trim());
 		if (allDays.length) params.set("daysWindows", allDays.join(","));
 		if (allWeeks.length) params.set("weeksWindows", allWeeks.join(","));
 
@@ -196,6 +188,8 @@ export default function App() {
 			if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
 			const json: AnalysisResponse = await res.json();
 			setData(json);
+			// 서버가 결정한 baseDate를 입력칸에 반영 (비어 있던 경우)
+			if (!baseDate.trim() && json.baseDate) setBaseDate(json.baseDate);
 		} catch (e) {
 			setError(e instanceof Error ? e.message : String(e));
 		} finally {

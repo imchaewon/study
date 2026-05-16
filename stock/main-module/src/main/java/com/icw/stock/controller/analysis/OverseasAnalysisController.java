@@ -1,6 +1,7 @@
 package com.icw.stock.controller.analysis;
 
 import com.icw.stock.model.analysis.AnalysisResponse;
+import com.icw.stock.repository.overseas.OverseasStockSnapshotRepository;
 import com.icw.stock.service.analysis.OverseasAnalysisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ public class OverseasAnalysisController {
 	private static final ZoneId ZONE_ID = ZoneId.of("Asia/Seoul");
 
 	private final OverseasAnalysisService overseasAnalysisService;
+	private final OverseasStockSnapshotRepository repository;
 
 	@GetMapping
 	public ResponseEntity<AnalysisResponse> analyze(
@@ -29,9 +31,15 @@ public class OverseasAnalysisController {
 			@RequestParam(required = false) List<Integer> daysWindows,
 			@RequestParam(required = false) List<Integer> weeksWindows
 	) {
-		String resolvedBaseDate = (baseDate == null || baseDate.isBlank())
-				? LocalDate.now(ZONE_ID).format(DateTimeFormatter.BASIC_ISO_DATE)
-				: baseDate;
+		String resolvedBaseDate = resolveBaseDate(baseDate);
 		return ResponseEntity.ok(overseasAnalysisService.analyze(resolvedBaseDate, daysWindows, weeksWindows));
+	}
+
+	private String resolveBaseDate(String requested) {
+		if (requested != null && !requested.isBlank()) return requested;
+		String latest = repository.findLatestBaseDate();
+		return latest != null
+				? latest
+				: LocalDate.now(ZONE_ID).format(DateTimeFormatter.BASIC_ISO_DATE);
 	}
 }

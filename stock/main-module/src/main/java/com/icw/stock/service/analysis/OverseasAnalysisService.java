@@ -73,7 +73,8 @@ public class OverseasAnalysisService {
 					&& sma20 < sma50 && sma50 < sma200);
 
 			Double bullScore = computeBullScore(current.getNeglectIndex(), rsi, arranged, inverted);
-			boolean fSignal = (current.getNeglectIndex() != null && current.getNeglectIndex() >= 75
+			// Triple Bull: NI≥75 + RSI>70 + 정배열 모두 만족 (강세 추세에서 가장 강한 매수 후보)
+			boolean tripleBullSignal = (current.getNeglectIndex() != null && current.getNeglectIndex() >= 75
 					&& rsi != null && rsi > 70 && arranged);
 
 			Map<String, Object> row = new LinkedHashMap<>();
@@ -94,7 +95,7 @@ public class OverseasAnalysisService {
 			row.put("arranged", arranged);
 			row.put("inverted", inverted);
 			row.put("bullScore", bullScore);
-			row.put("fSignal", fSignal);
+			row.put("tripleBullSignal", tripleBullSignal);
 
 			for (int n : safeDays) {
 				addOffsetMetrics(row, seriesDesc, current, n, n + "d");

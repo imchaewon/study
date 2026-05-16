@@ -62,10 +62,14 @@ export function MarketRegimePanel({ baseDate }: { baseDate: string }) {
 	const [showHistory, setShowHistory] = useState(false);
 
 	useEffect(() => {
-		if (!/^\d{8}$/.test(baseDate)) return;
+		// baseDate가 비었으면 서버가 DB 최신 날짜로 채워줌. 유효한 YYYYMMDD거나 빈값일 때만 호출.
+		const trimmed = baseDate.trim();
+		if (trimmed && !/^\d{8}$/.test(trimmed)) return;
 		setLoading(true);
 		setError(null);
-		fetch(`/api/analysis/market-regime?baseDate=${baseDate}&historyDays=30`)
+		const params = new URLSearchParams({ historyDays: "30" });
+		if (trimmed) params.set("baseDate", trimmed);
+		fetch(`/api/analysis/market-regime?${params.toString()}`)
 			.then((r) => {
 				if (!r.ok) throw new Error(`${r.status}`);
 				return r.json();

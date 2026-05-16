@@ -1,6 +1,7 @@
 package com.icw.stock.controller.analysis;
 
 import com.icw.stock.model.analysis.MarketRegimeResponse;
+import com.icw.stock.repository.overseas.OverseasStockSnapshotRepository;
 import com.icw.stock.service.analysis.MarketRegimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,22 @@ public class MarketRegimeController {
 	private static final ZoneId ZONE_ID = ZoneId.of("Asia/Seoul");
 
 	private final MarketRegimeService marketRegimeService;
+	private final OverseasStockSnapshotRepository repository;
 
 	@GetMapping
 	public ResponseEntity<MarketRegimeResponse> analyze(
 			@RequestParam(required = false) String baseDate,
 			@RequestParam(required = false, defaultValue = "30") int historyDays
 	) {
-		String resolved = (baseDate == null || baseDate.isBlank())
-				? LocalDate.now(ZONE_ID).format(DateTimeFormatter.BASIC_ISO_DATE)
-				: baseDate;
+		String resolved = resolveBaseDate(baseDate);
 		return ResponseEntity.ok(marketRegimeService.analyze(resolved, historyDays));
+	}
+
+	private String resolveBaseDate(String requested) {
+		if (requested != null && !requested.isBlank()) return requested;
+		String latest = repository.findLatestBaseDate();
+		return latest != null
+				? latest
+				: LocalDate.now(ZONE_ID).format(DateTimeFormatter.BASIC_ISO_DATE);
 	}
 }
