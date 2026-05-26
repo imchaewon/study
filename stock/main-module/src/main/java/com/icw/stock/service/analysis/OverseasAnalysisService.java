@@ -52,6 +52,11 @@ public class OverseasAnalysisService {
 
 		List<Map<String, Object>> rows = new ArrayList<>();
 		for (Map.Entry<String, List<OverseasStockSnapshot>> entry : byCode.entrySet()) {
+			// 현재 universe에 없는 종목은 응답에서 제외 (시총 500위 밖이거나 과거에만 수집된 종목)
+			if (!rankByTicker.containsKey(entry.getKey())) {
+				continue;
+			}
+
 			List<OverseasStockSnapshot> seriesAsc = entry.getValue();
 			seriesAsc.sort(Comparator.comparing(OverseasStockSnapshot::getBaseDate));
 
