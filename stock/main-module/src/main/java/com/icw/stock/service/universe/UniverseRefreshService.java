@@ -1,7 +1,10 @@
 package com.icw.stock.service.universe;
 
 import com.icw.common.entity.overseas.NasdaqUniverse;
+import com.icw.stock.model.stock.req.overseas.ExcdAndSymbDTO;
+import com.icw.stock.model.stock.resp.overseas.DetailInfo;
 import com.icw.stock.repository.overseas.NasdaqUniverseRepository;
+import com.icw.stock.service.OverseasStockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -14,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * stockanalysis.com에서 NASDAQ 시총 상위 500을 스크래핑해 nasdaq_universe 테이블에 반영.
@@ -33,6 +38,7 @@ public class UniverseRefreshService {
 	private static final String DEFAULT_EXCHANGE = "NAS";
 
 	private final NasdaqUniverseRepository repository;
+	private final OverseasStockService overseasStockService;
 
 	@Transactional
 	public RefreshResult refresh() {
@@ -49,12 +55,51 @@ public class UniverseRefreshService {
 			return new RefreshResult(false, 0, "scraped 0 rows");
 		}
 
+		enrichWithIndustry(scraped);
+
 		// 단순 교체: 기존 전체 삭제 후 신규 insert.
 		// 500건 수준이라 부담 없음. truncate+insert 대신 deleteAll로 트랜잭션 보존.
 		repository.deleteAllInBatch();
 		repository.saveAll(scraped);
 		log.info("[UNIVERSE] 갱신 완료 size={}", scraped.size());
 		return new RefreshResult(true, scraped.size(), null);
+	}
+
+	/**
+	 * KIS price-detail API로 업종(e_icod)을 조회해 universe 엔티티에 채운다.
+	 * best-effort: 실패한 티커는 industry=null로 두고 성공한 부분만 채운다.
+	 */
+	private void enrichWithIndustry(List<NasdaqUniverse> scraped) {
+		List<ExcdAndSymbDTO> req = new ArrayList<>(scraped.size());
+		for (NasdaqUniverse u : scraped) {
+			req.add(new ExcdAndSymbDTO(u.getExchange(), u.getTicker()));
+		}
+
+		List<DetailInfo> details;
+		try {
+			details = overseasStockService.fetchCurrentPriceBestEffort(req);
+		} catch (Exception e) {
+			log.warn("[UNIVERSE] KIS 업종 조회 실패 — industry 없이 universe 저장", e);
+			return;
+		}
+
+		Map<String, String> industryByTicker = new HashMap<>();
+		for (DetailInfo d : details) {
+			if (d == null || d.getCode() == null) continue;
+			String icod = d.getE_icod();
+			if (icod == null || icod.isEmpty()) continue;
+			industryByTicker.put(d.getCode(), icod);
+		}
+
+		int filled = 0;
+		for (NasdaqUniverse u : scraped) {
+			String icod = industryByTicker.get(u.getTicker());
+			if (icod != null) {
+				u.setIndustry(icod);
+				filled++;
+			}
+		}
+		log.info("[UNIVERSE] 업종 매핑 완료 — {}개 채워짐, {}개 비어있음", filled, scraped.size() - filled);
 	}
 
 	private List<NasdaqUniverse> scrape() throws IOException {

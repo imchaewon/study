@@ -30,6 +30,9 @@ public class NasdaqUniverse {
 	@Column(name = "rank_no", nullable = false)
 	private Integer rankNo;
 
+	@Column(name = "industry", length = 200)
+	private String industry;
+
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
 }

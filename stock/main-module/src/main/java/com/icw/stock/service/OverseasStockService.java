@@ -75,7 +75,13 @@ public class OverseasStockService implements StockFormatterService {
 
 	public List<DetailInfo> fetchCurrentPrice(List<ExcdAndSymbDTO> reqDTO) {
 		tokenService.storeTokenInRedisAndTryCatch();
-		return retrieveFromExternalAPI(reqDTO);
+		return retrieveFromExternalAPI(reqDTO, true);
+	}
+
+	/** retry 후에도 실패한 티커가 있으면 throw 대신 해당 인덱스를 null로 둔 채 반환. */
+	public List<DetailInfo> fetchCurrentPriceBestEffort(List<ExcdAndSymbDTO> reqDTO) {
+		tokenService.storeTokenInRedisAndTryCatch();
+		return retrieveFromExternalAPI(reqDTO, false);
 	}
 
 	@Override
@@ -260,7 +266,7 @@ public class OverseasStockService implements StockFormatterService {
 		return new OverseasCollectPeriodRespDTO(reqDate, codeNPriceDTOS);
 	}
 
-	private List<DetailInfo> retrieveFromExternalAPI(List<ExcdAndSymbDTO> reqDTO) {
+	private List<DetailInfo> retrieveFromExternalAPI(List<ExcdAndSymbDTO> reqDTO, boolean throwOnFailure) {
 		// RestTemplate 객체 생성
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -431,11 +437,13 @@ public class OverseasStockService implements StockFormatterService {
 			}
 			String failedStockMessage = String.join(", ", failedStocks);
 			log.error("[최종 실패] {}개의 요청이 실패했습니다. 실패한 종목: {}", failedIndices.size(), failedStockMessage);
-			throw new IllegalStateException(String.format(
-					"해외주식 현재가 수집 실패 - 실패 건수: %d, 실패 종목: %s",
-					failedIndices.size(),
-					failedStockMessage
-			));
+			if (throwOnFailure) {
+				throw new IllegalStateException(String.format(
+						"해외주식 현재가 수집 실패 - 실패 건수: %d, 실패 종목: %s",
+						failedIndices.size(),
+						failedStockMessage
+				));
+			}
 		} else {
 			log.info("[성공] 모든 {}개의 요청이 성공했습니다.", reqDTO.size());
 		}
