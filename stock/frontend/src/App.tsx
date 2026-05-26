@@ -161,10 +161,26 @@ function withGroupStart(col: ColDef): ColDef {
 const markFirst = (cols: ColDef[]): ColDef[] =>
 	cols.length === 0 ? cols : [withGroupStart(cols[0]), ...cols.slice(1)];
 
+type ToggleRefs = {
+	baselineRef: React.MutableRefObject<Record<string, number>>;
+	relativeToAllRef: React.MutableRefObject<boolean>;
+};
+
 function buildColumnDefs(
 	daysWindows: number[],
 	weeksWindows: number[],
+	refs: ToggleRefs,
 ): (ColDef | ColGroupDef)[] {
+	// priceChange/volumeChange 컬럼용 valueGetter — toggle ON일 때 즉석 baseline 차감.
+	// ref 사용이라 React 리렌더 없이도 항상 최신값 참조 → rowData 변경 없이 cell만 refresh.
+	const transformValue = (field: string) => (p: { data?: AnalysisRow }) => {
+		const raw = p.data?.[field];
+		if (typeof raw !== "number") return raw;
+		if (!refs.relativeToAllRef.current) return raw;
+		const base = refs.baselineRef.current[field];
+		if (typeof base !== "number") return raw;
+		return raw - base;
+	};
 	const baseColumns: ColDef[] = [
 		{
 			field: "rank",
@@ -216,6 +232,7 @@ function buildColumnDefs(
 			field: `${prefix}_${n}d`,
 			headerName: `${n}일 후`,
 			type: "numericColumn",
+			valueGetter: transformValue(`${prefix}_${n}d`),
 			valueFormatter: fmtPct,
 			cellClass: pctCellClass,
 			width: 90,
@@ -224,6 +241,7 @@ function buildColumnDefs(
 			field: `${prefix}_${n}w`,
 			headerName: `${n}주 후`,
 			type: "numericColumn",
+			valueGetter: transformValue(`${prefix}_${n}w`),
 			valueFormatter: fmtPct,
 			cellClass: pctCellClass,
 			width: 90,
@@ -272,6 +290,18 @@ export default function App() {
 	const bodyContainerRef = useRef<HTMLDivElement>(null);
 	const headerGridRef = useRef<AgGridReact<AnalysisRow>>(null);
 	const bodyGridRef = useRef<AgGridReact<AnalysisRow>>(null);
+	// toggle/baseline은 ref로 보관 — valueGetter가 React state 변경 없이도 최신값 참조 가능.
+	// 결과: toggle 시 rowData/columnDefs 변경 없이 refreshCells만 → scrollLeft 보존.
+	const baselineRef = useRef<Record<string, number>>({});
+	const relativeToAllRef = useRef(false);
+	// max/min 색칠용 메타 — code → { maxKeys, minKeys, isGlobalMaxKey, isGlobalMinKey }
+	type RowMeta = {
+		maxKeys: Set<string>;
+		minKeys: Set<string>;
+		globalMaxKey: string | null;
+		globalMinKey: string | null;
+	};
+	const metaMapRef = useRef<Map<string, RowMeta>>(new Map());
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -308,7 +338,7 @@ export default function App() {
 
 	const columnDefs = useMemo(() => {
 		if (!data) return [];
-		return buildColumnDefs(data.daysWindows, data.weeksWindows);
+		return buildColumnDefs(data.daysWindows, data.weeksWindows, { baselineRef, relativeToAllRef });
 	}, [data]);
 
 	const filteredRows = useMemo(() => {
@@ -331,77 +361,78 @@ export default function App() {
 		});
 	}, [data, search, topN]);
 
-	// 본문 그리드에 실제로 표시할 row.
-	// relativeToAll이 켜지면 numeric 컬럼을 filteredRows 전체 평균(baseline) 대비 차이로 변환.
-	// 또 가격 등락률(priceChange_*) 컬럼별로 max/min row를 찾아 __maxKeys/__minKeys 표시 → cellStyle에서 색칠.
-	const displayedRows = useMemo<AnalysisRow[]>(() => {
-		if (filteredRows.length === 0) return filteredRows;
-
-		// 1) relativeToAll 변환 — 미래 가격 등락률(priceChange_*) + 거래량 변동률(volumeChange_*)을 baseline 대비 차이로 변환.
-		//    다른 컬럼(미래 소외지수, RSI, 절대 가격 등)은 절대값 유지.
-		//    baseline은 중앙값(outlier robust). NVDA 같은 +100%+ 종목 영향 줄이기.
-		let rows: AnalysisRow[];
-		if (relativeToAll) {
-			const samples: Record<string, number[]> = {};
-			for (const row of filteredRows) {
-				for (const [k, v] of Object.entries(row)) {
-					if (!k.startsWith("priceChange_") && !k.startsWith("volumeChange_")) continue;
-					if (typeof v === "number" && isFinite(v)) {
-						(samples[k] ??= []).push(v);
-					}
+	// baseline 계산 (filteredRows 변경 시) — priceChange_*/volumeChange_* 컬럼별 중앙값.
+	const baseline = useMemo<Record<string, number>>(() => {
+		const samples: Record<string, number[]> = {};
+		for (const row of filteredRows) {
+			for (const [k, v] of Object.entries(row)) {
+				if (!k.startsWith("priceChange_") && !k.startsWith("volumeChange_")) continue;
+				if (typeof v === "number" && isFinite(v)) {
+					(samples[k] ??= []).push(v);
 				}
 			}
-			const baseline: Record<string, number> = {};
-			for (const k of Object.keys(samples)) baseline[k] = median(samples[k]);
-
-			rows = filteredRows.map((row) => {
-				const out: AnalysisRow = { ...row };
-				for (const [k, v] of Object.entries(out)) {
-					if (typeof v !== "number") continue;
-					if (!(k in baseline)) continue;
-					out[k] = v - baseline[k];
-				}
-				return out;
-			});
-		} else {
-			// 색칠 표시를 위해 row 객체 얕은 복사 (원본 filteredRows 안 건드림)
-			rows = filteredRows.map((row) => ({ ...row }));
 		}
+		const result: Record<string, number> = {};
+		for (const k of Object.keys(samples)) result[k] = median(samples[k]);
+		return result;
+	}, [filteredRows]);
 
-		// 2) 종목 row 내부에서 가격 등락률(priceChange_*) 컬럼들 중 max/min 컬럼 찾기.
-		//    각 종목이 어느 기간에 가장 잘 올랐고/못 올랐는지를 row 안에서 표시.
-		const priceChangeKeys = Object.keys(rows[0]).filter((k) => k.startsWith("priceChange_"));
-		let globalMaxVal = -Infinity;
-		let globalMinVal = Infinity;
-		let globalMaxRow: AnalysisRow | null = null;
-		let globalMaxKey: string | null = null;
-		let globalMinRow: AnalysisRow | null = null;
-		let globalMinKey: string | null = null;
-		for (const row of rows) {
-			let maxVal = -Infinity;
-			let minVal = Infinity;
-			let maxKey: string | null = null;
-			let minKey: string | null = null;
+	useEffect(() => {
+		baselineRef.current = baseline;
+		bodyGridRef.current?.api?.refreshCells({ force: true });
+	}, [baseline]);
+
+	// max/min 색칠용 메타를 별도 Map으로 계산 → ref 동기화.
+	// rowData(filteredRows)는 안 건드림 → AG Grid의 row destroy/scrollReset 회피.
+	useEffect(() => {
+		const map = new Map<string, RowMeta>();
+		if (filteredRows.length === 0) {
+			metaMapRef.current = map;
+			bodyGridRef.current?.api?.refreshCells({ force: true });
+			return;
+		}
+		const isRel = relativeToAll;
+		const getDisplayed = (row: AnalysisRow, key: string): number | null => {
+			const raw = row[key];
+			if (typeof raw !== "number" || !isFinite(raw)) return null;
+			if (!isRel) return raw;
+			const b = baseline[key];
+			return typeof b === "number" ? raw - b : raw;
+		};
+		const priceChangeKeys = Object.keys(filteredRows[0]).filter((k) => k.startsWith("priceChange_"));
+		let globalMaxVal = -Infinity, globalMinVal = Infinity;
+		let globalMaxRowCode: string | null = null, globalMaxKey: string | null = null;
+		let globalMinRowCode: string | null = null, globalMinKey: string | null = null;
+		for (const row of filteredRows) {
+			const code = String(row.code ?? "");
+			const meta: RowMeta = { maxKeys: new Set(), minKeys: new Set(), globalMaxKey: null, globalMinKey: null };
+			let maxVal = -Infinity, minVal = Infinity;
+			let maxKey: string | null = null, minKey: string | null = null;
 			for (const key of priceChangeKeys) {
-				const v = row[key];
-				if (typeof v !== "number" || !isFinite(v)) continue;
+				const v = getDisplayed(row, key);
+				if (v === null) continue;
 				if (v > maxVal) { maxVal = v; maxKey = key; }
 				if (v < minVal) { minVal = v; minKey = key; }
-				// 전체 풀 (모든 종목 × 모든 기간)의 단일 max/min
-				if (v > globalMaxVal) { globalMaxVal = v; globalMaxRow = row; globalMaxKey = key; }
-				if (v < globalMinVal) { globalMinVal = v; globalMinRow = row; globalMinKey = key; }
+				if (v > globalMaxVal) { globalMaxVal = v; globalMaxRowCode = code; globalMaxKey = key; }
+				if (v < globalMinVal) { globalMinVal = v; globalMinRowCode = code; globalMinKey = key; }
 			}
-			row.__maxKeys = new Set<string>();
-			row.__minKeys = new Set<string>();
 			if (maxKey && minKey && maxVal !== minVal) {
-				(row.__maxKeys as Set<string>).add(maxKey);
-				(row.__minKeys as Set<string>).add(minKey);
+				meta.maxKeys.add(maxKey);
+				meta.minKeys.add(minKey);
 			}
+			map.set(code, meta);
 		}
-		if (globalMaxRow && globalMaxKey) globalMaxRow.__globalMaxKey = globalMaxKey;
-		if (globalMinRow && globalMinKey) globalMinRow.__globalMinKey = globalMinKey;
-		return rows;
-	}, [filteredRows, relativeToAll]);
+		if (globalMaxRowCode && globalMaxKey) {
+			const m = map.get(globalMaxRowCode);
+			if (m) m.globalMaxKey = globalMaxKey;
+		}
+		if (globalMinRowCode && globalMinKey) {
+			const m = map.get(globalMinRowCode);
+			if (m) m.globalMinKey = globalMinKey;
+		}
+		metaMapRef.current = map;
+		bodyGridRef.current?.api?.refreshCells({ force: true });
+	}, [filteredRows, relativeToAll, baseline]);
 
 	// 그리드 최상단에 고정 표시할 평균 행들.
 	// avgTopN에 콤마로 여러 값 입력 가능: "10,30,100" → 3개 평균 행.
@@ -518,31 +549,11 @@ export default function App() {
 		}
 	};
 
-	// vs ALL Median 토글 시 본문 그리드의 가로 스크롤 위치 보존.
-	// AG Grid가 rowData 처리 직후/렌더 후/layout 후 여러 단계에서 scrollLeft를 0으로 만들 수 있어
-	// 여러 시점에 반복 복원 (한 번이라도 늦으면 reset됨).
+	// vs ALL Median 토글 — ref 업데이트 + 셀 refresh만 (rowData/columnDef 변경 X → scrollLeft 보존).
 	const handleToggleRelative = useCallback(() => {
-		const findScroller = (root: HTMLElement | null): HTMLElement | null =>
-			root?.querySelector<HTMLElement>(
-				".ag-body-horizontal-scroll-viewport, .ag-center-cols-viewport, .ag-body-viewport",
-			) ?? null;
-		const savedLeft = findScroller(bodyContainerRef.current)?.scrollLeft ?? 0;
-		setRelativeToAll((v) => !v);
-
-		const restore = () => {
-			const targets: HTMLElement[] = [
-				findScroller(bodyContainerRef.current),
-				findScroller(headerContainerRef.current),
-				findScroller(document.querySelector(".border-yellow-300")), // 평균 그리드 wrapper
-			].filter((el): el is HTMLElement => el !== null);
-			for (const el of targets) {
-				if (el.scrollLeft !== savedLeft) el.scrollLeft = savedLeft;
-			}
-		};
-		// AG Grid의 다단계 layout 동안 여러 번 강제 복원
-		for (const delay of [0, 50, 150, 300, 600]) {
-			setTimeout(restore, delay);
-		}
+		relativeToAllRef.current = !relativeToAllRef.current;
+		setRelativeToAll((v) => !v); // UI 표시용 (버튼 색)
+		bodyGridRef.current?.api?.refreshCells({ force: true });
 	}, []);
 
 	return (
@@ -720,7 +731,8 @@ export default function App() {
 			<div ref={bodyContainerRef} className="flex-1 ag-theme-quartz">
 				<AgGridReact<AnalysisRow>
 					ref={bodyGridRef}
-					rowData={loading || !data ? undefined : displayedRows}
+					rowData={loading || !data ? undefined : filteredRows}
+					getRowId={(p) => String(p.data?.code ?? "")}
 					headerHeight={0}
 					groupHeaderHeight={0}
 					defaultColDef={{
@@ -731,19 +743,19 @@ export default function App() {
 						cellStyle: (params) => {
 							const field = params.colDef.field;
 							if (!field) return null;
-							const row = params.data as AnalysisRow;
-							// 전체 풀에서 단일 max/min — 진한 색 + 굵게 (가장 우선)
-							if (row.__globalMaxKey === field) {
+							const code = String((params.data as AnalysisRow)?.code ?? "");
+							const meta = metaMapRef.current.get(code);
+							if (!meta) return null;
+							if (meta.globalMaxKey === field) {
 								return { background: "#ec4899", color: "white", fontWeight: 700 } as Record<string, string | number>;
 							}
-							if (row.__globalMinKey === field) {
+							if (meta.globalMinKey === field) {
 								return { background: "#0ea5e9", color: "white", fontWeight: 700 } as Record<string, string | number>;
 							}
-							// 종목 row 내부 max/min — 연한 색
-							if (row.__maxKeys instanceof Set && row.__maxKeys.has(field)) {
+							if (meta.maxKeys.has(field)) {
 								return { background: "#fbcfe8", fontWeight: 600 } as Record<string, string | number>;
 							}
-							if (row.__minKeys instanceof Set && row.__minKeys.has(field)) {
+							if (meta.minKeys.has(field)) {
 								return { background: "#bae6fd", fontWeight: 600 } as Record<string, string | number>;
 							}
 							return null;
