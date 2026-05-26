@@ -25,6 +25,9 @@ public class OverseasAnalysisService {
 	// SMA200 + 약간의 여유를 확보해야 정상적인 정배열/SMA200 비교가 가능
 	private static final int MIN_LOOKBACK_FOR_INDICATORS = 220;
 	private static final int RSI_PERIOD = 14;
+	// 등락률 이상치 임계값 — 절댓값이 이를 초과하면 KIS API의 split 미보정 등 데이터 오류로 보고 null 처리.
+	// 시총 상위 종목의 단일일 변동 역사적 최고치(GME 2021-01-27 +135%)의 7배 이상이라 안전.
+	private static final double PRICE_CHANGE_OUTLIER_THRESHOLD_PCT = 1000.0;
 
 	private final OverseasStockSnapshotRepository repository;
 	private final NasdaqUniverseRepository nasdaqUniverseRepository;
@@ -192,6 +195,10 @@ public class OverseasAnalysisService {
 				? seriesAsc.get(futureIdx)
 				: null;
 		Double priceChange = computeChangePct(future != null ? future.getBase() : null, current.getBase());
+		// 이상치 (split 미보정/데이터 오류) 컷오프 — 미래/과거 어느 시점이든 이상한 값이 끼면 그 셀만 null
+		if (priceChange != null && Math.abs(priceChange) > PRICE_CHANGE_OUTLIER_THRESHOLD_PCT) {
+			priceChange = null;
+		}
 		Double volumeChange = computeChangePct(
 				future != null ? toDouble(future.getPvol()) : null,
 				toDouble(current.getPvol())

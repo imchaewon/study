@@ -32,3 +32,9 @@ body {
 	min-height: 0 !important;
 	overflow: hidden !important;
 }
+
+/* 컬럼 그룹의 첫 컬럼에 좌측 구분선 — 그룹 시각적 분리 */
+.ag-theme-quartz .ag-cell.group-start,
+.ag-theme-quartz .ag-header-cell.group-start {
+	border-left: 2px solid #d1d5db !important;
+}
