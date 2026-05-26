@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import type {
 	CellClassParams,
@@ -194,6 +194,7 @@ export default function App() {
 	const [topN, setTopN] = useState("");
 	const [avgTopN, setAvgTopN] = useState("");
 	const [data, setData] = useState<AnalysisResponse | null>(null);
+	const mainContainerRef = useRef<HTMLDivElement>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -276,9 +277,7 @@ export default function App() {
 					if (typeof v === "number") numericKeys.add(k);
 				}
 			}
-			const label = n !== null
-				? `평균 (Bull 상위 ${target.length})`
-				: `평균 (전체 ${target.length})`;
+			const label = n !== null ? `BS${target.length}` : `ALL`;
 			const result: AnalysisRow = { code: label };
 			for (const key of numericKeys) {
 				let sum = 0;
@@ -491,33 +490,20 @@ export default function App() {
 
 			<MarketRegimePanel baseDate={baseDate} />
 
-			<div className="flex-1 ag-theme-quartz">
+			<AverageGridPanel
+				rows={averageRows}
+				columnDefs={columnDefs}
+				mainContainerRef={mainContainerRef}
+			/>
+
+			<div ref={mainContainerRef} className="flex-1 ag-theme-quartz">
 				<AgGridReact<AnalysisRow>
 					rowData={loading || !data ? undefined : filteredRows}
-					pinnedTopRowData={averageRows.length > 0 ? averageRows : undefined}
-					getRowStyle={(params) =>
-						params.node.rowPinned === "top"
-							? { background: "#fef3c7", fontWeight: 600 }
-							: undefined
-					}
 					defaultColDef={{
 						sortable: true,
 						filter: true,
 						resizable: true,
 						minWidth: 90,
-						cellStyle: (params) => {
-							if (params.node.rowPinned !== "top") return undefined;
-							const field = params.colDef.field;
-							if (!field) return undefined;
-							const row = params.data as AnalysisRow;
-							if (row.__maxKeys instanceof Set && row.__maxKeys.has(field)) {
-								return { background: "#fbcfe8", fontWeight: 700 }; // pink-200
-							}
-							if (row.__minKeys instanceof Set && row.__minKeys.has(field)) {
-								return { background: "#bae6fd", fontWeight: 700 }; // sky-200
-							}
-							return undefined;
-						},
 					}}
 					columnDefs={columnDefs}
 					enableCellTextSelection
@@ -533,6 +519,104 @@ export default function App() {
 					}
 				/>
 			</div>
+		</div>
+	);
+}
+
+/**
+ * 평균 행을 위한 별도 AG Grid.
+ * - 헤더 숨김 (headerHeight=0)
+ * - 행 수에 따라 height 동적 (1~3행 자연 높이, 그 이상은 220px max + 세로 스크롤)
+ * - 메인 그리드와 가로 스크롤 동기화
+ */
+function AverageGridPanel({
+	rows,
+	columnDefs,
+	mainContainerRef,
+}: {
+	rows: AnalysisRow[];
+	columnDefs: (ColDef | ColGroupDef)[];
+	mainContainerRef: React.RefObject<HTMLDivElement>;
+}) {
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	// 가로 스크롤 동기화: 평균↔본문 viewport 양방향
+	// autoHeight 모드(평균)는 별도 가로 스크롤바 .ag-body-horizontal-scroll-viewport,
+	// normal 모드(본문)는 .ag-body-viewport에 통합돼 있어 둘 다 우선순위로 시도.
+	useEffect(() => {
+		if (rows.length === 0) return;
+		const findScroller = (root: HTMLElement | null): HTMLElement | null => {
+			if (!root) return null;
+			return (
+				root.querySelector<HTMLElement>(".ag-body-horizontal-scroll-viewport") ??
+				root.querySelector<HTMLElement>(".ag-center-cols-viewport") ??
+				root.querySelector<HTMLElement>(".ag-body-viewport")
+			);
+		};
+		let cleanup = () => {};
+		const t = setTimeout(() => {
+			const main = findScroller(mainContainerRef.current);
+			const avg = findScroller(containerRef.current);
+			if (!main || !avg) return;
+			let syncing = false;
+			const sync = (from: HTMLElement, to: HTMLElement) => () => {
+				if (syncing) return;
+				syncing = true;
+				if (to.scrollLeft !== from.scrollLeft) to.scrollLeft = from.scrollLeft;
+				// 동기화 직후 reset (다음 이벤트가 무한루프 안 되도록 마이크로태스크 뒤로)
+				queueMicrotask(() => { syncing = false; });
+			};
+			const onMain = sync(main, avg);
+			const onAvg = sync(avg, main);
+			main.addEventListener("scroll", onMain);
+			avg.addEventListener("scroll", onAvg);
+			cleanup = () => {
+				main.removeEventListener("scroll", onMain);
+				avg.removeEventListener("scroll", onAvg);
+			};
+		}, 200);
+		return () => {
+			clearTimeout(t);
+			cleanup();
+		};
+	}, [rows.length, mainContainerRef]);
+
+	if (rows.length === 0) return null;
+
+	// domLayout=autoHeight → AG Grid가 row 수만큼 정확히 자동 높이 (1줄이면 1줄 높이, 세로 스크롤 없음).
+	// wrapper max-height 50vh — 화면의 절반까지 자라고 그 이상은 자체 스크롤.
+	return (
+		<div
+			ref={containerRef}
+			className="ag-theme-quartz border-b-2 border-yellow-300"
+			style={{ maxHeight: "50vh", overflowY: "auto" }}
+		>
+			<AgGridReact<AnalysisRow>
+				rowData={rows}
+				columnDefs={columnDefs}
+				headerHeight={0}
+				domLayout="autoHeight"
+				defaultColDef={{
+					sortable: false,
+					filter: false,
+					resizable: false,
+					minWidth: 90,
+					cellStyle: (params) => {
+						const field = params.colDef.field;
+						if (!field) return { background: "#fef3c7", fontWeight: 600 };
+						const row = params.data as AnalysisRow;
+						if (row.__maxKeys instanceof Set && row.__maxKeys.has(field)) {
+							return { background: "#fbcfe8", fontWeight: 700 };
+						}
+						if (row.__minKeys instanceof Set && row.__minKeys.has(field)) {
+							return { background: "#bae6fd", fontWeight: 700 };
+						}
+						return { background: "#fef3c7", fontWeight: 600 };
+					},
+				}}
+				suppressCellFocus
+				animateRows={false}
+			/>
 		</div>
 	);
 }

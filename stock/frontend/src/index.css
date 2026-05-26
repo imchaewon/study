@@ -13,3 +13,13 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo",
 		"Malgun Gothic", sans-serif;
 }
+
+/* autoHeight 모드 AG Grid의 기본 min-height 제거 → 1행이면 1행 높이만큼만 차지 */
+.ag-theme-quartz .ag-layout-auto-height,
+.ag-theme-quartz .ag-layout-auto-height .ag-root,
+.ag-theme-quartz .ag-layout-auto-height .ag-body,
+.ag-theme-quartz .ag-layout-auto-height .ag-body-viewport,
+.ag-theme-quartz .ag-layout-auto-height .ag-center-cols-container,
+.ag-theme-quartz .ag-layout-auto-height .ag-center-cols-viewport {
+	min-height: 0 !important;
+}
