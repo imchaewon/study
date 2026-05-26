@@ -49,6 +49,14 @@ function uniqueSorted(arr: number[]): number[] {
 	return Array.from(new Set(arr)).sort((a, b) => a - b);
 }
 
+// 중앙값 — outlier에 robust한 baseline 계산용.
+function median(arr: number[]): number {
+	if (arr.length === 0) return 0;
+	const sorted = [...arr].sort((a, b) => a - b);
+	const mid = Math.floor(sorted.length / 2);
+	return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
+}
+
 const fmtPct = (params: ValueFormatterParams) => {
 	const v = params.value;
 	return typeof v === "number" ? `${v.toFixed(2)}%` : "";
@@ -331,20 +339,20 @@ export default function App() {
 
 		// 1) relativeToAll 변환 — 미래 가격 등락률(priceChange_*) + 거래량 변동률(volumeChange_*)을 baseline 대비 차이로 변환.
 		//    다른 컬럼(미래 소외지수, RSI, 절대 가격 등)은 절대값 유지.
+		//    baseline은 중앙값(outlier robust). NVDA 같은 +100%+ 종목 영향 줄이기.
 		let rows: AnalysisRow[];
 		if (relativeToAll) {
-			const baseline: Record<string, number> = {};
-			const baseCnt: Record<string, number> = {};
+			const samples: Record<string, number[]> = {};
 			for (const row of filteredRows) {
 				for (const [k, v] of Object.entries(row)) {
 					if (!k.startsWith("priceChange_") && !k.startsWith("volumeChange_")) continue;
 					if (typeof v === "number" && isFinite(v)) {
-						baseline[k] = (baseline[k] ?? 0) + v;
-						baseCnt[k] = (baseCnt[k] ?? 0) + 1;
+						(samples[k] ??= []).push(v);
 					}
 				}
 			}
-			for (const k of Object.keys(baseline)) baseline[k] /= baseCnt[k];
+			const baseline: Record<string, number> = {};
+			for (const k of Object.keys(samples)) baseline[k] = median(samples[k]);
 
 			rows = filteredRows.map((row) => {
 				const out: AnalysisRow = { ...row };
@@ -420,24 +428,21 @@ export default function App() {
 			}
 			const label = n !== null ? `BS${target.length}` : `ALL`;
 			const result: AnalysisRow = { code: label };
+			// 평균 대신 중앙값 사용 — outlier(NVDA 같은 +100%+ 종목)가 baseline 왜곡 방지
 			for (const key of numericKeys) {
-				let sum = 0;
-				let cnt = 0;
+				const samples: number[] = [];
 				for (const row of target) {
 					const v = row[key];
-					if (typeof v === "number" && isFinite(v)) {
-						sum += v;
-						cnt += 1;
-					}
+					if (typeof v === "number" && isFinite(v)) samples.push(v);
 				}
-				if (cnt > 0) result[key] = sum / cnt;
+				if (samples.length > 0) result[key] = median(samples);
 			}
 			delete result.rank;
 			return result;
 		};
 
 		// avgTopN 비어있으면 ALL 평균만 표시 (토글 OFF/ON 무관).
-		// 토글 ON일 때는 baseline(ALL 절대값)을 항상 맨 위에 두고, 그 아래 사용자 입력 행을 vs ALL Agerage로 변환.
+		// 토글 ON일 때는 baseline(ALL 절대값)을 항상 맨 위에 두고, 그 아래 사용자 입력 행을 vs ALL Median로 변환.
 		const userRows = ns.length > 0
 			? ns.map((n) => buildRow(n))
 			: (relativeToAll ? [] : [buildRow(null)]);
@@ -446,7 +451,7 @@ export default function App() {
 		if (relativeToAll) {
 			const baseline = buildRow(null); // ALL 절대값 — 변환 없이 그대로 첫 행에 표시
 			for (const r of userRows) {
-				r.code = `${r.code} vs ALL Agerage`;
+				r.code = `${r.code} vs ALL Median`;
 				for (const [k, v] of Object.entries(r)) {
 					if (typeof v !== "number") continue;
 					if (!k.startsWith("priceChange_") && !k.startsWith("volumeChange_")) continue; // 미래 가격/거래량 변동률만 변환
@@ -513,7 +518,7 @@ export default function App() {
 		}
 	};
 
-	// vs ALL Agerage 토글 시 본문 그리드의 가로 스크롤 위치 보존.
+	// vs ALL Median 토글 시 본문 그리드의 가로 스크롤 위치 보존.
 	// AG Grid가 rowData 처리 직후/렌더 후/layout 후 여러 단계에서 scrollLeft를 0으로 만들 수 있어
 	// 여러 시점에 반복 복원 (한 번이라도 늦으면 reset됨).
 	const handleToggleRelative = useCallback(() => {
@@ -669,7 +674,7 @@ export default function App() {
 					className="flex flex-col gap-1 text-xs text-gray-600 cursor-pointer"
 					title="ON: 각 평균 행을 '전체 평균(ALL) 대비 차이(%p)'로 표시 — 시장 추세 효과를 제거한 순수 그룹 알파"
 				>
-					vs ALL Agerage
+					vs ALL Median
 					<button
 						type="button"
 						onClick={handleToggleRelative}
