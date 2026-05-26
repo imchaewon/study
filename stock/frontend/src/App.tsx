@@ -237,48 +237,82 @@ export default function App() {
 		});
 	}, [data, search, topN]);
 
-	// 그리드 최상단에 고정 표시할 평균 행.
-	// 대상: filteredRows를 bullScore 내림차순 정렬 후 상위 avgTopN개. avgTopN 비우면 filteredRows 전체.
-	// bullScore가 null인 row는 정렬상 뒤로 밀림.
-	const averageRow = useMemo<AnalysisRow | null>(() => {
-		if (!data || filteredRows.length === 0) return null;
+	// 그리드 최상단에 고정 표시할 평균 행들.
+	// avgTopN에 콤마로 여러 값 입력 가능: "10,30,100" → 3개 평균 행.
+	// 각각 BullScore 내림차순 상위 N개로 평균. 비우면 filteredRows 전체로 1개 행.
+	// 각 numeric 컬럼별로 행 간 max는 __maxKeys, min은 __minKeys에 저장 → 셀 배경 하이라이트.
+	const averageRows = useMemo<AnalysisRow[]>(() => {
+		if (!data || filteredRows.length === 0) return [];
 
-		const avgNum = parseInt(avgTopN.trim(), 10);
-		const limit = !isNaN(avgNum) && avgNum > 0 ? avgNum : null;
-		const targetRows = limit !== null
-			? [...filteredRows]
-					.sort((a, b) => {
-						const sa = typeof a.bullScore === "number" ? a.bullScore : -Infinity;
-						const sb = typeof b.bullScore === "number" ? b.bullScore : -Infinity;
-						return sb - sa;
-					})
-					.slice(0, limit)
-			: filteredRows;
+		const ns = uniqueSorted(parseNList(avgTopN));
+		// 정렬한 사본 한 번만 만들기
+		const sortedByBull = [...filteredRows].sort((a, b) => {
+			const sa = typeof a.bullScore === "number" ? a.bullScore : -Infinity;
+			const sb = typeof b.bullScore === "number" ? b.bullScore : -Infinity;
+			return sb - sa;
+		});
 
-		const numericKeys = new Set<string>();
-		for (const row of targetRows) {
-			for (const [k, v] of Object.entries(row)) {
-				if (typeof v === "number") numericKeys.add(k);
-			}
-		}
-		const label = limit !== null
-			? `평균 (Bull Score 상위 ${targetRows.length}종목)`
-			: `평균 (전체 ${targetRows.length}종목)`;
-		const result: AnalysisRow = { code: label };
-		for (const key of numericKeys) {
-			let sum = 0;
-			let cnt = 0;
-			for (const row of targetRows) {
-				const v = row[key];
-				if (typeof v === "number" && isFinite(v)) {
-					sum += v;
-					cnt += 1;
+		const buildRow = (n: number | null): AnalysisRow => {
+			const target = n !== null ? sortedByBull.slice(0, n) : filteredRows;
+			const numericKeys = new Set<string>();
+			for (const row of target) {
+				for (const [k, v] of Object.entries(row)) {
+					if (typeof v === "number") numericKeys.add(k);
 				}
 			}
-			if (cnt > 0) result[key] = sum / cnt;
+			const label = n !== null
+				? `평균 (Bull 상위 ${target.length})`
+				: `평균 (전체 ${target.length})`;
+			const result: AnalysisRow = { code: label };
+			for (const key of numericKeys) {
+				let sum = 0;
+				let cnt = 0;
+				for (const row of target) {
+					const v = row[key];
+					if (typeof v === "number" && isFinite(v)) {
+						sum += v;
+						cnt += 1;
+					}
+				}
+				if (cnt > 0) result[key] = sum / cnt;
+			}
+			delete result.rank;
+			return result;
+		};
+
+		const rows = ns.length > 0 ? ns.map((n) => buildRow(n)) : [buildRow(null)];
+
+		// 컬럼별 max/min 행 찾기 (행이 2개 이상일 때만)
+		if (rows.length >= 2) {
+			const allKeys = new Set<string>();
+			for (const r of rows) {
+				for (const [k, v] of Object.entries(r)) {
+					if (typeof v === "number") allKeys.add(k);
+				}
+			}
+			for (const r of rows) {
+				r.__maxKeys = new Set<string>();
+				r.__minKeys = new Set<string>();
+			}
+			for (const key of allKeys) {
+				let maxVal = -Infinity;
+				let minVal = Infinity;
+				let maxRow: AnalysisRow | null = null;
+				let minRow: AnalysisRow | null = null;
+				for (const r of rows) {
+					const v = r[key];
+					if (typeof v !== "number" || !isFinite(v)) continue;
+					if (v > maxVal) { maxVal = v; maxRow = r; }
+					if (v < minVal) { minVal = v; minRow = r; }
+				}
+				// max == min이면 (모든 행이 같은 값) 색칠 안 함
+				if (maxRow && minRow && maxVal !== minVal) {
+					(maxRow.__maxKeys as Set<string>).add(key);
+					(minRow.__minKeys as Set<string>).add(key);
+				}
+			}
 		}
-		delete result.rank;
-		return result;
+		return rows;
 	}, [data, filteredRows, avgTopN]);
 
 	const togglePreset = (n: number, kind: "d" | "w") => {
@@ -393,14 +427,14 @@ export default function App() {
 				</label>
 
 				<label className="flex flex-col gap-1 text-xs text-gray-600">
-					평균: BullScore 상위 N
+					평균: BullScore 상위 N (콤마)
 					<input
-						type="number"
-						min="1"
+						type="text"
 						value={avgTopN}
 						onChange={(e) => setAvgTopN(e.target.value)}
-						placeholder="전체"
-						className="border rounded px-2 py-1 w-28 text-sm bg-yellow-50"
+						onKeyDown={onSubmitKey}
+						placeholder="10,30,100"
+						className="border rounded px-2 py-1 w-32 text-sm bg-yellow-50"
 					/>
 				</label>
 
@@ -422,19 +456,32 @@ export default function App() {
 			<div className="flex-1 ag-theme-quartz">
 				<AgGridReact<AnalysisRow>
 					rowData={loading || !data ? undefined : filteredRows}
-					pinnedTopRowData={averageRow ? [averageRow] : undefined}
+					pinnedTopRowData={averageRows.length > 0 ? averageRows : undefined}
 					getRowStyle={(params) =>
 						params.node.rowPinned === "top"
 							? { background: "#fef3c7", fontWeight: 600 }
 							: undefined
 					}
-					columnDefs={columnDefs}
 					defaultColDef={{
 						sortable: true,
 						filter: true,
 						resizable: true,
 						minWidth: 90,
+						cellStyle: (params) => {
+							if (params.node.rowPinned !== "top") return undefined;
+							const field = params.colDef.field;
+							if (!field) return undefined;
+							const row = params.data as AnalysisRow;
+							if (row.__maxKeys instanceof Set && row.__maxKeys.has(field)) {
+								return { background: "#fbcfe8", fontWeight: 700 }; // pink-200
+							}
+							if (row.__minKeys instanceof Set && row.__minKeys.has(field)) {
+								return { background: "#bae6fd", fontWeight: 700 }; // sky-200
+							}
+							return undefined;
+						},
 					}}
+					columnDefs={columnDefs}
 					enableCellTextSelection
 					animateRows={false}
 					overlayLoadingTemplate={
