@@ -1,7 +1,9 @@
 package com.icw.stock.service.analysis;
 
+import com.icw.common.entity.overseas.NasdaqUniverse;
 import com.icw.common.entity.overseas.OverseasStockSnapshot;
 import com.icw.stock.model.analysis.AnalysisResponse;
+import com.icw.stock.repository.overseas.NasdaqUniverseRepository;
 import com.icw.stock.repository.overseas.OverseasStockSnapshotRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class OverseasAnalysisService {
 	private static final int RSI_PERIOD = 14;
 
 	private final OverseasStockSnapshotRepository repository;
+	private final NasdaqUniverseRepository nasdaqUniverseRepository;
 
 	public AnalysisResponse analyze(String baseDate, List<Integer> daysWindows, List<Integer> weeksWindows) {
 		List<Integer> safeDays = daysWindows == null ? List.of() : daysWindows;
@@ -43,6 +46,9 @@ public class OverseasAnalysisService {
 
 		Map<String, List<OverseasStockSnapshot>> byCode = all.stream()
 				.collect(Collectors.groupingBy(OverseasStockSnapshot::getCode));
+
+		Map<String, Integer> rankByTicker = nasdaqUniverseRepository.findAll().stream()
+				.collect(Collectors.toMap(NasdaqUniverse::getTicker, NasdaqUniverse::getRankNo, (a, b) -> a));
 
 		List<Map<String, Object>> rows = new ArrayList<>();
 		for (Map.Entry<String, List<OverseasStockSnapshot>> entry : byCode.entrySet()) {
@@ -79,6 +85,7 @@ public class OverseasAnalysisService {
 
 			Map<String, Object> row = new LinkedHashMap<>();
 			row.put("code", current.getCode());
+			row.put("rank", rankByTicker.get(current.getCode()));
 			row.put("eIcod", current.getEIcod());
 			row.put("base", current.getBase());
 			row.put("h52p", current.getH52p());

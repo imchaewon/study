@@ -75,6 +75,14 @@ function buildColumnDefs(
 	weeksWindows: number[],
 ): (ColDef | ColGroupDef)[] {
 	const baseColumns: ColDef[] = [
+		{
+			field: "rank",
+			headerName: "시총순위",
+			pinned: "left",
+			type: "numericColumn",
+			width: 90,
+			sort: "asc",
+		},
 		{ field: "code", headerName: "종목", pinned: "left", width: 100 },
 		{
 			field: "bullScore",
@@ -167,6 +175,7 @@ export default function App() {
 	const [customDays, setCustomDays] = useState("");
 	const [customWeeks, setCustomWeeks] = useState("");
 	const [search, setSearch] = useState("");
+	const [topN, setTopN] = useState("");
 	const [data, setData] = useState<AnalysisResponse | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -209,14 +218,23 @@ export default function App() {
 
 	const filteredRows = useMemo(() => {
 		if (!data) return [];
-		if (!search.trim()) return data.rows;
-		const q = search.toUpperCase();
+		const topNum = parseInt(topN.trim(), 10);
+		const limitRank = !isNaN(topNum) && topNum > 0 ? topNum : null;
+		const q = search.trim().toUpperCase();
+
 		return data.rows.filter((r) => {
-			const code = String(r.code ?? "").toUpperCase();
-			const sector = String(r.eIcod ?? "");
-			return code.includes(q) || sector.includes(search);
+			if (limitRank !== null) {
+				const rank = typeof r.rank === "number" ? r.rank : null;
+				if (rank === null || rank > limitRank) return false;
+			}
+			if (q) {
+				const code = String(r.code ?? "").toUpperCase();
+				const sector = String(r.eIcod ?? "");
+				if (!code.includes(q) && !sector.includes(search)) return false;
+			}
+			return true;
 		});
-	}, [data, search]);
+	}, [data, search, topN]);
 
 	const togglePreset = (n: number, kind: "d" | "w") => {
 		const setter = kind === "d" ? setSelectedDays : setSelectedWeeks;
@@ -306,6 +324,18 @@ export default function App() {
 				>
 					{loading ? "조회중..." : "적용"}
 				</button>
+
+				<label className="flex flex-col gap-1 text-xs text-gray-600">
+					시총 TOP N
+					<input
+						type="number"
+						min="1"
+						value={topN}
+						onChange={(e) => setTopN(e.target.value)}
+						placeholder="전체"
+						className="border rounded px-2 py-1 w-24 text-sm"
+					/>
+				</label>
 
 				<input
 					type="text"
