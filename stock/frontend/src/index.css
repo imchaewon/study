@@ -38,3 +38,36 @@ body {
 .ag-theme-quartz .ag-header-cell.group-start {
 	border-left: 2px solid #d1d5db !important;
 }
+
+/* 헤더 정렬 아이콘 숨김 (클릭 정렬 기능은 그대로 작동) */
+.ag-theme-quartz .ag-sort-indicator-container {
+	display: none !important;
+}
+
+/* 평균 그리드는 연노란색 배경 — row 빈 공간/pinned 영역까지 일관되게 */
+.avg-grid .ag-root,
+.avg-grid .ag-body-viewport,
+.avg-grid .ag-center-cols-container,
+.avg-grid .ag-pinned-left-cols-container,
+.avg-grid .ag-pinned-right-cols-container,
+.avg-grid .ag-row,
+.avg-grid .ag-row-hover,
+.avg-grid .ag-row-hover .ag-cell {
+	background-color: #fef9c3 !important; /* yellow-100 */
+}
+
+/* 평균 그리드 호버 시 AG Grid의 기본 강조 효과 제거 */
+.avg-grid .ag-row.ag-row-hover {
+	background-color: #fef9c3 !important;
+}
+
+/* 정배열/Triple Bull 컬럼은 항상 가운데 정렬.
+   AG Grid quartz 테마의 .ag-cell은 flex container라 text-align 무효 → justify-content 사용. */
+.ag-theme-quartz .ag-cell[col-id="tripleBullSignal"],
+.ag-theme-quartz .ag-cell[col-id="arranged"] {
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	text-align: center !important;
+}
+

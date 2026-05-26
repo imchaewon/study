@@ -5,6 +5,7 @@ import type {
 	ColDef,
 	ColGroupDef,
 	ColumnState,
+	IHeaderParams,
 	SortChangedEvent,
 	ValueFormatterParams,
 } from "ag-grid-community";
@@ -85,8 +86,44 @@ const tripleBullCellClass = (params: CellClassParams) => {
 	return params.value === true ? "bg-yellow-200 text-yellow-900 font-bold text-center" : "text-gray-300 text-center";
 };
 
-const fmtSignal = (params: ValueFormatterParams) => (params.value === true ? "⭐" : "·");
-const fmtArranged = (params: ValueFormatterParams) => (params.value === true ? "정배열" : params.value === false ? "—" : "");
+const fmtArranged = (params: ValueFormatterParams) => (params.value === true ? "✓" : params.value === false ? "·" : "");
+
+// 즉시 표시되는 헤더 툴팁 컴포넌트 — 잘림(말줄임표) 발생 시에만 0ms 즉시 표시.
+function FastTooltipHeader(props: IHeaderParams) {
+	const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+	const spanRef = useRef<HTMLSpanElement>(null);
+	const label = props.displayName ?? "";
+
+	const handleEnter = (e: React.MouseEvent) => {
+		const el = spanRef.current;
+		if (el && el.scrollWidth > el.clientWidth) {
+			setPos({ x: e.clientX, y: e.clientY });
+		}
+	};
+	const handleMove = (e: React.MouseEvent) => {
+		if (pos) setPos({ x: e.clientX, y: e.clientY });
+	};
+
+	return (
+		<div
+			className="w-full h-full flex items-center cursor-pointer px-1"
+			onMouseEnter={handleEnter}
+			onMouseMove={handleMove}
+			onMouseLeave={() => setPos(null)}
+			onClick={(e) => props.progressSort(e.shiftKey)}
+		>
+			<span ref={spanRef} className="truncate select-none w-full">{label}</span>
+			{pos && (
+				<div
+					style={{ position: "fixed", left: pos.x + 12, top: pos.y + 18, zIndex: 9999 }}
+					className="px-2 py-1 bg-gray-800 text-white text-xs rounded shadow-lg whitespace-nowrap pointer-events-none"
+				>
+					{label}
+				</div>
+			)}
+		</div>
+	);
+}
 
 // 컬럼 그룹 사이 구분선 — 그룹의 첫 컬럼에 left border 적용.
 // 기존 cellClass(함수/배열/문자열 모두)를 보존하면서 'group-start' class를 결합.
@@ -126,7 +163,7 @@ function buildColumnDefs(
 			headerName: "시총순위",
 			pinned: "left",
 			type: "numericColumn",
-			width: 90,
+			width: 60,
 			sort: "asc",
 		},
 		{ field: "code", headerName: "종목", pinned: "left", width: 100 },
@@ -137,20 +174,21 @@ function buildColumnDefs(
 			type: "numericColumn",
 			valueFormatter: fmtFixed2,
 			cellClass: bullScoreCellClass,
-			width: 110,
+			width: 80,
 			sort: "desc",
 		},
 		{
 			field: "tripleBullSignal",
-			headerName: "⭐ Triple Bull",
+			headerName: "Triple Bull",
 			pinned: "left",
-			valueFormatter: fmtSignal,
+			cellRenderer: (p: { value: unknown }) => (p.value === true ? "⭐" : "·"),
 			cellClass: tripleBullCellClass,
-			width: 120,
-			filter: true,
+			cellStyle: { textAlign: "center" },
+			width: 55,
+			filter: false,
 		},
-		{ field: "eIcod", headerName: "업종", width: 200 },
-		{ field: "base", headerName: "현재가", type: "numericColumn", valueFormatter: fmtNum, width: 110 },
+		{ field: "eIcod", headerName: "업종", width: 130 },
+		{ field: "base", headerName: "현재가", valueFormatter: fmtNum, width: 110 },
 		{ field: "pvol", headerName: "거래량", type: "numericColumn", valueFormatter: fmtNum, width: 130 },
 		{
 			field: "neglectIndex",
@@ -162,54 +200,51 @@ function buildColumnDefs(
 		},
 		{ field: "rsi", headerName: "RSI(14)", type: "numericColumn", valueFormatter: fmtFixed2, width: 100 },
 		{ field: "sma200", headerName: "SMA200", type: "numericColumn", valueFormatter: fmtFixed2, width: 110 },
-		{ field: "arranged", headerName: "정배열", valueFormatter: fmtArranged, width: 90 },
+		{ field: "arranged", headerName: "정배열", valueFormatter: fmtArranged, width: 55, cellStyle: { textAlign: "center" } },
 	];
 
-	const buildPctCols = (
-		prefix: string,
-		labelSuffix: string,
-		days: number[],
-		weeks: number[],
-	): ColDef[] => [
+	const buildPctCols = (prefix: string, days: number[], weeks: number[]): ColDef[] => [
 		...days.map<ColDef>((n) => ({
 			field: `${prefix}_${n}d`,
-			headerName: `${n}일 후 ${labelSuffix}`,
+			headerName: `${n}일 후`,
 			type: "numericColumn",
 			valueFormatter: fmtPct,
 			cellClass: pctCellClass,
-			width: 130,
+			width: 90,
 		})),
 		...weeks.map<ColDef>((n) => ({
 			field: `${prefix}_${n}w`,
-			headerName: `${n}주 후 ${labelSuffix}`,
+			headerName: `${n}주 후`,
 			type: "numericColumn",
 			valueFormatter: fmtPct,
 			cellClass: pctCellClass,
-			width: 130,
+			width: 90,
 		})),
 	];
 
 	const buildNeglectCols = (days: number[], weeks: number[]): ColDef[] => [
 		...days.map<ColDef>((n) => ({
 			field: `neglectIndex_${n}d_future`,
-			headerName: `${n}일 후 소외지수`,
+			headerName: `${n}일 후`,
 			type: "numericColumn",
 			valueFormatter: fmtFixed2,
-			width: 140,
+			width: 90,
 		})),
 		...weeks.map<ColDef>((n) => ({
 			field: `neglectIndex_${n}w_future`,
-			headerName: `${n}주 후 소외지수`,
+			headerName: `${n}주 후`,
 			type: "numericColumn",
 			valueFormatter: fmtFixed2,
-			width: 140,
+			width: 90,
 		})),
 	];
 
+	// AG Grid 자체 tooltip(2초 delay)을 비활성화 — FastTooltipHeader가 0ms 즉시 툴팁 처리.
+	// headerTooltip을 prop으로 주면 AG Grid가 자체 tooltip을 띄워 우리 거와 중복됨.
 	return [
 		...baseColumns,
-		{ headerName: "미래 가격 등락률", children: markFirst(buildPctCols("priceChange", "등락률", daysWindows, weeksWindows)) },
-		{ headerName: "미래 거래량 변동률", children: markFirst(buildPctCols("volumeChange", "거래량변동", daysWindows, weeksWindows)) },
+		{ headerName: "미래 가격 등락률", children: markFirst(buildPctCols("priceChange", daysWindows, weeksWindows)) },
+		{ headerName: "미래 거래량 변동률", children: markFirst(buildPctCols("volumeChange", daysWindows, weeksWindows)) },
 		{ headerName: "미래 소외지수", children: markFirst(buildNeglectCols(daysWindows, weeksWindows)) },
 	];
 }
@@ -687,7 +722,7 @@ export default function App() {
 						sortable: true,
 						filter: false,
 						resizable: false,
-						minWidth: 90,
+						minWidth: 70,
 						cellStyle: (params) => {
 							const field = params.colDef.field;
 							if (!field) return null;
@@ -762,7 +797,8 @@ function HeaderOnlyGrid({
 					sortable: true,
 					filter: false,
 					resizable: false,
-					minWidth: 90,
+					minWidth: 70,
+					headerComponent: FastTooltipHeader,
 				}}
 				suppressCellFocus
 				suppressNoRowsOverlay
@@ -844,7 +880,7 @@ function AverageGridPanel({
 	return (
 		<div
 			ref={containerRef}
-			className="ag-theme-quartz border-b-2 border-yellow-300 hide-h-scroll"
+			className="ag-theme-quartz border-b-2 border-yellow-300 hide-h-scroll avg-grid"
 			style={{ maxHeight: "50vh", overflowY: "auto" }}
 		>
 			<AgGridReact<AnalysisRow>
@@ -856,10 +892,10 @@ function AverageGridPanel({
 					sortable: false,
 					filter: false,
 					resizable: false,
-					minWidth: 90,
+					minWidth: 70,
 					cellStyle: (params) => {
 						const field = params.colDef.field;
-						if (!field) return { background: "#fef3c7", fontWeight: 600 };
+						if (!field) return { background: "#fef9c3", fontWeight: 600 };
 						const row = params.data as AnalysisRow;
 						if (row.__maxKeys instanceof Set && row.__maxKeys.has(field)) {
 							return { background: "#fbcfe8", fontWeight: 700 };
@@ -867,7 +903,7 @@ function AverageGridPanel({
 						if (row.__minKeys instanceof Set && row.__minKeys.has(field)) {
 							return { background: "#bae6fd", fontWeight: 700 };
 						}
-						return { background: "#fef3c7", fontWeight: 600 };
+						return { background: "#fef9c3", fontWeight: 600 };
 					},
 				}}
 				suppressCellFocus
