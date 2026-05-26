@@ -354,7 +354,7 @@ export default function App() {
 
 			<div className="flex-1 ag-theme-quartz">
 				<AgGridReact<AnalysisRow>
-					rowData={filteredRows}
+					rowData={loading || !data ? undefined : filteredRows}
 					columnDefs={columnDefs}
 					defaultColDef={{
 						sortable: true,
@@ -364,6 +364,15 @@ export default function App() {
 					}}
 					enableCellTextSelection
 					animateRows={false}
+					overlayLoadingTemplate={
+						'<div class="flex flex-col items-center gap-3 text-gray-600">' +
+						'<div class="w-10 h-10 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>' +
+						'<span class="text-sm font-medium">데이터를 불러오는 중...</span>' +
+						'</div>'
+					}
+					overlayNoRowsTemplate={
+						'<div class="text-gray-500 text-sm">조건에 맞는 종목이 없습니다</div>'
+					}
 				/>
 			</div>
 		</div>
