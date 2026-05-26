@@ -23,3 +23,12 @@ body {
 .ag-theme-quartz .ag-layout-auto-height .ag-center-cols-viewport {
 	min-height: 0 !important;
 }
+
+/* 헤더/평균 그리드의 가로 스크롤바 시각적으로만 숨김.
+   display:none을 쓰면 layout에서 빠져 JS의 scrollLeft 동기화가 무시됨.
+   height:0 + overflow:hidden으로 element는 살리고 시각만 가린다. */
+.hide-h-scroll .ag-body-horizontal-scroll {
+	height: 0 !important;
+	min-height: 0 !important;
+	overflow: hidden !important;
+}

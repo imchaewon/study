@@ -564,7 +564,7 @@ function HeaderOnlyGrid({
 	};
 
 	return (
-		<div ref={containerRef} className="ag-theme-quartz">
+		<div ref={containerRef} className="ag-theme-quartz hide-h-scroll">
 			<AgGridReact<AnalysisRow>
 				ref={gridRef}
 				rowData={[]}
@@ -656,7 +656,7 @@ function AverageGridPanel({
 	return (
 		<div
 			ref={containerRef}
-			className="ag-theme-quartz border-b-2 border-yellow-300"
+			className="ag-theme-quartz border-b-2 border-yellow-300 hide-h-scroll"
 			style={{ maxHeight: "50vh", overflowY: "auto" }}
 		>
 			<AgGridReact<AnalysisRow>
