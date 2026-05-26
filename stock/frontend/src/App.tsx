@@ -4,6 +4,8 @@ import type {
 	CellClassParams,
 	ColDef,
 	ColGroupDef,
+	ColumnState,
+	SortChangedEvent,
 	ValueFormatterParams,
 } from "ag-grid-community";
 import { MarketRegimePanel } from "./MarketRegimePanel";
@@ -194,7 +196,10 @@ export default function App() {
 	const [topN, setTopN] = useState("");
 	const [avgTopN, setAvgTopN] = useState("");
 	const [data, setData] = useState<AnalysisResponse | null>(null);
-	const mainContainerRef = useRef<HTMLDivElement>(null);
+	const headerContainerRef = useRef<HTMLDivElement>(null);
+	const bodyContainerRef = useRef<HTMLDivElement>(null);
+	const headerGridRef = useRef<AgGridReact<AnalysisRow>>(null);
+	const bodyGridRef = useRef<AgGridReact<AnalysisRow>>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -464,14 +469,14 @@ export default function App() {
 				</label>
 
 				<label className="flex flex-col gap-1 text-xs text-gray-600">
-					평균: BullScore 상위 N (콤마)
+					평균: BullScore 상위 N (콤마/범위)
 					<input
 						type="text"
 						value={avgTopN}
 						onChange={(e) => setAvgTopN(e.target.value)}
 						onKeyDown={onSubmitKey}
-						placeholder="10,30,100"
-						className="border rounded px-2 py-1 w-32 text-sm bg-yellow-50"
+						placeholder="1-10, 30, 100"
+						className="border rounded px-2 py-1 w-40 text-sm bg-yellow-50"
 					/>
 				</label>
 
@@ -490,19 +495,30 @@ export default function App() {
 
 			<MarketRegimePanel baseDate={baseDate} />
 
+			<HeaderOnlyGrid
+				containerRef={headerContainerRef}
+				gridRef={headerGridRef}
+				columnDefs={columnDefs}
+				bodyGridRef={bodyGridRef}
+			/>
+
 			<AverageGridPanel
 				rows={averageRows}
 				columnDefs={columnDefs}
-				mainContainerRef={mainContainerRef}
+				headerContainerRef={headerContainerRef}
+				bodyContainerRef={bodyContainerRef}
 			/>
 
-			<div ref={mainContainerRef} className="flex-1 ag-theme-quartz">
+			<div ref={bodyContainerRef} className="flex-1 ag-theme-quartz">
 				<AgGridReact<AnalysisRow>
+					ref={bodyGridRef}
 					rowData={loading || !data ? undefined : filteredRows}
+					headerHeight={0}
+					groupHeaderHeight={0}
 					defaultColDef={{
 						sortable: true,
-						filter: true,
-						resizable: true,
+						filter: false,
+						resizable: false,
 						minWidth: 90,
 					}}
 					columnDefs={columnDefs}
@@ -524,6 +540,52 @@ export default function App() {
 }
 
 /**
+ * 본문 그리드의 헤더만 별도로 떼어낸 그리드.
+ * rowData=[] 이지만 헤더는 정상 표시되며, 헤더에서 정렬 클릭하면 본문 그리드의 정렬을 동기화.
+ */
+function HeaderOnlyGrid({
+	containerRef,
+	gridRef,
+	columnDefs,
+	bodyGridRef,
+}: {
+	containerRef: React.RefObject<HTMLDivElement>;
+	gridRef: React.RefObject<AgGridReact<AnalysisRow>>;
+	columnDefs: (ColDef | ColGroupDef)[];
+	bodyGridRef: React.RefObject<AgGridReact<AnalysisRow>>;
+}) {
+	// 헤더 그리드의 정렬 변경 → 본문 그리드에 동일 ColumnState 적용
+	const onSortChanged = (e: SortChangedEvent<AnalysisRow>) => {
+		const state: ColumnState[] = e.api.getColumnState();
+		bodyGridRef.current?.api?.applyColumnState({
+			state: state.map((s) => ({ colId: s.colId, sort: s.sort, sortIndex: s.sortIndex })),
+			defaultState: { sort: null },
+		});
+	};
+
+	return (
+		<div ref={containerRef} className="ag-theme-quartz">
+			<AgGridReact<AnalysisRow>
+				ref={gridRef}
+				rowData={[]}
+				columnDefs={columnDefs}
+				domLayout="autoHeight"
+				defaultColDef={{
+					sortable: true,
+					filter: false,
+					resizable: false,
+					minWidth: 90,
+				}}
+				suppressCellFocus
+				suppressNoRowsOverlay
+				onSortChanged={onSortChanged}
+				animateRows={false}
+			/>
+		</div>
+	);
+}
+
+/**
  * 평균 행을 위한 별도 AG Grid.
  * - 헤더 숨김 (headerHeight=0)
  * - 행 수에 따라 height 동적 (1~3행 자연 높이, 그 이상은 220px max + 세로 스크롤)
@@ -532,19 +594,18 @@ export default function App() {
 function AverageGridPanel({
 	rows,
 	columnDefs,
-	mainContainerRef,
+	headerContainerRef,
+	bodyContainerRef,
 }: {
 	rows: AnalysisRow[];
 	columnDefs: (ColDef | ColGroupDef)[];
-	mainContainerRef: React.RefObject<HTMLDivElement>;
+	headerContainerRef: React.RefObject<HTMLDivElement>;
+	bodyContainerRef: React.RefObject<HTMLDivElement>;
 }) {
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	// 가로 스크롤 동기화: 평균↔본문 viewport 양방향
-	// autoHeight 모드(평균)는 별도 가로 스크롤바 .ag-body-horizontal-scroll-viewport,
-	// normal 모드(본문)는 .ag-body-viewport에 통합돼 있어 둘 다 우선순위로 시도.
+	// 3개 그리드(헤더/평균/본문) 가로 스크롤 동기화
 	useEffect(() => {
-		if (rows.length === 0) return;
 		const findScroller = (root: HTMLElement | null): HTMLElement | null => {
 			if (!root) return null;
 			return (
@@ -555,31 +616,38 @@ function AverageGridPanel({
 		};
 		let cleanup = () => {};
 		const t = setTimeout(() => {
-			const main = findScroller(mainContainerRef.current);
-			const avg = findScroller(containerRef.current);
-			if (!main || !avg) return;
+			const header = findScroller(headerContainerRef.current);
+			const avg = rows.length > 0 ? findScroller(containerRef.current) : null;
+			const body = findScroller(bodyContainerRef.current);
+			const targets = [header, avg, body].filter(
+				(el): el is HTMLElement => el !== null,
+			);
+			if (targets.length < 2) return;
 			let syncing = false;
-			const sync = (from: HTMLElement, to: HTMLElement) => () => {
+			const onScroll = (source: HTMLElement) => () => {
 				if (syncing) return;
 				syncing = true;
-				if (to.scrollLeft !== from.scrollLeft) to.scrollLeft = from.scrollLeft;
-				// 동기화 직후 reset (다음 이벤트가 무한루프 안 되도록 마이크로태스크 뒤로)
+				for (const t of targets) {
+					if (t !== source && t.scrollLeft !== source.scrollLeft) {
+						t.scrollLeft = source.scrollLeft;
+					}
+				}
 				queueMicrotask(() => { syncing = false; });
 			};
-			const onMain = sync(main, avg);
-			const onAvg = sync(avg, main);
-			main.addEventListener("scroll", onMain);
-			avg.addEventListener("scroll", onAvg);
+			const handlers: Array<[HTMLElement, EventListener]> = targets.map((t) => [
+				t,
+				onScroll(t) as EventListener,
+			]);
+			for (const [el, h] of handlers) el.addEventListener("scroll", h);
 			cleanup = () => {
-				main.removeEventListener("scroll", onMain);
-				avg.removeEventListener("scroll", onAvg);
+				for (const [el, h] of handlers) el.removeEventListener("scroll", h);
 			};
 		}, 200);
 		return () => {
 			clearTimeout(t);
 			cleanup();
 		};
-	}, [rows.length, mainContainerRef]);
+	}, [rows.length, headerContainerRef, bodyContainerRef]);
 
 	if (rows.length === 0) return null;
 
