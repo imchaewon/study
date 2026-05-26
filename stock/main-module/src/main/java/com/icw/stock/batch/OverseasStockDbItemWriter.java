@@ -35,7 +35,6 @@ public class OverseasStockDbItemWriter implements ItemWriter<DetailInfo> {
 				.pvol(info.getPvol())
 				.tvol(info.getTvol())
 				.tamt(info.getTamt())
-				.eIcod(info.getE_icod())
 				.ordyn(info.getOrdyn())
 				.build();
 	}

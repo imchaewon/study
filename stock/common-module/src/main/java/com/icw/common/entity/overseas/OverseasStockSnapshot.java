@@ -40,9 +40,6 @@ public class OverseasStockSnapshot {
 	@Column(name = "tamt")
 	private Long tamt;
 
-	@Column(name = "e_icod", length = 200)
-	private String eIcod;
-
 	@Column(name = "ordyn", length = 50)
 	private String ordyn;
 

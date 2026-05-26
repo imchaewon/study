@@ -79,7 +79,6 @@ public class OverseasStockScheduler {
 				.pvol(info.getPvol())
 				.tvol(info.getTvol())
 				.tamt(info.getTamt())
-				.eIcod(info.getE_icod())
 				.ordyn(info.getOrdyn())
 				.build();
 	}
