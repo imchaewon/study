@@ -176,6 +176,7 @@ export default function App() {
 	const [customWeeks, setCustomWeeks] = useState("");
 	const [search, setSearch] = useState("");
 	const [topN, setTopN] = useState("");
+	const [avgTopN, setAvgTopN] = useState("");
 	const [data, setData] = useState<AnalysisResponse | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -236,9 +237,60 @@ export default function App() {
 		});
 	}, [data, search, topN]);
 
+	// 그리드 최상단에 고정 표시할 평균 행.
+	// 대상: filteredRows를 bullScore 내림차순 정렬 후 상위 avgTopN개. avgTopN 비우면 filteredRows 전체.
+	// bullScore가 null인 row는 정렬상 뒤로 밀림.
+	const averageRow = useMemo<AnalysisRow | null>(() => {
+		if (!data || filteredRows.length === 0) return null;
+
+		const avgNum = parseInt(avgTopN.trim(), 10);
+		const limit = !isNaN(avgNum) && avgNum > 0 ? avgNum : null;
+		const targetRows = limit !== null
+			? [...filteredRows]
+					.sort((a, b) => {
+						const sa = typeof a.bullScore === "number" ? a.bullScore : -Infinity;
+						const sb = typeof b.bullScore === "number" ? b.bullScore : -Infinity;
+						return sb - sa;
+					})
+					.slice(0, limit)
+			: filteredRows;
+
+		const numericKeys = new Set<string>();
+		for (const row of targetRows) {
+			for (const [k, v] of Object.entries(row)) {
+				if (typeof v === "number") numericKeys.add(k);
+			}
+		}
+		const label = limit !== null
+			? `평균 (Bull Score 상위 ${targetRows.length}종목)`
+			: `평균 (전체 ${targetRows.length}종목)`;
+		const result: AnalysisRow = { code: label };
+		for (const key of numericKeys) {
+			let sum = 0;
+			let cnt = 0;
+			for (const row of targetRows) {
+				const v = row[key];
+				if (typeof v === "number" && isFinite(v)) {
+					sum += v;
+					cnt += 1;
+				}
+			}
+			if (cnt > 0) result[key] = sum / cnt;
+		}
+		delete result.rank;
+		return result;
+	}, [data, filteredRows, avgTopN]);
+
 	const togglePreset = (n: number, kind: "d" | "w") => {
 		const setter = kind === "d" ? setSelectedDays : setSelectedWeeks;
 		setter((s) => (s.includes(n) ? s.filter((x) => x !== n) : uniqueSorted([...s, n])));
+	};
+
+	const onSubmitKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			fetchData();
+		}
 	};
 
 	return (
@@ -252,6 +304,7 @@ export default function App() {
 						type="text"
 						value={baseDate}
 						onChange={(e) => setBaseDate(e.target.value)}
+						onKeyDown={onSubmitKey}
 						placeholder="YYYYMMDD"
 						className="border rounded px-2 py-1 w-28 text-sm"
 					/>
@@ -301,6 +354,7 @@ export default function App() {
 						type="text"
 						value={customDays}
 						onChange={(e) => setCustomDays(e.target.value)}
+						onKeyDown={onSubmitKey}
 						placeholder="3,7,15"
 						className="border rounded px-2 py-1 w-28 text-sm"
 					/>
@@ -312,6 +366,7 @@ export default function App() {
 						type="text"
 						value={customWeeks}
 						onChange={(e) => setCustomWeeks(e.target.value)}
+						onKeyDown={onSubmitKey}
 						placeholder="2,8"
 						className="border rounded px-2 py-1 w-28 text-sm"
 					/>
@@ -326,7 +381,7 @@ export default function App() {
 				</button>
 
 				<label className="flex flex-col gap-1 text-xs text-gray-600">
-					시총 TOP N
+					시총 TOP N (표시)
 					<input
 						type="number"
 						min="1"
@@ -334,6 +389,18 @@ export default function App() {
 						onChange={(e) => setTopN(e.target.value)}
 						placeholder="전체"
 						className="border rounded px-2 py-1 w-24 text-sm"
+					/>
+				</label>
+
+				<label className="flex flex-col gap-1 text-xs text-gray-600">
+					평균: BullScore 상위 N
+					<input
+						type="number"
+						min="1"
+						value={avgTopN}
+						onChange={(e) => setAvgTopN(e.target.value)}
+						placeholder="전체"
+						className="border rounded px-2 py-1 w-28 text-sm bg-yellow-50"
 					/>
 				</label>
 
@@ -355,6 +422,12 @@ export default function App() {
 			<div className="flex-1 ag-theme-quartz">
 				<AgGridReact<AnalysisRow>
 					rowData={loading || !data ? undefined : filteredRows}
+					pinnedTopRowData={averageRow ? [averageRow] : undefined}
+					getRowStyle={(params) =>
+						params.node.rowPinned === "top"
+							? { background: "#fef3c7", fontWeight: 600 }
+							: undefined
+					}
 					columnDefs={columnDefs}
 					defaultColDef={{
 						sortable: true,
