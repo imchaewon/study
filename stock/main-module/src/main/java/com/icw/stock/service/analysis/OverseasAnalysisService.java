@@ -37,12 +37,16 @@ public class OverseasAnalysisService {
 		int maxWeekOffset = safeWeeks.stream().mapToInt(w -> w * BUSINESS_DAYS_PER_WEEK).max().orElse(0);
 		int maxOffset = Math.max(maxDayOffset, maxWeekOffset);
 
-		int requiredLookback = Math.max(maxOffset, MIN_LOOKBACK_FOR_INDICATORS);
+		// 과거: RSI/SMA 계산용 lookback. 미래: N일/N주 forward 등락률용 forward window.
+		int requiredLookback = MIN_LOOKBACK_FOR_INDICATORS;
+		int requiredForward = maxOffset;
 		LocalDate base = LocalDate.parse(baseDate, DateTimeFormatter.BASIC_ISO_DATE);
 		LocalDate from = base.minusDays((long) Math.ceil(requiredLookback * 1.5) + 30);
+		LocalDate to = base.plusDays((long) Math.ceil(requiredForward * 1.5) + 10);
 		String fromStr = from.format(DateTimeFormatter.BASIC_ISO_DATE);
+		String toStr = to.format(DateTimeFormatter.BASIC_ISO_DATE);
 
-		List<OverseasStockSnapshot> all = repository.findByBaseDateBetween(fromStr, baseDate);
+		List<OverseasStockSnapshot> all = repository.findByBaseDateBetween(fromStr, toStr);
 
 		Map<String, List<OverseasStockSnapshot>> byCode = all.stream()
 				.collect(Collectors.groupingBy(OverseasStockSnapshot::getCode));
@@ -60,23 +64,23 @@ public class OverseasAnalysisService {
 			List<OverseasStockSnapshot> seriesAsc = entry.getValue();
 			seriesAsc.sort(Comparator.comparing(OverseasStockSnapshot::getBaseDate));
 
-			if (seriesAsc.isEmpty() || !baseDate.equals(seriesAsc.get(seriesAsc.size() - 1).getBaseDate())) {
-				continue;
+			// baseDate 시점 인덱스 찾기 (정확 매치)
+			int t = -1;
+			for (int i = 0; i < seriesAsc.size(); i++) {
+				if (baseDate.equals(seriesAsc.get(i).getBaseDate())) {
+					t = i;
+					break;
+				}
 			}
+			if (t < 0) continue; // baseDate에 데이터 없는 종목 스킵
 
-			// baseDate 시점 인덱스(=마지막)
-			int t = seriesAsc.size() - 1;
-
-			// RSI, SMA 계산
+			// RSI, SMA 계산 (baseDate 시점 기준 과거 lookback)
 			Double rsi = computeRsi(seriesAsc, t, RSI_PERIOD);
 			Double sma20 = computeSma(seriesAsc, t, 20);
 			Double sma50 = computeSma(seriesAsc, t, 50);
 			Double sma200 = computeSma(seriesAsc, t, 200);
 
 			OverseasStockSnapshot current = seriesAsc.get(t);
-			// desc 정렬한 사본 (윈도우 오프셋 조회용)
-			List<OverseasStockSnapshot> seriesDesc = new ArrayList<>(seriesAsc);
-			seriesDesc.sort(Comparator.comparing(OverseasStockSnapshot::getBaseDate).reversed());
 
 			boolean arranged = (sma20 != null && sma50 != null && sma200 != null
 					&& sma20 > sma50 && sma50 > sma200);
@@ -110,10 +114,10 @@ public class OverseasAnalysisService {
 			row.put("tripleBullSignal", tripleBullSignal);
 
 			for (int n : safeDays) {
-				addOffsetMetrics(row, seriesDesc, current, n, n + "d");
+				addForwardMetrics(row, seriesAsc, t, current, n, n + "d");
 			}
 			for (int w : safeWeeks) {
-				addOffsetMetrics(row, seriesDesc, current, w * BUSINESS_DAYS_PER_WEEK, w + "w");
+				addForwardMetrics(row, seriesAsc, t, current, w * BUSINESS_DAYS_PER_WEEK, w + "w");
 			}
 
 			rows.add(row);
@@ -171,21 +175,32 @@ public class OverseasAnalysisService {
 		return count > 0 ? sum / count : null;
 	}
 
-	private void addOffsetMetrics(
+	/**
+	 * baseIdx 시점(=current) 기준 offset 영업일 후의 시점과 비교한 forward 메트릭.
+	 * 미래 데이터가 아직 없으면 모두 null.
+	 */
+	private void addForwardMetrics(
 			Map<String, Object> row,
-			List<OverseasStockSnapshot> seriesDesc,
+			List<OverseasStockSnapshot> seriesAsc,
+			int baseIdx,
 			OverseasStockSnapshot current,
 			int offset,
 			String suffix
 	) {
-		OverseasStockSnapshot past = (offset >= 0 && offset < seriesDesc.size()) ? seriesDesc.get(offset) : null;
-		Double priceChange = computeChangePct(current.getBase(), past != null ? past.getBase() : null);
-		Double volumeChange = computeChangePct(toDouble(current.getPvol()), past != null ? toDouble(past.getPvol()) : null);
-		Double pastNeglect = past != null ? past.getNeglectIndex() : null;
+		int futureIdx = baseIdx + offset;
+		OverseasStockSnapshot future = (futureIdx >= 0 && futureIdx < seriesAsc.size())
+				? seriesAsc.get(futureIdx)
+				: null;
+		Double priceChange = computeChangePct(future != null ? future.getBase() : null, current.getBase());
+		Double volumeChange = computeChangePct(
+				future != null ? toDouble(future.getPvol()) : null,
+				toDouble(current.getPvol())
+		);
+		Double futureNeglect = future != null ? future.getNeglectIndex() : null;
 
 		row.put("priceChange_" + suffix, priceChange);
 		row.put("volumeChange_" + suffix, volumeChange);
-		row.put("neglectIndex_" + suffix + "_ago", pastNeglect);
+		row.put("neglectIndex_" + suffix + "_future", futureNeglect);
 	}
 
 	private Double computeChangePct(Double current, Double past) {

@@ -127,44 +127,44 @@ function buildColumnDefs(
 	): ColDef[] => [
 		...days.map<ColDef>((n) => ({
 			field: `${prefix}_${n}d`,
-			headerName: `${n}일 ${labelSuffix}`,
+			headerName: `${n}일 후 ${labelSuffix}`,
 			type: "numericColumn",
 			valueFormatter: fmtPct,
 			cellClass: pctCellClass,
-			width: 120,
+			width: 130,
 		})),
 		...weeks.map<ColDef>((n) => ({
 			field: `${prefix}_${n}w`,
-			headerName: `${n}주 ${labelSuffix}`,
+			headerName: `${n}주 후 ${labelSuffix}`,
 			type: "numericColumn",
 			valueFormatter: fmtPct,
 			cellClass: pctCellClass,
-			width: 120,
+			width: 130,
 		})),
 	];
 
 	const buildNeglectCols = (days: number[], weeks: number[]): ColDef[] => [
 		...days.map<ColDef>((n) => ({
-			field: `neglectIndex_${n}d_ago`,
-			headerName: `${n}일전 소외지수`,
+			field: `neglectIndex_${n}d_future`,
+			headerName: `${n}일 후 소외지수`,
 			type: "numericColumn",
 			valueFormatter: fmtFixed2,
-			width: 130,
+			width: 140,
 		})),
 		...weeks.map<ColDef>((n) => ({
-			field: `neglectIndex_${n}w_ago`,
-			headerName: `${n}주전 소외지수`,
+			field: `neglectIndex_${n}w_future`,
+			headerName: `${n}주 후 소외지수`,
 			type: "numericColumn",
 			valueFormatter: fmtFixed2,
-			width: 130,
+			width: 140,
 		})),
 	];
 
 	return [
 		...baseColumns,
-		{ headerName: "가격 등락률", children: buildPctCols("priceChange", "등락률", daysWindows, weeksWindows) },
-		{ headerName: "거래량 변동률", children: buildPctCols("volumeChange", "거래량변동", daysWindows, weeksWindows) },
-		{ headerName: "N기간 전 소외지수", children: buildNeglectCols(daysWindows, weeksWindows) },
+		{ headerName: "미래 가격 등락률", children: buildPctCols("priceChange", "등락률", daysWindows, weeksWindows) },
+		{ headerName: "미래 거래량 변동률", children: buildPctCols("volumeChange", "거래량변동", daysWindows, weeksWindows) },
+		{ headerName: "미래 소외지수", children: buildNeglectCols(daysWindows, weeksWindows) },
 	];
 }
 
