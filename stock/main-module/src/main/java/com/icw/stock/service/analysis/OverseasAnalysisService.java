@@ -54,8 +54,12 @@ public class OverseasAnalysisService {
 		Map<String, List<OverseasStockSnapshot>> byCode = all.stream()
 				.collect(Collectors.groupingBy(OverseasStockSnapshot::getCode));
 
-		Map<String, Integer> rankByTicker = nasdaqUniverseRepository.findAll().stream()
+		List<NasdaqUniverse> universe = nasdaqUniverseRepository.findAll();
+		Map<String, Integer> rankByTicker = universe.stream()
 				.collect(Collectors.toMap(NasdaqUniverse::getTicker, NasdaqUniverse::getRankNo, (a, b) -> a));
+		Map<String, String> industryByTicker = universe.stream()
+				.filter(u -> u.getIndustry() != null && !u.getIndustry().isEmpty())
+				.collect(Collectors.toMap(NasdaqUniverse::getTicker, NasdaqUniverse::getIndustry, (a, b) -> a));
 
 		List<Map<String, Object>> rows = new ArrayList<>();
 		for (Map.Entry<String, List<OverseasStockSnapshot>> entry : byCode.entrySet()) {
@@ -98,7 +102,7 @@ public class OverseasAnalysisService {
 			Map<String, Object> row = new LinkedHashMap<>();
 			row.put("code", current.getCode());
 			row.put("rank", rankByTicker.get(current.getCode()));
-			row.put("eIcod", current.getEIcod());
+			row.put("industry", industryByTicker.get(current.getCode()));
 			row.put("base", current.getBase());
 			row.put("h52p", current.getH52p());
 			row.put("l52p", current.getL52p());

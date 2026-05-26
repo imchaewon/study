@@ -211,7 +211,7 @@ function buildColumnDefs(
 			width: 55,
 			filter: false,
 		},
-		{ field: "eIcod", headerName: "업종", width: 130 },
+		{ field: "industry", headerName: "업종", width: 130 },
 		{ field: "base", headerName: "현재가", valueFormatter: fmtNum, width: 110 },
 		{ field: "pvol", headerName: "거래량", type: "numericColumn", valueFormatter: fmtNum, width: 130 },
 		{
@@ -354,7 +354,7 @@ export default function App() {
 			}
 			if (q) {
 				const code = String(r.code ?? "").toUpperCase();
-				const sector = String(r.eIcod ?? "");
+				const sector = String(r.industry ?? "");
 				if (!code.includes(q) && !sector.includes(search)) return false;
 			}
 			return true;
