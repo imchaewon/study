@@ -19,11 +19,27 @@ type AnalysisResponse = {
 	rows: AnalysisRow[];
 };
 
+// "1-5", "3,7,15", "1-3,10,20-22" 등을 양의 정수 배열로 파싱.
+// 범위는 start <= end만 허용. 음수/NaN/역방향은 무시. 너무 큰 범위는 안전 상한 1000.
 function parseNList(input: string): number[] {
-	return input
-		.split(",")
-		.map((s) => parseInt(s.trim(), 10))
-		.filter((n) => !isNaN(n) && n > 0);
+	const out: number[] = [];
+	for (const tokenRaw of input.split(",")) {
+		const token = tokenRaw.trim();
+		if (!token) continue;
+		const rangeMatch = token.match(/^(\d+)\s*-\s*(\d+)$/);
+		if (rangeMatch) {
+			const start = parseInt(rangeMatch[1], 10);
+			const end = parseInt(rangeMatch[2], 10);
+			if (!isNaN(start) && !isNaN(end) && start > 0 && end >= start) {
+				const cap = Math.min(end, start + 999);
+				for (let i = start; i <= cap; i++) out.push(i);
+			}
+		} else {
+			const n = parseInt(token, 10);
+			if (!isNaN(n) && n > 0) out.push(n);
+		}
+	}
+	return out;
 }
 
 function uniqueSorted(arr: number[]): number[] {
@@ -320,6 +336,14 @@ export default function App() {
 		setter((s) => (s.includes(n) ? s.filter((x) => x !== n) : uniqueSorted([...s, n])));
 	};
 
+	const toggleAllPreset = (kind: "d" | "w") => {
+		const preset = kind === "d" ? PRESET_DAYS : PRESET_WEEKS;
+		const current = kind === "d" ? selectedDays : selectedWeeks;
+		const setter = kind === "d" ? setSelectedDays : setSelectedWeeks;
+		const allSelected = preset.every((n) => current.includes(n));
+		setter(allSelected ? [] : [...preset]);
+	};
+
 	const onSubmitKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter") {
 			e.preventDefault();
@@ -347,6 +371,13 @@ export default function App() {
 				<div className="flex flex-col gap-1">
 					<span className="text-xs text-gray-600">N일 프리셋</span>
 					<div className="flex gap-1">
+						<button
+							onClick={() => toggleAllPreset("d")}
+							className="px-2 py-1 text-sm rounded border bg-gray-100 border-gray-400 hover:bg-gray-200"
+							title="전체 선택/해제"
+						>
+							{PRESET_DAYS.every((n) => selectedDays.includes(n)) ? "전체해제" : "전체선택"}
+						</button>
 						{PRESET_DAYS.map((n) => (
 							<button
 								key={n}
@@ -366,6 +397,13 @@ export default function App() {
 				<div className="flex flex-col gap-1">
 					<span className="text-xs text-gray-600">N주 프리셋</span>
 					<div className="flex gap-1">
+						<button
+							onClick={() => toggleAllPreset("w")}
+							className="px-2 py-1 text-sm rounded border bg-gray-100 border-gray-400 hover:bg-gray-200"
+							title="전체 선택/해제"
+						>
+							{PRESET_WEEKS.every((n) => selectedWeeks.includes(n)) ? "전체해제" : "전체선택"}
+						</button>
 						{PRESET_WEEKS.map((n) => (
 							<button
 								key={n}
@@ -383,26 +421,26 @@ export default function App() {
 				</div>
 
 				<label className="flex flex-col gap-1 text-xs text-gray-600">
-					커스텀 일 (콤마)
+					커스텀 일 (콤마/범위)
 					<input
 						type="text"
 						value={customDays}
 						onChange={(e) => setCustomDays(e.target.value)}
 						onKeyDown={onSubmitKey}
-						placeholder="3,7,15"
-						className="border rounded px-2 py-1 w-28 text-sm"
+						placeholder="1-10, 15, 30"
+						className="border rounded px-2 py-1 w-36 text-sm"
 					/>
 				</label>
 
 				<label className="flex flex-col gap-1 text-xs text-gray-600">
-					커스텀 주 (콤마)
+					커스텀 주 (콤마/범위)
 					<input
 						type="text"
 						value={customWeeks}
 						onChange={(e) => setCustomWeeks(e.target.value)}
 						onKeyDown={onSubmitKey}
-						placeholder="2,8"
-						className="border rounded px-2 py-1 w-28 text-sm"
+						placeholder="1-4, 8"
+						className="border rounded px-2 py-1 w-36 text-sm"
 					/>
 				</label>
 
