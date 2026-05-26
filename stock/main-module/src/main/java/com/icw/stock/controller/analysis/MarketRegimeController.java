@@ -34,10 +34,9 @@ public class MarketRegimeController {
 	}
 
 	private String resolveBaseDate(String requested) {
-		if (requested != null && !requested.isBlank()) return requested;
-		String latest = repository.findLatestBaseDate();
-		return latest != null
-				? latest
-				: LocalDate.now(ZONE_ID).format(DateTimeFormatter.BASIC_ISO_DATE);
+		String today = LocalDate.now(ZONE_ID).format(DateTimeFormatter.BASIC_ISO_DATE);
+		String upper = (requested != null && !requested.isBlank()) ? requested : today;
+		String resolved = repository.findLatestBaseDateOnOrBefore(upper);
+		return resolved != null ? resolved : upper;
 	}
 }

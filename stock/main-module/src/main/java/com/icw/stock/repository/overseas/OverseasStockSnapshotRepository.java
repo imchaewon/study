@@ -31,4 +31,7 @@ public interface OverseasStockSnapshotRepository extends JpaRepository<OverseasS
 
 	@Query("SELECT MAX(o.baseDate) FROM OverseasStockSnapshot o")
 	String findLatestBaseDate();
+
+	@Query("SELECT MAX(o.baseDate) FROM OverseasStockSnapshot o WHERE o.baseDate <= :upper")
+	String findLatestBaseDateOnOrBefore(@Param("upper") String upper);
 }
