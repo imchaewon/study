@@ -22,6 +22,7 @@ public class MarketRegimeService {
 
 	private static final int SMA_PERIOD = 200;
 	private static final int VOL_PERIOD = 20;
+	private static final int PEAK_LOOKBACK = 30; // 30영업일 high 대비 현재 위치
 	private static final double VOL_THRESHOLD_PCT = 25.0;
 	private static final double DAILY_RETURN_CLIP = 0.5; // ±50% 이상치 클립
 
@@ -80,7 +81,7 @@ public class MarketRegimeService {
 			dailyReturns.add(avg);
 		}
 
-		// 각 시점의 SMA200, vol20 계산
+		// 각 시점의 SMA200, vol20, peak drawdown 계산
 		List<MarketRegimeResponse.RegimeSnapshot> snapshots = new ArrayList<>();
 		for (int i = 0; i < dates.size(); i++) {
 			String d = dates.get(i);
@@ -92,9 +93,17 @@ public class MarketRegimeService {
 					? stdev(dailyReturns.subList(i - VOL_PERIOD + 1, i + 1)) * Math.sqrt(252) * 100.0
 					: null;
 			Double dev = (sma != null && sma > 0) ? (iv / sma - 1) * 100 : null;
+			// 최근 PEAK_LOOKBACK 영업일 high 대비 현재 위치 — 0이면 peak, 음수면 조정 중
+			Double peakDd = null;
+			if (i > 0) {
+				int peakStart = Math.max(0, i - PEAK_LOOKBACK + 1);
+				double peak = Double.NEGATIVE_INFINITY;
+				for (int j = peakStart; j <= i; j++) peak = Math.max(peak, indexVals.get(j));
+				if (peak > 0) peakDd = (iv / peak - 1) * 100;
+			}
 			MarketRegime regime = classify(iv, sma, vol);
 			snapshots.add(new MarketRegimeResponse.RegimeSnapshot(
-					d, iv, sma, dev, vol, regime, regime.getLabel()
+					d, iv, sma, dev, vol, peakDd, regime, regime.getLabel()
 			));
 		}
 

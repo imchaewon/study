@@ -13,6 +13,7 @@ type RegimeSnapshot = {
 	sma200: number | null;
 	deviationPct: number | null;
 	vol20Pct: number | null;
+	peakDrawdownPct: number | null;
 	regime: RegimeKey;
 	regimeLabel: string;
 };
@@ -110,6 +111,19 @@ export function MarketRegimePanel({ baseDate }: { baseDate: string }) {
 					label="20일 변동성 (연환산)"
 					value={fmt(c.vol20Pct, "%")}
 					color={colorForVol(c.vol20Pct)}
+				/>
+				<Metric
+					label="30일 high 대비"
+					value={fmt(c.peakDrawdownPct, "%")}
+					color={
+						c.peakDrawdownPct === null
+							? ""
+							: c.peakDrawdownPct <= -10
+							? "text-red-700"
+							: c.peakDrawdownPct <= -5
+							? "text-orange-600"
+							: "text-gray-700"
+					}
 				/>
 
 				<button

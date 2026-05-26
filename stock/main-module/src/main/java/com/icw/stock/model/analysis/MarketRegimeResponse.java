@@ -14,6 +14,7 @@ public record MarketRegimeResponse(
 			Double sma200,
 			Double deviationPct,
 			Double vol20Pct,
+			Double peakDrawdownPct,
 			MarketRegime regime,
 			String regimeLabel
 	) {
