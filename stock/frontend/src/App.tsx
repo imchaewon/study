@@ -49,13 +49,6 @@ function uniqueSorted(arr: number[]): number[] {
 	return Array.from(new Set(arr)).sort((a, b) => a - b);
 }
 
-// 중앙값 — outlier에 robust한 baseline 계산용.
-function median(arr: number[]): number {
-	if (arr.length === 0) return 0;
-	const sorted = [...arr].sort((a, b) => a - b);
-	const mid = Math.floor(sorted.length / 2);
-	return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
-}
 
 const fmtPct = (params: ValueFormatterParams) => {
 	const v = params.value;
@@ -227,26 +220,30 @@ function buildColumnDefs(
 		{ field: "arranged", headerName: "정배열", valueFormatter: fmtArranged, width: 55, cellStyle: { textAlign: "center" } },
 	];
 
-	const buildPctCols = (prefix: string, days: number[], weeks: number[]): ColDef[] => [
-		...days.map<ColDef>((n) => ({
-			field: `${prefix}_${n}d`,
-			headerName: `${n}일 후`,
-			type: "numericColumn",
-			valueGetter: transformValue(`${prefix}_${n}d`),
-			valueFormatter: fmtPct,
-			cellClass: pctCellClass,
-			width: 90,
-		})),
-		...weeks.map<ColDef>((n) => ({
-			field: `${prefix}_${n}w`,
-			headerName: `${n}주 후`,
-			type: "numericColumn",
-			valueGetter: transformValue(`${prefix}_${n}w`),
-			valueFormatter: fmtPct,
-			cellClass: pctCellClass,
-			width: 90,
-		})),
-	];
+	const buildPctCols = (prefix: string, days: number[], weeks: number[]): ColDef[] => {
+		// 거래량 변동률은 +10000%+ 같은 큰 수 자주 나오므로 더 넓게
+		const width = prefix === "volumeChange" ? 130 : 90;
+		return [
+			...days.map<ColDef>((n) => ({
+				field: `${prefix}_${n}d`,
+				headerName: `${n}일 후`,
+				type: "numericColumn",
+				valueGetter: transformValue(`${prefix}_${n}d`),
+				valueFormatter: fmtPct,
+				cellClass: pctCellClass,
+				width,
+			})),
+			...weeks.map<ColDef>((n) => ({
+				field: `${prefix}_${n}w`,
+				headerName: `${n}주 후`,
+				type: "numericColumn",
+				valueGetter: transformValue(`${prefix}_${n}w`),
+				valueFormatter: fmtPct,
+				cellClass: pctCellClass,
+				width,
+			})),
+		];
+	};
 
 	const buildNeglectCols = (days: number[], weeks: number[]): ColDef[] => [
 		...days.map<ColDef>((n) => ({
@@ -361,19 +358,21 @@ export default function App() {
 		});
 	}, [data, search, topN]);
 
-	// baseline 계산 (filteredRows 변경 시) — priceChange_*/volumeChange_* 컬럼별 중앙값.
+	// baseline 계산 (filteredRows 변경 시) — priceChange_*/volumeChange_* 컬럼별 평균.
 	const baseline = useMemo<Record<string, number>>(() => {
-		const samples: Record<string, number[]> = {};
+		const sum: Record<string, number> = {};
+		const cnt: Record<string, number> = {};
 		for (const row of filteredRows) {
 			for (const [k, v] of Object.entries(row)) {
 				if (!k.startsWith("priceChange_") && !k.startsWith("volumeChange_")) continue;
 				if (typeof v === "number" && isFinite(v)) {
-					(samples[k] ??= []).push(v);
+					sum[k] = (sum[k] ?? 0) + v;
+					cnt[k] = (cnt[k] ?? 0) + 1;
 				}
 			}
 		}
 		const result: Record<string, number> = {};
-		for (const k of Object.keys(samples)) result[k] = median(samples[k]);
+		for (const k of Object.keys(sum)) result[k] = sum[k] / cnt[k];
 		return result;
 	}, [filteredRows]);
 
@@ -459,21 +458,24 @@ export default function App() {
 			}
 			const label = n !== null ? `BS${target.length}` : `ALL`;
 			const result: AnalysisRow = { code: label };
-			// 평균 대신 중앙값 사용 — outlier(NVDA 같은 +100%+ 종목)가 baseline 왜곡 방지
 			for (const key of numericKeys) {
-				const samples: number[] = [];
+				let sum = 0;
+				let cnt = 0;
 				for (const row of target) {
 					const v = row[key];
-					if (typeof v === "number" && isFinite(v)) samples.push(v);
+					if (typeof v === "number" && isFinite(v)) {
+						sum += v;
+						cnt += 1;
+					}
 				}
-				if (samples.length > 0) result[key] = median(samples);
+				if (cnt > 0) result[key] = sum / cnt;
 			}
 			delete result.rank;
 			return result;
 		};
 
 		// avgTopN 비어있으면 ALL 평균만 표시 (토글 OFF/ON 무관).
-		// 토글 ON일 때는 baseline(ALL 절대값)을 항상 맨 위에 두고, 그 아래 사용자 입력 행을 vs ALL Median로 변환.
+		// 토글 ON일 때는 baseline(ALL 절대값)을 항상 맨 위에 두고, 그 아래 사용자 입력 행을 vs ALL Average로 변환.
 		const userRows = ns.length > 0
 			? ns.map((n) => buildRow(n))
 			: (relativeToAll ? [] : [buildRow(null)]);
@@ -482,7 +484,7 @@ export default function App() {
 		if (relativeToAll) {
 			const baseline = buildRow(null); // ALL 절대값 — 변환 없이 그대로 첫 행에 표시
 			for (const r of userRows) {
-				r.code = `${r.code} vs ALL Median`;
+				r.code = `${r.code} vs ALL Average`;
 				for (const [k, v] of Object.entries(r)) {
 					if (typeof v !== "number") continue;
 					if (!k.startsWith("priceChange_") && !k.startsWith("volumeChange_")) continue; // 미래 가격/거래량 변동률만 변환
@@ -549,7 +551,7 @@ export default function App() {
 		}
 	};
 
-	// vs ALL Median 토글 — ref 업데이트 + 셀 refresh만 (rowData/columnDef 변경 X → scrollLeft 보존).
+	// vs ALL Average 토글 — ref 업데이트 + 셀 refresh만 (rowData/columnDef 변경 X → scrollLeft 보존).
 	const handleToggleRelative = useCallback(() => {
 		relativeToAllRef.current = !relativeToAllRef.current;
 		setRelativeToAll((v) => !v); // UI 표시용 (버튼 색)
@@ -685,7 +687,7 @@ export default function App() {
 					className="flex flex-col gap-1 text-xs text-gray-600 cursor-pointer"
 					title="ON: 각 평균 행을 '전체 평균(ALL) 대비 차이(%p)'로 표시 — 시장 추세 효과를 제거한 순수 그룹 알파"
 				>
-					vs ALL Median
+					vs ALL Average
 					<button
 						type="button"
 						onClick={handleToggleRelative}
@@ -733,6 +735,10 @@ export default function App() {
 					ref={bodyGridRef}
 					rowData={loading || !data ? undefined : filteredRows}
 					getRowId={(p) => String(p.data?.code ?? "")}
+					getRowClass={(p) => {
+						const idx = p.node.rowIndex;
+						return idx != null && (idx + 1) % 10 === 0 ? "row-divider-10" : "";
+					}}
 					headerHeight={0}
 					groupHeaderHeight={0}
 					defaultColDef={{
