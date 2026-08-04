@@ -1,12 +1,12 @@
 package com.example.batch.client;
 
 import com.example.batch.dto.TourApiResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collections;
@@ -18,6 +18,7 @@ import java.util.List;
 public class TourApiClient {
 
     private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
     @Value("${tour.api.service-key}")
     private String serviceKey;
@@ -29,50 +30,50 @@ public class TourApiClient {
     private int numOfRows;
 
     public List<TourApiResponse.Item> fetchPage(int pageNo) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl + "/areaBasedList1")
-            .queryParam("serviceKey", serviceKey)
-            .queryParam("pageNo", pageNo)
-            .queryParam("numOfRows", numOfRows)
-            .queryParam("MobileOS", "ETC")
-            .queryParam("MobileApp", "BatchTest")
-            .queryParam("_type", "json")
-            .queryParam("listYN", "Y")
-            .queryParam("arrange", "A")
-            .build(true)
-            .toUri();
+        String url = baseUrl + "/areaBasedList2"
+            + "?serviceKey=" + serviceKey
+            + "&pageNo=" + pageNo
+            + "&numOfRows=" + numOfRows
+            + "&MobileOS=ETC&MobileApp=BatchTest&_type=json&arrange=A";
 
         log.info("API 호출: page={}", pageNo);
-        TourApiResponse response = restTemplate.getForObject(uri, TourApiResponse.class);
+        String raw = restTemplate.getForObject(URI.create(url), String.class);
+        log.info("API 응답: {}", raw);
 
-        if (response == null
-            || response.getResponse() == null
-            || response.getResponse().getBody() == null
-            || response.getResponse().getBody().getItems() == null
-            || response.getResponse().getBody().getItems().getItem() == null) {
+        try {
+            TourApiResponse response = objectMapper.readValue(raw, TourApiResponse.class);
+            if (response == null
+                || response.getResponse() == null
+                || response.getResponse().getBody() == null
+                || response.getResponse().getBody().getItems() == null
+                || response.getResponse().getBody().getItems().getItem() == null) {
+                return Collections.emptyList();
+            }
+            return response.getResponse().getBody().getItems().getItem();
+        } catch (Exception e) {
+            log.error("응답 파싱 실패: {}", raw, e);
             return Collections.emptyList();
         }
-
-        return response.getResponse().getBody().getItems().getItem();
     }
 
     public int fetchTotalCount() {
-        URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl + "/areaBasedList1")
-            .queryParam("serviceKey", serviceKey)
-            .queryParam("pageNo", 1)
-            .queryParam("numOfRows", 1)
-            .queryParam("MobileOS", "ETC")
-            .queryParam("MobileApp", "BatchTest")
-            .queryParam("_type", "json")
-            .queryParam("listYN", "Y")
-            .build(true)
-            .toUri();
+        String url = baseUrl + "/areaBasedList2"
+            + "?serviceKey=" + serviceKey
+            + "&pageNo=1&numOfRows=1&MobileOS=ETC&MobileApp=BatchTest&_type=json";
 
-        TourApiResponse response = restTemplate.getForObject(uri, TourApiResponse.class);
+        log.info("totalCount 호출 URL: {}", url);
+        String raw = restTemplate.getForObject(URI.create(url), String.class);
+        log.info("totalCount 응답: {}", raw);
 
-        if (response == null || response.getResponse() == null || response.getResponse().getBody() == null) {
+        try {
+            TourApiResponse response = objectMapper.readValue(raw, TourApiResponse.class);
+            if (response == null || response.getResponse() == null || response.getResponse().getBody() == null) {
+                return 0;
+            }
+            return response.getResponse().getBody().getTotalCount();
+        } catch (Exception e) {
+            log.error("totalCount 응답 파싱 실패", e);
             return 0;
         }
-
-        return response.getResponse().getBody().getTotalCount();
     }
 }
