@@ -17,7 +17,8 @@ public class TourSpotWriter implements ItemWriter<TourSpot> {
 
     @Override
     public void write(Chunk<? extends TourSpot> chunk) {
+        log.info("write start");
         log.info("DB 적재: {}건", chunk.size());
-        tourSpotRepository.saveAll(chunk.getItems());
+        tourSpotRepository.upsertAll(chunk.getItems());
     }
 }

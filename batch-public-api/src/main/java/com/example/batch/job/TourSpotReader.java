@@ -24,6 +24,7 @@ public class TourSpotReader implements ItemReader<TourApiResponse.Item> {
 
     @Override
     public TourApiResponse.Item read() {
+        log.info("start read");
         if (totalCount == -1) {
             totalCount = tourApiClient.fetchTotalCount();
             log.info("총 데이터 수: {}", totalCount);
@@ -43,6 +44,7 @@ public class TourSpotReader implements ItemReader<TourApiResponse.Item> {
 
         TourApiResponse.Item item = buffer.remove(0);
         processedCount++;
+        log.info("and read");
         return item;
     }
 }
