@@ -26,3 +26,9 @@ poke:
   api:
     base-url: https://pokeapi.co/api/v2
     limit: 100
+
+tour:
+  api:
+    service-key: ${TOUR_API_SERVICE_KEY}
+    base-url: https://apis.data.go.kr/B551011/KorService2
+    num-of-rows: 100

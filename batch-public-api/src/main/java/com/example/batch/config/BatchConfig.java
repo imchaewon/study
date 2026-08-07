@@ -1,10 +1,10 @@
 package com.example.batch.config;
 
 import com.example.batch.dto.PokeApiResponse;
+import com.example.batch.dto.TourApiResponse;
 import com.example.batch.entity.Pokemon;
-import com.example.batch.job.PokemonProcessor;
-import com.example.batch.job.PokemonReader;
-import com.example.batch.job.PokemonWriter;
+import com.example.batch.entity.TourSpot;
+import com.example.batch.job.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -24,6 +24,9 @@ public class BatchConfig {
     private final PokemonReader pokemonReader;
     private final PokemonProcessor pokemonProcessor;
     private final PokemonWriter pokemonWriter;
+    private final TourSpotReader tourSpotReader;
+    private final TourSpotProcessor tourSpotProcessor;
+    private final TourSpotWriter tourSpotWriter;
 
     @Bean
     public Job pokemonJob() {
@@ -39,6 +42,23 @@ public class BatchConfig {
                 .reader(pokemonReader)
                 .processor(pokemonProcessor)
                 .writer(pokemonWriter)
+                .build();
+    }
+
+    @Bean
+    public Job tourSpotJob() {
+        return new JobBuilder("tourSpotJob", jobRepository)
+                .start(tourSpotStep())
+                .build();
+    }
+
+    @Bean
+    public Step tourSpotStep() {
+        return new StepBuilder("tourSpotStep", jobRepository)
+                .<TourApiResponse.Item, TourSpot>chunk(100, transactionManager)
+                .reader(tourSpotReader)
+                .processor(tourSpotProcessor)
+                .writer(tourSpotWriter)
                 .build();
     }
 }

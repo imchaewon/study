@@ -5,6 +5,7 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,15 +20,22 @@ public class BatchApplication {
     }
 
     @Bean
-    public CommandLineRunner run(JobLauncher jobLauncher, Job pokemonJob) {
+    public CommandLineRunner run(JobLauncher jobLauncher,
+                                 @Qualifier("pokemonJob") Job pokemonJob,
+                                 @Qualifier("tourSpotJob") Job tourSpotJob) {
         return args -> {
+            // 실행할 job 선택: "pokemon" 또는 "tourspot" (기본값: pokemon)
+            String jobName = args.length > 0 ? args[0] : "pokemon";
+
             long startTime = System.currentTimeMillis();
-            log.info("배치 시작");
+            log.info("배치 시작: {}", jobName);
 
             JobParameters params = new JobParametersBuilder()
                     .addLong("time", startTime)
                     .toJobParameters();
-            jobLauncher.run(pokemonJob, params);
+
+            Job job = jobName.equals("tourspot") ? tourSpotJob : pokemonJob;
+            jobLauncher.run(job, params);
 
             long elapsed = System.currentTimeMillis() - startTime;
             log.info("배치 종료 - 소요 시간: {}ms ({}초)", elapsed, elapsed / 1000.0);
