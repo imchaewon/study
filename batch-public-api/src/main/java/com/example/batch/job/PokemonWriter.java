@@ -18,6 +18,6 @@ public class PokemonWriter implements ItemWriter<Pokemon> {
     @Override
     public void write(Chunk<? extends Pokemon> chunk) {
         log.info("DB 적재: {}건", chunk.size());
-        pokemonRepository.saveAll(chunk.getItems());
+        pokemonRepository.upsertAll(chunk.getItems());
     }
 }
