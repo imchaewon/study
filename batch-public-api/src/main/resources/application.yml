@@ -16,10 +16,13 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      enabled: false  # 시작 시 자동 실행 안 함
+      enabled: false
 
-tour:
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: debug
+
+poke:
   api:
-    service-key: ${TOUR_API_SERVICE_KEY}
-    base-url: https://apis.data.go.kr/B551011/KorService2
-    num-of-rows: 100
+    base-url: https://pokeapi.co/api/v2
+    limit: 100

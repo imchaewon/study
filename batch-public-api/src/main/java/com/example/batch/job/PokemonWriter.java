@@ -1,7 +1,7 @@
 package com.example.batch.job;
 
-import com.example.batch.entity.TourSpot;
-import com.example.batch.repository.TourSpotRepository;
+import com.example.batch.entity.Pokemon;
+import com.example.batch.repository.PokemonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.Chunk;
@@ -11,14 +11,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class TourSpotWriter implements ItemWriter<TourSpot> {
+public class PokemonWriter implements ItemWriter<Pokemon> {
 
-    private final TourSpotRepository tourSpotRepository;
+    private final PokemonRepository pokemonRepository;
 
     @Override
-    public void write(Chunk<? extends TourSpot> chunk) {
-        log.info("write start");
+    public void write(Chunk<? extends Pokemon> chunk) {
         log.info("DB 적재: {}건", chunk.size());
-        tourSpotRepository.upsertAll(chunk.getItems());
+        pokemonRepository.saveAll(chunk.getItems());
     }
 }
