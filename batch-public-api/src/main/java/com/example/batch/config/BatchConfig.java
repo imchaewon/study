@@ -4,6 +4,7 @@ import com.example.batch.dto.PokeApiResponse;
 import com.example.batch.dto.TourApiResponse;
 import com.example.batch.entity.Pokemon;
 import com.example.batch.entity.TourSpot;
+import com.example.batch.entity.TourSpotImage;
 import com.example.batch.job.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -27,6 +28,8 @@ public class BatchConfig {
     private final TourSpotReader tourSpotReader;
     private final TourSpotProcessor tourSpotProcessor;
     private final TourSpotWriter tourSpotWriter;
+    private final TourSpotImageReader tourSpotImageReader;
+    private final TourSpotImageWriter tourSpotImageWriter;
 
     @Bean
     public Job pokemonJob() {
@@ -59,6 +62,22 @@ public class BatchConfig {
                 .reader(tourSpotReader)
                 .processor(tourSpotProcessor)
                 .writer(tourSpotWriter)
+                .build();
+    }
+
+    @Bean
+    public Job tourSpotImageJob() {
+        return new JobBuilder("tourSpotImageJob", jobRepository)
+                .start(tourSpotImageStep())
+                .build();
+    }
+
+    @Bean
+    public Step tourSpotImageStep() {
+        return new StepBuilder("tourSpotImageStep", jobRepository)
+                .<TourSpotImage, TourSpotImage>chunk(1000, transactionManager)
+                .reader(tourSpotImageReader)
+                .writer(tourSpotImageWriter)
                 .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.batch.client;
 
 import com.example.batch.dto.TourApiResponse;
+import com.example.batch.dto.TourImageApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +52,30 @@ public class TourApiClient {
             return response.getResponse().getBody().getItems().getItem();
         } catch (Exception e) {
             log.error("응답 파싱 실패: {}", raw, e);
+            return Collections.emptyList();
+        }
+    }
+
+    public List<TourImageApiResponse.ImageItem> fetchImages(String contentId) {
+        String url = baseUrl + "/detailImage2"
+                + "?serviceKey=" + serviceKey
+                + "&contentId=" + contentId
+                + "&imageYN=Y&subImageYN=Y&MobileOS=ETC&MobileApp=BatchTest&_type=json";
+
+        String raw = restTemplate.getForObject(URI.create(url), String.class);
+
+        try {
+            TourImageApiResponse response = objectMapper.readValue(raw, TourImageApiResponse.class);
+            if (response == null
+                    || response.getResponse() == null
+                    || response.getResponse().getBody() == null
+                    || response.getResponse().getBody().getItems() == null
+                    || response.getResponse().getBody().getItems().getItem() == null) {
+                return Collections.emptyList();
+            }
+            return response.getResponse().getBody().getItems().getItem();
+        } catch (Exception e) {
+            log.error("이미지 응답 파싱 실패: contentId={}", contentId, e);
             return Collections.emptyList();
         }
     }
