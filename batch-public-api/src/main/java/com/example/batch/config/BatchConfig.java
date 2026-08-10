@@ -66,6 +66,14 @@ public class BatchConfig {
     }
 
     @Bean
+    public Job tourFullJob() {
+        return new JobBuilder("tourFullJob", jobRepository)
+                .start(tourSpotStep())
+                .next(tourSpotImageStep())
+                .build();
+    }
+
+    @Bean
     public Job tourSpotImageJob() {
         return new JobBuilder("tourSpotImageJob", jobRepository)
                 .start(tourSpotImageStep())

@@ -23,9 +23,10 @@ public class BatchApplication {
     public CommandLineRunner run(JobLauncher jobLauncher,
                                  @Qualifier("pokemonJob") Job pokemonJob,
                                  @Qualifier("tourSpotJob") Job tourSpotJob,
-                                 @Qualifier("tourSpotImageJob") Job tourSpotImageJob) {
+                                 @Qualifier("tourSpotImageJob") Job tourSpotImageJob,
+                                 @Qualifier("tourFullJob") Job tourFullJob) {
         return args -> {
-            // 실행할 job 선택: "pokemon" / "tourspot" / "tourimage" (기본값: pokemon)
+            // 실행할 job 선택: "pokemon" / "tourspot" / "tourimage" / "tour" (기본값: pokemon)
             String jobName = args.length > 0 ? args[0] : "pokemon";
 
             long startTime = System.currentTimeMillis();
@@ -38,6 +39,7 @@ public class BatchApplication {
             Job job = switch (jobName) {
                 case "tourspot" -> tourSpotJob;
                 case "tourimage" -> tourSpotImageJob;
+                case "tour" -> tourFullJob;
                 default -> pokemonJob;
             };
 
