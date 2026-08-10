@@ -55,7 +55,7 @@ public class BatchConfig {
     @Bean
     public Step tourSpotStep() {
         return new StepBuilder("tourSpotStep", jobRepository)
-                .<TourApiResponse.Item, TourSpot>chunk(100, transactionManager)
+                .<TourApiResponse.Item, TourSpot>chunk(1000, transactionManager)
                 .reader(tourSpotReader)
                 .processor(tourSpotProcessor)
                 .writer(tourSpotWriter)
