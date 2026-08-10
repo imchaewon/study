@@ -30,7 +30,7 @@ public class TourApiClient {
     private int numOfRows;
 
     public List<TourApiResponse.Item> fetchPage(int pageNo) {
-        String url = baseUrl + "/areaBasedList2"
+        String url = baseUrl + "/areaBasedSyncList2"
                 + "?serviceKey=" + serviceKey
                 + "&pageNo=" + pageNo
                 + "&numOfRows=" + numOfRows
@@ -56,7 +56,7 @@ public class TourApiClient {
     }
 
     public int fetchTotalCount() {
-        String url = baseUrl + "/areaBasedList2"
+        String url = baseUrl + "/areaBasedSyncList2"
                 + "?serviceKey=" + serviceKey
                 + "&pageNo=1&numOfRows=1&MobileOS=ETC&MobileApp=BatchTest&_type=json";
 
