@@ -38,7 +38,7 @@ public class TourSpotImageReader implements ItemReader<TourSpotImage> {
 
             String contentId = contentIds.get(contentIdIndex++);
 
-            if (contentIdIndex % 1000 == 0) {
+            if (contentIdIndex == 1 || contentIdIndex % 100 == 0) {
                 log.info("이미지 수집 진행: {}/{}", contentIdIndex, contentIds.size());
             }
 
