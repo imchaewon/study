@@ -62,9 +62,8 @@ public class TourApiClient {
                 + "&contentId=" + contentId
                 + "&imageYN=Y&subImageYN=Y&MobileOS=ETC&MobileApp=BatchTest&_type=json";
 
-        String raw = restTemplate.getForObject(URI.create(url), String.class);
-
         try {
+            String raw = restTemplate.getForObject(URI.create(url), String.class);
             TourImageApiResponse response = objectMapper.readValue(raw, TourImageApiResponse.class);
             if (response == null
                     || response.getResponse() == null
@@ -75,7 +74,7 @@ public class TourApiClient {
             }
             return response.getResponse().getBody().getItems().getItem();
         } catch (Exception e) {
-            log.error("이미지 응답 파싱 실패: contentId={}", contentId, e);
+            log.warn("이미지 조회 실패 (skip): contentId={}, error={}", contentId, e.getMessage());
             return Collections.emptyList();
         }
     }

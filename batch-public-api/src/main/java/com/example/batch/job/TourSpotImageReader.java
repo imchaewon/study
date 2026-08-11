@@ -42,6 +42,12 @@ public class TourSpotImageReader implements ItemReader<TourSpotImage> {
                 log.info("이미지 수집 진행: {}/{}", contentIdIndex, contentIds.size());
             }
 
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+
             List<TourImageApiResponse.ImageItem> items = tourApiClient.fetchImages(contentId);
             for (TourImageApiResponse.ImageItem item : items) {
                 buffer.add(TourSpotImage.builder()
